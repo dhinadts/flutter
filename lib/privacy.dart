@@ -1,34 +1,40 @@
-// Copyright 2018 The Chromium Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+import 'dart:convert';
 
-import 'dart:async';
-// import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class WebViewExample extends StatelessWidget {
-  final Completer<WebViewController> _controller =
-      Completer<WebViewController>();
+
+class HelpScreen extends StatefulWidget {
+  @override
+  HelpScreenState createState() {
+    return HelpScreenState();
+  }
+}
+
+class HelpScreenState extends State<HelpScreen> {
+  WebViewController _controller;
 
   @override
   Widget build(BuildContext context) {
+    _loadHtmlFromAssets();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter WebView example'),
+      appBar: AppBar(title: Text('Help')),
+      body: WebView(
+        initialUrl: '',
+        onWebViewCreated: (WebViewController webViewController) {
+          _controller = webViewController;
+        },
       ),
-      body: Builder(builder: (BuildContext context) {
-       
-        return WebView(
-          initialUrl: 'assets/PrivacyPolicy.html',
-          javascriptMode: JavascriptMode.unrestricted,
-          onWebViewCreated: (WebViewController webViewController) {
-            _controller.complete(webViewController);
-          },
-        );
-      }),
-      // floatingActionButton: favoriteButton(),
     );
   }
-  
+
+  _loadHtmlFromAssets() async {
+    String fileText = await rootBundle.loadString('assets/123.html');
+    _controller.loadUrl( Uri.dataFromString(
+        fileText,
+        mimeType: 'text/html',
+        encoding: Encoding.getByName('utf-8')
+    ).toString());
+  }
 }

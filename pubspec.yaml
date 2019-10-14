@@ -14,14 +14,23 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.0 <3.0.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
+  sqflite: any  
   share: ^0.5.3
   webview_flutter: 0.3.14
+  path_provider: any
+  dio: any
+  shared_preferences: any
+  flare_flutter: any
+  flutter_webview_plugin: any
+  http: any
+  device_info: 0.3.0
+  package_info: ^0.4.0+3
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -48,6 +57,8 @@ flutter:
     - PrivacyPolicy.html
     - privacy.js
     - 123.html
+    - modi_kural_comp.db
+    - complete1.json
     - PrivacyPolicy.js
   #  - images/a_dot_ham.jpeg
 
