@@ -5,6 +5,10 @@ import 'package:dhina/feedback_ex.dart';
 import 'package:dhina/privacy_link.dart';
 import 'package:share/share.dart';
 import 'package:dhina/db/db.dart';
+import 'package:dhina/ratings.dart';
+import 'package:dhina/rateus.dart';
+import 'package:dhina/dia_rating.dart';
+import 'package:dhina/dia_examples.dart';
 
 class DrawerItem {
   String title;
@@ -19,6 +23,8 @@ class HomePage extends StatefulWidget {
     new DrawerItem("Feedback", Icons.feedback),
     new DrawerItem("Share", Icons.share),
     new DrawerItem("Test", Icons.ac_unit),
+    new DrawerItem("Start", Icons.play_arrow),
+    new DrawerItem("DiaEXam", Icons.explore),
   ];
 
   @override
@@ -35,13 +41,17 @@ class HomePageState extends State<HomePage> {
       case 0:
         return new FirstFragment();
       case 1:
-        return new Kural(); // Privacy Policy
+        return new JSON1(); // Privacy Policy
       case 2:
         return new Feedback_ex(); // feedback form
       case 3:
-        return sharing3();
+        return sharing3();  // share
       case 4:
-        return new MyDeviceInfo();
+        return new dia_rateUs();  // test
+      case 5:
+      return new JSON1();  
+      case 6:
+      return new exa_dias();
       default:
         return new Text("Error");
     }
