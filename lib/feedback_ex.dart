@@ -36,10 +36,12 @@ fetchDeviceInfo() async {
 }
  String versionName;
  String versionCode;
+ String vCode;
 versions() async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     versionName = packageInfo.version;
     versionCode = packageInfo.buildNumber;
+    vCode = versionCode;
     return versionCode;
   }
 
@@ -48,12 +50,12 @@ versions() async {
 
 class Post {
   final String type = "TNPSC";
-  final String vcode = "1.0.0";
+  final String vcode; // = "1.0.0";
   final String email;
   final String feedback;
   final String model;
 
-  Post({type, vcode, this.model, this.email, this.feedback});
+  Post({type, this.vcode, this.model, this.email, this.feedback});
 
   factory Post.fromJson(Map<String, dynamic> json) {
     return Post(
@@ -149,12 +151,12 @@ class Feedback_ex extends StatelessWidget {
                   onPressed: () async {
                     // String exs = versions();
                     await fetchDeviceInfo();
-                    
+                    await versions();
                     Post newPost = new Post(
                       email: titleControler.text,
                       feedback: bodyControler.text,
                       model: summa,
-                      // vcode: exs,
+                      vcode: vCode,
                     );
                     // Post p = await createPost(CREATE_POST_URL,
                     //     body: newPost.toMap(); //);
