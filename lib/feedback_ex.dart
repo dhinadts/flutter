@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:convert' show utf8;
 import 'dart:convert';
+
 import 'package:dhina/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -9,12 +11,12 @@ import 'package:package_info/package_info.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io';
-
+import 'package:dio/dio.dart';
 
 // import 'device.dart';
 
-// var url = 'https://www.nithra.mobi/apps/appfeedback.php';
-var url = 'http://localhost:3000/addfeedback';
+var url = 'https://www.nithra.mobi/apps/appfeedback.php';
+// var url = 'http://localhost:3000/addfeedback';
 
 // print(await http.read('https://www.nithra.mobi/apps/appfeedback.php'));
 
@@ -57,13 +59,13 @@ versions() async {
   versionName = packageInfo.version;
   versionCode = packageInfo.buildNumber;
   vCode = versionName + " " + versionCode;
-  return versionCode;
+  return versionName;
 }
 
 // String iNF1 = androidInfo.manufacturer + " " + androidInfo.model;
 
 class Post {
-  final String type = "TNPSC";
+  final String type = "tamil_quiz";
   final String vcode; // = "1.0.0";
   final String email;
   final String feedback;
@@ -91,15 +93,19 @@ class Post {
     return map;
   }
 }
-
-Future<Post> createPost(String url, {Map body}) async {
-  return http.post(url, body: body).then((http.Response response) {
+String headers = "{'Content-Type' : 'application/x-www-form-urlencoded; charset=utf-8'}";
+// headers: { 'Content-Type' : 'application/x-www-form-urlencoded; charset=utf-8'},
+Future<Post> createPost(String url,  {Map body}) async {
+  return http.post(url,  body: body).then((http.Response response) {
     final int statusCode = response.statusCode;
 
     if (statusCode < 200 || statusCode > 400 || json == null) {
       throw new Exception("Error while fetching data");
     } else {
+
       print(Post.fromJson(json.decode(response.body)));
+      print('Response status: ${response.statusCode}');
+      print('Response body: ${response.body}');
       return Post.fromJson(json.decode(response.body));
     }
   });
@@ -110,7 +116,8 @@ class Feedback_ex extends StatelessWidget {
 
   Feedback_ex({Key key, this.post}) : super(key: key);
   // static final CREATE_POST_URL = 'https://www.nithra.mobi/apps/appfeedback.php';
-  static final CREATE_POST_URL = 'http://localhost:3000/addfeedback';
+  static final CREATE_POST_URL = 'https://www.nithra.mobi/apps/appfeedback.php'; // var url = 'https://www.nithra.mobi/apps/appfeedback.php';
+
   TextEditingController titleControler = new TextEditingController();
   TextEditingController bodyControler = new TextEditingController();
 
@@ -168,23 +175,79 @@ class Feedback_ex extends StatelessWidget {
                     if (connectivityResult == ConnectivityResult.mobile ||
                         connectivityResult == ConnectivityResult.wifi) {
                       print("// I am connected to a mobile network.");
+
+                      // HttpClient http = HttpClient();
+                      // try {
+                      //   // Use darts Uri builder
+                      //   var uri =
+                      //       Uri.http('localhost:3000', '/');
+                      //   var request = await http.getUrl(uri);
+                      //   var response = await request.close();
+                      //   var responseBody =
+                      //       await response.transform(utf8.decoder).join();
+                      //       print(responseBody);
+                      //   // The dog.ceo API returns a JSON object with a property
+                      //   // called 'message', which actually is the URL.
+                      // } catch (exception) {
+                      //   print(exception);
+                      // }
                       await fetchDeviceInfo();
                       await versions();
+                      var email = (titleControler.text);
+                      var feedback = (bodyControler.text);
+                      var em = utf8.encode(email);
+                      var fdbc = utf8.encode(feedback);
+                      var mod = utf8.encode(summa);
+                      var vc = utf8.encode(vCode);
                       Post newPost = new Post(
-                        email: titleControler.text,
-                        feedback: bodyControler.text,
-                        model: summa,
-                        vcode: vCode,
+                        email: email, // em.toString(),
+                        feedback: feedback, // fdbc.toString(),
+                        model: summa, // mod.toString(),
+                        vcode: vCode, // vc.toString(),
                       );
-                      // Post p = await createPost(CREATE_POST_URL,
-                      //     body: newPost.toMap(); //);
-                      // print(p.email);
-                      var response =
-                          await http.post(url, body: newPost.toMap());
-                      print('Response status: ${response.statusCode}');
-                      print('Response body: ${response.body}');
-                      print(newPost.email);
+                      var ex = json.encode(newPost.toMap());
+                      // var ex1 = utf8.encode(newPost.email);
+
+                      //  Post p = await createPost(CREATE_POST_URL,
+                      //      body: newPost.toMap(),);
+                      //  print(p.email);
+                      // http.Response response = await dio.post(url,
+                      //     data: newPost,
+                      //     options: new Options(
+                      //         contentType: ContentType.parse(
+                      //             "application/x-www-form-urlencoded")));
+                      // dio.post("/info",
+                      //     data: body,
+                      // options: new Options(
+                      //     contentType: ContentType.parse(
+                      //         "application/x-www-form-urlencoded")));
+
+                      //var headers="application/x-www-form-urlencoded";
+                      var response = await http.post(
+                        url,
+                        body:  newPost.toMap(), //json.decode(ex), // 
+                        headers: {
+                           "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8',
+                           "Content-Language": "en-us; charset=windows-1252"},
+                      //     //    "application/x-www-form-urlencoded; charset=utf-8",
+                      //     // //       // "application/x-www-form-urlencoded; charset=utf-8",
+                      //     //     'accept': 'application/json',
+                      //     // //    'Accept-Language': '*, en',
+                      //     //     'Content-Language': 'en'
+                      //   },
+                      //   // headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' , 'accept': 'application/json' },
+                      //   //headers: { 'accept': 'application/json', 'Content-Type': 'application/json'},//"application/x-www-form-urlencoded"},
+                      //   // 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        encoding: Encoding.getByName("utf-8"),
+                       );
+                       print('Response status: ${response.statusCode}');
+                       print('Response body: ${response.body}');
+                      print(utf8.encode(newPost.email));
+                      print(newPost.feedback);
                       print("model:" + newPost.model);
+                      print("ex.. $ex");
+                      
+                      print("newPost..$ex,,,, $newPost");
                       Fluttertoast.showToast(
                           msg: "your feedback was sent succussfully",
                           toastLength: Toast.LENGTH_SHORT,
@@ -195,8 +258,7 @@ class Feedback_ex extends StatelessWidget {
                           fontSize: 16.0);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => HomePage()),
                       );
                       // print($iNF1);
                     }
@@ -226,3 +288,30 @@ class Feedback_ex extends StatelessWidget {
     );
   }
 }
+
+/*
+
+import 'dart:convert';
+import 'package:http/http.dart';
+
+
+makePostRequest() async {
+
+  final uri = 'http://httpbin.org/post';
+  final headers = {'Content-Type': 'application/json'};
+  Map<String, dynamic> body = {'id': 21, 'name': 'bob'};
+  String jsonBody = json.encode(body);
+  final encoding = Encoding.getByName('utf-8');
+
+  Response response = await post(
+    uri,
+    headers: headers,
+    body: jsonBody,
+    encoding: encoding,
+  );
+
+  int statusCode = response.statusCode;
+  String responseBody = response.body;
+}
+
+*/
