@@ -38,11 +38,11 @@ class _ExampleScreenState extends State<ExampleScreen> {
             accentColor: Colors.red, // optional
             onSubmitPressed: (int rating) {
               print("onSubmitPressed: rating = $rating");
-              // TODO: open the app's page on Google Play / Apple App Store
+              // todo: open the app's page on Google Play / Apple App Store
             },
             onAlternativePressed: () {
               print("onAlternativePressed: do something");
-              // TODO: maybe you want the user to contact you instead of rating a bad review
+              // todo: maybe you want the user to contact you instead of rating a bad review
             },
           );
         });

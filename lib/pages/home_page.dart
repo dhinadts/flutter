@@ -1,14 +1,14 @@
-import 'package:dhina/device.dart';
 import 'package:dhina/fragments/first_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/feedback_ex.dart';
 import 'package:dhina/privacy_link.dart';
 import 'package:share/share.dart';
 import 'package:dhina/db/db.dart';
-import 'package:dhina/ratings.dart';
-import 'package:dhina/rateus.dart';
 import 'package:dhina/dia_rating.dart';
 import 'package:dhina/dia_examples.dart';
+import 'package:dhina/tapOption.dart';
+
+import 'package:dhina/db/dbhelper.dart';
 
 class DrawerItem {
   String title;
@@ -25,6 +25,8 @@ class HomePage extends StatefulWidget {
     new DrawerItem("Test", Icons.ac_unit),
     new DrawerItem("Start", Icons.play_arrow),
     new DrawerItem("DiaEXam", Icons.explore),
+    new DrawerItem("checkDB", Icons.explore),
+    new DrawerItem("title", Icons.expand_less),
   ];
 
   @override
@@ -35,6 +37,7 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
+  var dbhelp = DatabaseHelper();
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
@@ -45,13 +48,16 @@ class HomePageState extends State<HomePage> {
       case 2:
         return new Feedback_ex(); // feedback form
       case 3:
-        return sharing3();  // share
+        return sharing3(); // share
       case 4:
-        return new dia_rateUs();  // test
+        return new dia_rateUs(); // test
       case 5:
-      return new JSON1();  
+        return new JSON1();
       case 6:
-      return new exa_dias();
+        return new exa_dias();
+
+      case 7:
+        return TabBarDemo();
       default:
         return new Text("Error");
     }
@@ -69,6 +75,13 @@ class HomePageState extends State<HomePage> {
   _onSelectItem(int index) {
     setState(() => _selectedDrawerIndex = index);
     Navigator.of(context).pop(); // close the drawer
+  }
+
+  @override
+  void initState() {
+    // todo: implement initState
+    super.initState();
+    dbhelp.db_move();
   }
 
   @override
@@ -119,12 +132,15 @@ class HomePageState extends State<HomePage> {
         // title: new Text(widget.drawerItems[_selectedDrawerIndex].title),
       ),
       drawer: new Drawer(
-        child: new Column(
-          children: <Widget>[
-            new UserAccountsDrawerHeader(
-                accountName: new Text("Thirukkural"), accountEmail: null),
-            new Column(children: drawerOptions)
-          ],
+        child: new SingleChildScrollView(
+          child: new Column(
+            children: <Widget>[
+              new UserAccountsDrawerHeader(
+                  accountName: new Text("Thirukkural"),
+                  accountEmail: new Text('dhina@gmail.com')),
+              new Column(children: drawerOptions)
+            ],
+          ),
         ),
       ),
       body: _getDrawerItemWidget(_selectedDrawerIndex),

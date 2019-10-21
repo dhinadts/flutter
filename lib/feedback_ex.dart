@@ -225,10 +225,12 @@ class Feedback_ex extends StatelessWidget {
                       //var headers="application/x-www-form-urlencoded";
                       var response = await http.post(
                         url,
-                        body:  newPost.toMap(), //json.decode(ex), // 
                         headers: {
-                           "Content-Type": 'application/x-www-form-urlencoded; charset=UTF-8',
-                           "Content-Language": "en-us; charset=windows-1252"},
+                           "Content-Type": 'application/x-www-form-urlencoded; charset=utf-8',
+                           },
+                        body:  (newPost.toMap()), //json.decode(ex), // JsonEncoder().convert
+                        
+                           // "Content-Language": "en-us; charset=windows-1252"
                       //     //    "application/x-www-form-urlencoded; charset=utf-8",
                       //     // //       // "application/x-www-form-urlencoded; charset=utf-8",
                       //     //     'accept': 'application/json',

@@ -201,17 +201,17 @@ class exa_dias extends StatelessWidget {
 
                 print('req.body is $rating and ${newPost.rATE}');
 
-                // TODO: open the app's page on Google Play / Apple App Store
+                // todo: open the app's page on Google Play / Apple App Store
               },
               onAlternativePressed: () {
                 print("onAlternativePressed: do something");
-                // TODO: maybe you want the user to contact you instead of rating a bad review
+                // todo: maybe you want the user to contact you instead of rating a bad review
               },
             );
           });
     }
 
-    // TODO: implement build
+    // todo: implement build
     return new Scaffold(
       appBar: AppBar(
         title: Text("Dialog"),
@@ -241,8 +241,8 @@ class exa_dias extends StatelessWidget {
               child: const Text("Simple dialog"),
             ),
             new RaisedButton(
-              onPressed: () async {
-                await _showRatingDialog();
+              onPressed: ()  {
+                _showRatingDialog();
                 // final String currentTeam = await _asyncInputDialog(context);
                 // print("Current team name is $currentTeam");
               },
