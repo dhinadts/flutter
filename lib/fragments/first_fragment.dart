@@ -1,9 +1,14 @@
 import 'dart:core';
 import 'dart:core' as prefix0;
 
+import 'package:dhina/main_pages/FavouritButtonEx.dart';
+import 'package:dhina/main_pages/StartingKural.dart';
+import 'package:dhina/main_pages/startting.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/model/Getter_setter.dart';
+import 'package:dhina/main_pages/jsonListView.dart';
+import '../tapOption.dart';
 
 List<Map> x = [];
 List<String> items = <String>[];
@@ -11,51 +16,95 @@ List<Map<String, dynamic>> result;
 
 List<Map> y = new Items() as List<Map>;
 
+class Items {}
+
 class FirstFragment extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Center(
         // return new Container(
 // width: 300.0,
-        // padding: const EdgeInsets.only(top: 16.0),
+        // padding: const EdgeInsets.only(top: 16.0),SizedBox(
+//   width: 200.0,
+//   height: 300.0,
+//   child: const Card(child: Text('Hello World!')),
+// )
         // )
-        child: new Column(
-      // new SizedBox(
-      //  mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-      children: <Widget>[
-        RaisedButton(
-            color: Color(1000),
-            child: Text('start'),
+        child: new SafeArea(
+            child: new SizedBox(
+              
+      width: 300.0,
+      height: 500.0,
+      child: new Column(
+        // new SizedBox(
+          mainAxisAlignment: MainAxisAlignment.start,
+         // mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
+        // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: <Widget>[
+          RaisedButton(
+              color: Color(1000),
+              child: Text('start'),
+              onPressed: () async {
+                await Navigator.of(context).push(
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  return new BeginingKural1();
+                }));
+              }),
+          RaisedButton(
+            color: Color(1100),
+            child: Text('Continue'),
             onPressed: () {
-              showDialog(
-                  context: context,
-                  child: new AlertDialog(
-                    title: new Text("Start"),
-                    content: new Text("Starting"),
-                  ));
-            }),
-        RaisedButton(
-          color: Color(1100),
-          child: Text('Continue'),
-          onPressed: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute<Null>(builder: (BuildContext context) {
-              return new SecondScreen();
-            }));
-          },
-        ),
-        RaisedButton(
-          child: Text('Tamil calendar'),
-          color: Color(5400),
-          onPressed: () {
-            print('hi');
-          },
-        ),
-      ],
-    ));
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new SecondScreen();
+              }));
+            },
+          ),
+          RaisedButton(
+            color: Color(1100),
+            child: Text('Categories'),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new TabBarDemo();
+              }));
+            },
+          ),
+          RaisedButton(
+            color: Color(1100),
+            child: Text('Search'),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new SecondScreen();
+              }));
+            },
+          ),
+          RaisedButton(
+            color: Color(1100),
+            child: Text('Googe Adv'),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new SecondScreen();
+              }));
+            },
+          ),
+          RaisedButton(
+            child: Text('Tamil calendar'),
+            color: Color(5400),
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new FancyFab(); // HomePage1();
+              }));
+            },
+          ),
+        ],
+      ),
+    )));
   }
 }
 
@@ -108,7 +157,7 @@ class ViewerActivity1 extends StatelessWidget {
                     'select DISTINCT pal_tamil from complete1',
                     'modi_kural_comp.db');
                 List.generate(result.length, (i) {
-                  Items(
+                  Pal(
                     pal_tamil: result[i]['pal_tamil'],
                   );
                 });
@@ -135,8 +184,8 @@ class ViewerActivity1 extends StatelessWidget {
                 // items = result.toList();
                 //items1 = result.toList();
 
-                result.forEach((row) => 
-                  print("pal in tamil: ${row['pal_tamil']}"));
+                result.forEach(
+                    (row) => print("pal in tamil: ${row['pal_tamil']}"));
                 print("${result[0]['pal_tamil']}");
                 print("${result[1]['pal_tamil']}");
                 print("${result[2]['pal_tamil']}");
@@ -188,24 +237,24 @@ class Pal {
   }
 }
 
-class Items {
-  String pal_tamil;
-  Items({this.pal_tamil});
+class Iyal {
+  String iyal_tamil;
+  Iyal({this.iyal_tamil});
 
-  Items.map(dynamic obj) {
-    this.pal_tamil = obj['pal_tamil'];
+  Iyal.map(dynamic obj) {
+    this.iyal_tamil = obj['iyal_tamil'];
   }
 
   // String get pal_tamil => pal_tamil;
 
   Map<String, dynamic> toMap() {
     var map = new Map<String, dynamic>();
-    map['pal_tamil'] = pal_tamil;
+    map['iyal_tamil'] = iyal_tamil;
     return map;
   }
 
-  Items.fromMap(Map<String, dynamic> json) {
-    this.pal_tamil = json['pal_tamil'];
+  Iyal.fromMap(Map<String, dynamic> json) {
+    this.iyal_tamil = json['iyal_tamil'];
   }
   //bool isSelected;
 }
@@ -217,16 +266,17 @@ class ListedViewEx extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return new ListView.builder(
-      itemCount: result.length,
+        itemCount: result.length,
         itemBuilder: (BuildContext ctxt, int index) {
           return new Column(
-               children: <Widget>[
-               Text('${result[index]['pal_tamil']}',  style: TextStyle(
-          fontSize: 20.0, color: Colors.green, background: Paint(),
-        )
-        ),
+            children: <Widget>[
+              Text('${result[index]['pal_tamil']}',
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.green,
+                    background: Paint(),
+                  )),
               // Text("${result[0]['pal_tamil']}"),
               //   Text("${result[1]['pal_tamil']}"),
               //   Text("${result[2]['pal_tamil']}"),

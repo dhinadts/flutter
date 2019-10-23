@@ -7,8 +7,10 @@ import 'package:dhina/db/db.dart';
 import 'package:dhina/dia_rating.dart';
 import 'package:dhina/dia_examples.dart';
 import 'package:dhina/tapOption.dart';
-
+import 'package:dhina/tabEx2.dart';
 import 'package:dhina/db/dbhelper.dart';
+import 'package:dhina/ListViewEx3.dart';
+import 'package:dhina/tapOption.dart';
 
 class DrawerItem {
   String title;
@@ -27,6 +29,7 @@ class HomePage extends StatefulWidget {
     new DrawerItem("DiaEXam", Icons.explore),
     new DrawerItem("checkDB", Icons.explore),
     new DrawerItem("title", Icons.expand_less),
+    new DrawerItem("ExtraCheck", Icons.expand_less),
   ];
 
   @override
@@ -38,6 +41,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
   var dbhelp = DatabaseHelper();
+  
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
@@ -57,9 +61,9 @@ class HomePageState extends State<HomePage> {
         return new exa_dias();
 
       case 7:
-        return TabBarDemo();
+        return new MyTabbedPage();
       default:
-        return new Text("Error");
+        return new TabBarDemo();
     }
   }
 
