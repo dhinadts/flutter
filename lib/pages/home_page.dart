@@ -30,6 +30,7 @@ class HomePage extends StatefulWidget {
     new DrawerItem("checkDB", Icons.explore),
     new DrawerItem("title", Icons.expand_less),
     new DrawerItem("ExtraCheck", Icons.expand_less),
+    
   ];
 
   @override
