@@ -13,7 +13,7 @@ bool isliked = false;
 var data;
 // Kural Data12 = new Kural();
 //     Data12 = data.toList();
-    
+
 class BeginingKural1 extends StatefulWidget {
   BeginingKural1({Key key}) : super(key: key);
 
@@ -22,7 +22,7 @@ class BeginingKural1 extends StatefulWidget {
 }
 
 class BeginingKural1State extends State<BeginingKural1> {
-  
+  // final PageController controller = new PageController();
 
   Future<String> loadJsonData() async {
     var jsonData = await rootBundle.loadString("assets/complete1.json");
@@ -37,12 +37,12 @@ class BeginingKural1State extends State<BeginingKural1> {
   void initState() {
     super.initState();
     loadJsonData();
-    
+
     controller.addListener(() {
-  setState(() {
-    currentPageValue = controller.page;
-  });
-});
+      setState(() {
+        currentPageValue = controller.page;
+      });
+    });
   }
 
   @override
@@ -141,287 +141,110 @@ class BeginingKural1State extends State<BeginingKural1> {
                 // return new MyApp2();
                 print("Text Font Size increasing");
                 // print("${Data12.kural_no}");
-                              },
-                            ),
-                            IconButton(
-                              icon: const Icon(Icons.search),
-                              onPressed: () {
-                                // openPage(context);
-                                // return new MyApp2();
-                                print("searching");
-                              },
-                            ),
-                          ],
-                        ),
-                        body: new Container(
-                            decoration: new BoxDecoration(color: Colors.white),
-                            child:
-                                //   // new Padding(
-                                // // padding: new EdgeInsets.all(30.0),
-                                // // child:
-                                //  new SingleChildScrollView(
-                                //     child:
-                                // new SizedBox(
-                                //     // width: 450.0,
-                                //     // height: 600.0,
-                                new Column(
-                              children: <Widget>[
-                                new SizedBox(
-                                  height: 80,
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: <Widget>[
-                                      new Text(
-                                        "குறள் எண்: 1330",
-                                        style: TextStyle(fontSize: 18),
-                                      ),
-                                      new IconButton(
-                                        icon: const Icon(Icons.search),
-                                        onPressed: () {
-                                          // openPage(context);
-                                          // return new MyApp2();
-                                          print("searching");
-                                        },
-                                      ),
-                                      new IconButton(
-                                        icon: const Icon(Icons.content_copy),
-                                        onPressed: () {
-                                          // openPage(context);
-                                          // return new MyApp2();
-                                          print("searching");
-                                        },
-                                      ),
-                                      new IconButton(
-                                        icon: const Icon(Icons.share),
-                                        onPressed: () {
-                                          Share.share('App Link... www.nithra.mobi');
-                                          print("searching");
-                                        },
-                                      ),
-                                      new IconButton(
-                                        icon: const Icon(Icons.help),
-                                        onPressed: () {
-                                          // openPage(context);
-                                          // return new MyApp2();
-                                          print("searching");
-                                        },
-                                      ),
-                                    ],
-                                  ),
-                                ), //new  Column(
-                
-                                new SingleChildScrollView(
-                                    // scrollDirection: Axis.vertical,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 5.0, vertical: 3.0),
-                                    child: Container(
-                                        decoration: new BoxDecoration(color: Colors.blueGrey),
-                                        // height: 600.0,
-                                        child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: <Widget>[
-                                            // CarouselSlider(items:  <Widget>[
-                                            //   Text("${data.kural_tamil1}")
-                                            // ],
-                
-                                            // ),
-                
-                //  new PageView.builder(
-                //    itemCount: 3,
-                //    itemBuilder: (context, position) {
-                //      return Container(
-                //        color: position % 2 == 0 ? Colors.pink : Colors.cyan,
-                //      );
-                //    },
-                //  ),
-  /*                                    PageView.builder(
-                  controller: controller,
-                  itemBuilder: (context, position) {
-                    if (position == currentPageValue.floor()) {
-                      return Transform(
-                        transform: Matrix4.identity()..rotateX(currentPageValue - position),
-                        child: Container(
-                          color: position % 2 == 0 ? Colors.blue : Colors.pink,
-                          child: Center(
-                            child: Text(
-                              "Page",
-                              style: TextStyle(color: Colors.white, fontSize: 22.0),
-                            ),
-                          ),
-                        ),
-                      );
-                    } else if (position == currentPageValue.floor() + 1){
-                      return Transform(
-                        transform: Matrix4.identity()..rotateX(currentPageValue - position),
-                        child: Container(
-                          color: position % 2 == 0 ? Colors.blue : Colors.pink,
-                          child: Center(
-                            child: Text(
-                              "Page",
-                              style: TextStyle(color: Colors.white, fontSize: 22.0),
-                            ),
-                          ),
-                        ),
-                      );
-                    } else {
-                      return Container(
-                        color: position % 2 == 0 ? Colors.blue : Colors.pink,
-                        child: Center(
-                          child: Text(
-                            "Page",
-                            style: TextStyle(color: Colors.white, fontSize: 22.0),
-                          ),
-                        ),
-                      );
-                    }
-                  },
-                  itemCount: 10,
-                )
-                */
-                
-                                            // new PageView.builder(
-                                            //   controller: controller,
-                                            //   itemBuilder: (context, position) {
-                                            //     if (position == currentPageValue.floor()) {
-                                            //       return Transform(
-                                            //         alignment: Alignment.center,
-                                            //         transform: Matrix4.identity()
-                                            //           ..setEntry(3, 2, 0.001)
-                                            //           ..rotateX(currentPageValue - position)
-                                            //           ..rotateY(currentPageValue - position)
-                                            //           ..rotateZ(currentPageValue - position),
-                                            //         child: Container(
-                                            //           color: position % 2 == 0
-                                            //               ? Colors.blue
-                                            //               : Colors.pink,
-                                            //           child: Center(
-                                            //             child: Text(
-                                            //               "Page",
-                                            //               style: TextStyle(
-                                            //                   color: Colors.white,
-                                            //                   fontSize: 22.0),
-                                            //             ),
-                                            //           ),
-                                            //         ),
-                                            //       );
-                                            //     } else if (position ==
-                                            //         currentPageValue.floor() + 1) {
-                                            //       return Transform(
-                                            //         alignment: Alignment.center,
-                                            //         transform: Matrix4.identity()
-                                            //           ..setEntry(3, 2, 0.001)
-                                            //           ..rotateX(currentPageValue - position)
-                                            //           ..rotateY(currentPageValue - position)
-                                            //           ..rotateZ(currentPageValue - position),
-                                            //         child: Container(
-                                            //           color: position % 2 == 0
-                                            //               ? Colors.blue
-                                            //               : Colors.pink,
-                                            //           child: Center(
-                                            //             child: Text(
-                                            //               "Page",
-                                            //               style: TextStyle(
-                                            //                   color: Colors.white,
-                                            //                   fontSize: 22.0),
-                                            //             ),
-                                            //           ),
-                                            //         ),
-                                            //       );
-                                            //     } else {
-                                            //       return Container(
-                                            //         color: position % 2 == 0
-                                            //             ? Colors.blue
-                                            //             : Colors.pink,
-                                            //         child: Center(
-                                            //           child: Text(
-                                            //             "Page",
-                                            //             style: TextStyle(
-                                            //                 color: Colors.white,
-                                            //                 fontSize: 22.0),
-                                            //           ),
-                                            //         ),
-                                            //       );
-                                            //     }
-                                            //   },
-                                            //   itemCount: 5,
-                                            // ),
-                
-                                            Text(
-                                              "அகர முதல எழுத்தெல்லாம் ஆதி \/nபகவன் முதற்றே உலகு",
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                            Text(
-                                              "எழுத்துக்கள் எல்லாம் அகரத்தை அடிப்படையாக கொண்டிருக்கின்றன. அதுபோல உலகம் கடவுளை அடிப்படையாக கொண்டிருக்கிறது.",
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                            Text(
-                                              "அகர எழுத்துகளுக்கு முதன்மை, ஆதிபகவன், உலகில் வாழும் உயிர்களுக்கு முதன்மை.",
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                            Text(
-                                              "எழுத்துக்கள் எல்லாம் அகரத்தில் தொடங்குகின்றன; (அது போல) உலகம் கடவுளில் தொடங்குகிறது.",
-                                              style: TextStyle(fontSize: 18),
-                                            ),
-                                            // Text(
-                                            //   "English",
-                                            //   style: TextStyle(fontSize: 18),
-                                            // ),
-                                            // Text(
-                                            //   "English explanation",
-                                            //   style: TextStyle(fontSize: 18),
-                                            // ),
-                                            // Text(
-                                            //   "எழுத்துக்கள் எல்லாம் அகரத்தில் தொடங்குகின்றன; (அது போல) உலகம் கடவுளில் தொடங்குகிறது.",
-                                            //   style: TextStyle(fontSize: 18),
-                                            // ),
-                                            // Text(
-                                            //   "எழுத்துக்கள் எல்லாம் அகரத்தில் தொடங்குகின்றன; (அது போல) உலகம் கடவுளில் தொடங்குகிறது.",
-                                            //   style: TextStyle(fontSize: 18),
-                                            // ),
-                                            // Text(
-                                            //   "எழுத்துக்கள் எல்லாம் அகரத்தில் தொடங்குகின்றன; (அது போல) உலகம் கடவுளில் தொடங்குகிறது.",
-                                            //   style: TextStyle(fontSize: 18),
-                                            // ),
-                                          ],
-                                        ))),
-                
-                                new Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    IconButton(
-                                      icon: const Icon(Icons.arrow_back_ios),
-                                      onPressed: () {
-                                        // openPage(context);
-                                        // return new MyApp2();
-                                        print("searching");
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.confirmation_number),
-                                      onPressed: () {
-                                        // openPage(context);
-                                        // return new MyApp2();
-                                        print("searching");
-                                      },
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(Icons.arrow_forward_ios),
-                                      onPressed: () {
-                                        // openPage(context);
-                                        // return new MyApp2();
-                                        print("searching");
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            )));
-                  }
-                  
-                }
+              },
+            ),
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                // openPage(context);
+                // return new MyApp2();
+                print("searching");
+              },
+            ),
+          ],
+        ),
+        body: new Container(
+            decoration: new BoxDecoration(color: Colors.white),
+            child:
+                //   // new Padding(
+                // // padding: new EdgeInsets.all(30.0),
+                // // child:
+                //  new SingleChildScrollView(
+                //     child:
+                // new SizedBox(
+                //     // width: 450.0,
+                //     // height: 600.0,
+                new Column(
+              children: <Widget>[
+                new SizedBox(
+                  height: 80,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      new Text(
+                        "குறள் எண்: 1330",
+                        style: TextStyle(fontSize: 18),
+                      ),
+                      new IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {
+                          // openPage(context);
+                          // return new MyApp2();
+                          print("searching");
+                        },
+                      ),
+                      new IconButton(
+                        icon: const Icon(Icons.content_copy),
+                        onPressed: () {
+                          // openPage(context);
+                          // return new MyApp2();
+                          print("searching");
+                        },
+                      ),
+                      new IconButton(
+                        icon: const Icon(Icons.share),
+                        onPressed: () {
+                          Share.share('App Link... www.nithra.mobi');
+                          print("searching");
+                        },
+                      ),
+                      new IconButton(
+                        icon: const Icon(Icons.help),
+                        onPressed: () {
+                          // openPage(context);
+                          // return new MyApp2();
+                          print("searching");
+                        },
+                      ),
+                    ],
+                  ),
+                ), //new  Column(
+
                 
 
+                new Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back_ios),
+                      onPressed: () {
+                        // openPage(context);
+                        // return new MyApp2();
+                        print("searching");
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.confirmation_number),
+                      onPressed: () {
+                        // openPage(context);
+                        // return new MyApp2();
+                        print("searching");
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_forward_ios),
+                      onPressed: () {
+                        // openPage(context);
+                        // return new MyApp2();
+                        print("searching");
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            )));
+  }
+}
 
 /*
 

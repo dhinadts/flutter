@@ -2,8 +2,8 @@ import 'dart:core';
 import 'dart:core' as prefix0;
 
 import 'package:dhina/main_pages/FavouritButtonEx.dart';
-import 'package:dhina/main_pages/StartingKural.dart';
-import 'package:dhina/main_pages/startting.dart';
+import 'package:dhina/main_pages/starting3.dart';
+import 'package:dhina/main_pages/starting4.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/model/Getter_setter.dart';
@@ -49,7 +49,7 @@ class FirstFragment extends StatelessWidget {
               onPressed: () async {
                 await Navigator.of(context).push(
                     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                  return new BeginingKural1();
+                  return new MyApp4();
                 }));
               }),
           RaisedButton(
@@ -58,7 +58,7 @@ class FirstFragment extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new SecondScreen();
+                return new BeginingKural1();
               }));
             },
           ),

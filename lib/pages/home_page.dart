@@ -2,6 +2,7 @@ import 'package:dhina/fragments/first_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/feedback_ex.dart';
 import 'package:dhina/privacy_link.dart';
+import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 import 'package:dhina/db/db.dart';
 import 'package:dhina/dia_rating.dart';
@@ -35,6 +36,7 @@ class HomePage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
+    
     return new HomePageState();
   }
 }
@@ -42,6 +44,7 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
   var dbhelp = DatabaseHelper();
+
   
 
   _getDrawerItemWidget(int pos) {
@@ -85,8 +88,18 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     // todo: implement initState
+     @override
+
+
+Future<String> _loadAStudentAsset() async {
+  return await rootBundle.loadString('assets/complete1.json');
+}
+
+  
+
     super.initState();
     dbhelp.db_move();
+    _loadAStudentAsset();
   }
 
   @override
@@ -106,7 +119,7 @@ class HomePageState extends State<HomePage> {
       appBar: new AppBar(
         // here we display the title corresponding to the fragment
         // you can instead choose to have a static title
-        title: new Text('Thirukkural'),
+        title: new Text('திருக்குறள்'),
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.share),
@@ -141,7 +154,7 @@ class HomePageState extends State<HomePage> {
           child: new Column(
             children: <Widget>[
               new UserAccountsDrawerHeader(
-                  accountName: new Text("Thirukkural"),
+                  accountName: new Text("திருக்குறள்"),
                   accountEmail: new Text('dhina@gmail.com')),
               new Column(children: drawerOptions)
             ],
