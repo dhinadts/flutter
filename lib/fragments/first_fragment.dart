@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/model/Getter_setter.dart';
 import 'package:dhina/main_pages/jsonListView.dart';
+import '../canvas1.dart';
 import '../tapOption.dart';
 
 List<Map> x = [];
@@ -88,7 +89,7 @@ class FirstFragment extends StatelessWidget {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new SecondScreen();
+                return new MyApp10();
               }));
             },
           ),
@@ -107,6 +108,8 @@ class FirstFragment extends StatelessWidget {
     )));
   }
 }
+
+
 
 class SecondScreen extends StatelessWidget {
   @override

@@ -41,6 +41,8 @@ dependencies:
   like_button: ^0.1.9
   clipboard_manager: ^0.0.1
   cupertino_icons: ^0.1.2
+  rflutter_alert: ^1.0.2
+  esys_flutter_share: ^1.0.2
 
 
 
@@ -61,7 +63,6 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
   
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -75,6 +76,8 @@ flutter:
     - modi_kural_comp.db
     - complete1.json
     - PrivacyPolicy.js
+    - valluvar.png
+    - valluvar.jpeg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
