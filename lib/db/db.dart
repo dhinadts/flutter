@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class JSON1 extends StatefulWidget {
   @override
@@ -11,10 +12,18 @@ class MyAppState extends State<JSON1> {
   List data;
 
   @override
+  void initState() { 
+    super.initState();
+    
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("Load local JSON file"),
+    var data1 = rootBundle.loadString("assets/complete1.json"); // as List;
+    var index = 100;
+        return Scaffold(
+            appBar: AppBar(
+              title: Text("$data1"),
         ),
         body: Container(
           child: Center(

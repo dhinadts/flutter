@@ -13,6 +13,9 @@ import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/ListViewEx3.dart';
 import 'package:dhina/tapOption.dart';
 
+import '../privacy_html.dart';
+import '../scrollviewEx.dart';
+
 class DrawerItem {
   String title;
   IconData icon;
@@ -52,7 +55,7 @@ class HomePageState extends State<HomePage> {
       case 0:
         return new FirstFragment();
       case 1:
-        return new JSON1(); // Privacy Policy
+        return new MyApp2(); // Privacy Policy
       case 2:
         return new Feedback_ex(); // feedback form
       case 3:
@@ -65,9 +68,9 @@ class HomePageState extends State<HomePage> {
         return new exa_dias();
 
       case 7:
-        return new MyTabbedPage();
+        return new JSON1();
       default:
-        return new TabBarDemo();
+        return new MyApp121123();
     }
   }
 

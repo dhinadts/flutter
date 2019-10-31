@@ -43,6 +43,7 @@ dependencies:
   cupertino_icons: ^0.1.2
   rflutter_alert: ^1.0.2
   esys_flutter_share: ^1.0.2
+  
 
 
 
@@ -78,6 +79,7 @@ flutter:
     - PrivacyPolicy.js
     - valluvar.png
     - valluvar.jpeg
+    - lake.jpg
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
