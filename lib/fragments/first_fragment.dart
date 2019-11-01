@@ -6,22 +6,42 @@ import 'package:dhina/main_pages/starting3.dart';
 import 'package:dhina/main_pages/starting4.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/model/Getter_setter.dart';
-import 'package:dhina/main_pages/jsonListView.dart';
 import '../canvas1.dart';
 import '../tapOption.dart';
 
 List<Map> x = [];
 List<String> items = <String>[];
 List<Map<String, dynamic>> result;
+List<Map<String, dynamic>> result1, result2, result3;
 
-List<Map> y = new Items() as List<Map>;
+ var db = DatabaseHelper();
+                
+class FirstFragment extends StatefulWidget {
+   @override
+  FirstState createState() {
+    return new FirstState();
+  }
 
-class Items {}
+}
+class FirstState extends State<FirstFragment> {
 
-class FirstFragment extends StatelessWidget {
+ @override
+  void initState() {
+    super.initState();
+  // result = db.any_query(query, dbName)
+  }
+
   @override
   Widget build(BuildContext context) {
+//     // todo: implement build
+//     return null;
+//   }}
+
+
+
+// class FirstFragment extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
     return new Center(
         // return new Container(
 // width: 300.0,
@@ -48,6 +68,7 @@ class FirstFragment extends StatelessWidget {
               color: Color(1000),
               child: Text('start'),
               onPressed: () async {
+                
                 await Navigator.of(context).push(
                     MaterialPageRoute<Null>(builder: (BuildContext context) {
                   return new MyApp4();
@@ -66,7 +87,13 @@ class FirstFragment extends StatelessWidget {
           RaisedButton(
             color: Color(1100),
             child: Text('Categories'),
-            onPressed: () {
+            onPressed: () async {
+result = await db.any_query(
+                    'select DISTINCT pal_tamil from complete1',
+                    'modi_kural_comp.db');
+                                      await _onSelectItem1(result[0]['pal_tamil']);
+   await _onSelectItem2(result[1]['pal_tamil']);
+   await _onSelectItem3(result[2]['pal_tamil']);
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
                 return new TabBarDemo();
@@ -76,11 +103,18 @@ class FirstFragment extends StatelessWidget {
           RaisedButton(
             color: Color(1100),
             child: Text('Search'),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new SecondScreen();
-              }));
+            onPressed: () async {
+              var kuralNo =  "ஆதி";
+                    var sql = "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
+                    // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
+                    var searchResult = await db.any_query(sql, "modi_kural_comp.db");
+                    print(searchResult);
+              // Navigator.of(context).push(
+              //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+              //   return new SecondScreen();
+              //}
+              //)
+             // );
             },
           ),
           RaisedButton(
@@ -159,18 +193,19 @@ class ViewerActivity1 extends StatelessWidget {
                 result = await db.any_query(
                     'select DISTINCT pal_tamil from complete1',
                     'modi_kural_comp.db');
-                List.generate(result.length, (i) {
-                  Pal(
-                    pal_tamil: result[i]['pal_tamil'],
-                  );
-                });
+  
+                // List.generate(result.length, (i) {
+                //   Pal(
+                //     pal_tamil: result[i]['pal_tamil'],
+                //   );
+                // });
                 print(result.length);
                 print(result);
                 // Items I = new Items();
                 // I = result as Items;
                 // print(I.pal_tamil[0]);
                 x = result;
-                y = result;
+                // y = result;
                 // Items P = new Items(); // as List<Map<String, >>;
                 // Items P = new Items();
                 // var P = new Pal();
@@ -219,48 +254,48 @@ class ViewerActivity1 extends StatelessWidget {
   }
 }
 
-class Pal {
-  String pal_tamil;
-  Pal({this.pal_tamil});
+// class Pal {
+//   String pal_tamil;
+//   Pal({this.pal_tamil});
 
-  Pal.map(dynamic obj) {
-    this.pal_tamil = obj['pal_tamil'];
-  }
-// String get pal_tamil => pal_tamil;
-  // String get pal_tamil => pal_tamil;
+//   Pal.map(dynamic obj) {
+//     this.pal_tamil = obj['pal_tamil'];
+//   }
+// // String get pal_tamil => pal_tamil;
+//   // String get pal_tamil => pal_tamil;
 
-  Map<String, dynamic> toMap() {
-    var map = new Map<String, dynamic>();
-    map['pal_tamil'] = pal_tamil;
-    return map;
-  }
+//   Map<String, dynamic> toMap() {
+//     var map = new Map<String, dynamic>();
+//     map['pal_tamil'] = pal_tamil;
+//     return map;
+//   }
 
-  Pal.fromMap(Map<String, dynamic> json) {
-    this.pal_tamil = json['pal_tamil'];
-  }
-}
+//   Pal.fromMap(Map<String, dynamic> json) {
+//     this.pal_tamil = json['pal_tamil'];
+//   }
+// }
 
-class Iyal {
-  String iyal_tamil;
-  Iyal({this.iyal_tamil});
+// class Iyal {
+//   String iyal_tamil;
+//   Iyal({this.iyal_tamil});
 
-  Iyal.map(dynamic obj) {
-    this.iyal_tamil = obj['iyal_tamil'];
-  }
+//   Iyal.map(dynamic obj) {
+//     this.iyal_tamil = obj['iyal_tamil'];
+//   }
 
-  // String get pal_tamil => pal_tamil;
+//   // String get pal_tamil => pal_tamil;
 
-  Map<String, dynamic> toMap() {
-    var map = new Map<String, dynamic>();
-    map['iyal_tamil'] = iyal_tamil;
-    return map;
-  }
+//   Map<String, dynamic> toMap() {
+//     var map = new Map<String, dynamic>();
+//     map['iyal_tamil'] = iyal_tamil;
+//     return map;
+//   }
 
-  Iyal.fromMap(Map<String, dynamic> json) {
-    this.iyal_tamil = json['iyal_tamil'];
-  }
-  //bool isSelected;
-}
+//   Iyal.fromMap(Map<String, dynamic> json) {
+//     this.iyal_tamil = json['iyal_tamil'];
+//   }
+//   //bool isSelected;
+// }
 
 class ListedViewEx extends StatelessWidget {
   final List<String> items1;
@@ -288,3 +323,58 @@ class ListedViewEx extends StatelessWidget {
         });
   }
 }
+
+_onSelectItem1(String s) async {
+  var db = DatabaseHelper();
+  
+  result1 = await db.any_query(
+      'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="அறத்துப்பால்"',
+      'modi_kural_comp.db');
+  // List.generate(result1.length, (i) {
+  //   Iyal(
+  //     iyal_tamil: result1[i]['iyal_tamil'],
+  //   );
+  // });
+  print(result1.length);
+  print(result1);
+
+  // Items I = new Items();
+  // I = result as Items;
+  // print(I.pal_tamil[0]);
+}
+_onSelectItem2(String s) async {
+  var db = DatabaseHelper();
+  result2 = await db.any_query(
+      'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
+      'modi_kural_comp.db');
+  // List.generate(result2.length, (i) {
+  //   Iyal(
+  //     iyal_tamil: result2[i]['iyal_tamil'],
+  //   );
+  // });
+  print(result2.length);
+  print(result2);
+
+  // Items I = new Items();
+  // I = result as Items;
+  // print(I.pal_tamil[0]);
+}
+
+_onSelectItem3(String s) async {
+  var db = DatabaseHelper();
+   result3 = await db.any_query(
+      'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
+      'modi_kural_comp.db');
+  // List.generate(result3.length, (i) {
+  //   Iyal(
+  //     iyal_tamil: result3[i]['iyal_tamil'],
+  //   );
+  // });
+  print(result3.length);
+  print(result3);
+
+  // Items I = new Items();
+  // I = result as Items;
+  // print(I.pal_tamil[0]);
+}
+

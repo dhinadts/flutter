@@ -11,11 +11,11 @@ iyalTamil(String s) async {
   iyal_S = await db.any_query(
       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
       'modi_kural_comp.db');
-  List.generate(iyal_S.length, (i) {
-    Iyal(
-      iyal_tamil: iyal_S[i]['iyal_tamil'],
-    );
-  });
+  // List.generate(iyal_S.length, (i) {
+  //   Iyal(
+  //     iyal_tamil: iyal_S[i]['iyal_tamil'],
+  //   );
+  // });
   
   print(iyal_S.length);
   print(iyal_S);

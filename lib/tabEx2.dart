@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:dhina/fragments/first_fragment.dart';
 
 import 'db/dbhelper.dart';
 
@@ -30,11 +29,11 @@ class _MyTabbedPageState extends State<MyTabbedPage>
 
       pal = await db.any_query(
           'select DISTINCT pal_tamil from complete1', 'modi_kural_comp.db');
-      List.generate([pal].length, (i) {
-        Pal(
-          pal_tamil: result[i]['pal_tamil'],
-        );
-      });
+      // List.generate([pal].length, (i) {
+      //   Pal(
+      //     pal_tamil: result[i]['pal_tamil'],
+      //   );
+      // });
     }
   }
 

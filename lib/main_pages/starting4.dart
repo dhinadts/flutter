@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
-// import 'package:share/share.dart';
+import 'package:dhina/pages/home_page.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;
@@ -37,20 +37,20 @@ class MyApp4State extends State<MyApp4> {
   final _formKey = GlobalKey<FormState>();
   ui.Image image;
   bool isImageloaded = false;
-  var newData;
+  
 
   prefix0.int index1;
 
   @override
   void initState() {
-    Future<String> _loadAStudentAsset() async {
-      newData = await rootBundle.loadString('assets/complete1.json');
-      print(newData);
-    }
+    // Future<String> _loadAStudentAsset() async {
+    //   newData = await rootBundle.loadString('assets/complete1.json');
+    //   print(newData);
+    // }
 
     init();
     super.initState();
-    _loadAStudentAsset();
+    // _loadAStudentAsset();
 
     controller.addListener(() {
       setState(() {
@@ -503,7 +503,7 @@ class MyApp4State extends State<MyApp4> {
                                               horizontal: 5.0, vertical: 3.0),
                                           child: Container(
                                               decoration: new BoxDecoration(
-                                                  color: Colors.grey),
+                                                  color: Colors.white),
                                               //height: 00.0,
                                               child: Column(
                                                   crossAxisAlignment:

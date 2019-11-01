@@ -8,13 +8,13 @@ import 'package:dhina/db/db.dart';
 import 'package:dhina/dia_rating.dart';
 import 'package:dhina/dia_examples.dart';
 import 'package:dhina/tapOption.dart';
-import 'package:dhina/tabEx2.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/ListViewEx3.dart';
-import 'package:dhina/tapOption.dart';
 
-import '../privacy_html.dart';
 import '../scrollviewEx.dart';
+
+
+  var newData;
+  // List<Map<String, dynamic>> result1, result2, result3;
 
 class DrawerItem {
   String title;
@@ -34,12 +34,10 @@ class HomePage extends StatefulWidget {
     new DrawerItem("checkDB", Icons.explore),
     new DrawerItem("title", Icons.expand_less),
     new DrawerItem("ExtraCheck", Icons.expand_less),
-    
   ];
 
   @override
   State<StatefulWidget> createState() {
-    
     return new HomePageState();
   }
 }
@@ -47,8 +45,6 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
   var dbhelp = DatabaseHelper();
-
-  
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
@@ -66,9 +62,10 @@ class HomePageState extends State<HomePage> {
         return new JSON1();
       case 6:
         return new exa_dias();
-
       case 7:
-        return new JSON1();
+        return new TabBarDemo();
+      case 8:
+        return TabBarDemo();
       default:
         return new MyApp121123();
     }
@@ -91,14 +88,10 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     // todo: implement initState
-     @override
-
-
-Future<String> _loadAStudentAsset() async {
-  return await rootBundle.loadString('assets/complete1.json');
-}
-
-  
+    @override
+    Future<String> _loadAStudentAsset() async {
+        newData = await rootBundle.loadString('assets/complete1.json');
+    }
 
     super.initState();
     dbhelp.db_move();
