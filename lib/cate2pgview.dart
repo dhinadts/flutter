@@ -24,13 +24,14 @@ import 'dart:typed_data';
 var cursor;  
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
-class MyApp4 extends StatefulWidget {
-
+class MyApp44 extends StatefulWidget {
+  final int value;
+  MyApp44({Key key, this.value}) : super(key: key);
   @override
-  MyApp4State createState() => MyApp4State();
+  MyApp44State createState() => MyApp44State();
 }
 
-class MyApp4State extends State<MyApp4> {
+class MyApp44State extends State<MyApp44> {
   List data;
   PageController controller = PageController();
   var currentPageValue = 0.0;
@@ -237,7 +238,7 @@ class MyApp4State extends State<MyApp4> {
                         // setState(() {
                         //   index1 = index;
                         // });
-
+                        index  = widget.value;
                         return Card(
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.stretch,

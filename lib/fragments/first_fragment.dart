@@ -6,6 +6,7 @@ import 'package:dhina/main_pages/starting3.dart';
 import 'package:dhina/main_pages/starting4.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
+import '../Gsearch.dart';
 import '../canvas1.dart';
 import '../tapOption.dart';
 
@@ -109,12 +110,12 @@ result = await db.any_query(
                     // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
                     var searchResult = await db.any_query(sql, "modi_kural_comp.db");
                     print(searchResult);
-              // Navigator.of(context).push(
-              //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-              //   return new SecondScreen();
-              //}
-              //)
-             // );
+              Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new GlobalSearch();
+              }
+              )
+             );
             },
           ),
           RaisedButton(

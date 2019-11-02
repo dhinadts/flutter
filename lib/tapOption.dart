@@ -12,7 +12,9 @@ import 'Palkal_Class/Inpam.dart';
 // }
 //  List<Map<String, dynamic>> result1, result2, result3;
 var db = DatabaseHelper();
-
+var indexKey;
+var indexResult;
+var iyalIndex;
 // String $aaaa;
 class TabBarDemo extends StatefulWidget { 
 
