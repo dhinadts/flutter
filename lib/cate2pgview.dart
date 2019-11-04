@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
+import 'package:dhina/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
@@ -21,12 +22,15 @@ import 'dart:typed_data';
 //     home: MyApp(),
 //   ));
 // }
-var cursor;  
+var cursor;
+int value1;
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
 class MyApp44 extends StatefulWidget {
   final int value;
-  MyApp44({Key key, this.value}) : super(key: key);
+  final int currentPageValue;
+  MyApp44({Key key, this.value, this.currentPageValue}) : super(key: key);
+
   @override
   MyApp44State createState() => MyApp44State();
 }
@@ -34,31 +38,41 @@ class MyApp44 extends StatefulWidget {
 class MyApp44State extends State<MyApp44> {
   List data;
   PageController controller = PageController();
-  var currentPageValue = 0.0;
+  // var vv = value) as prefix0.double();
+  // PageController controller = PageController(initialPage: value, keepPage: false);
+  var currentPageValue = 0;
+  // =0.0;
   TextEditingController _textFieldController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   ui.Image image;
   bool isImageloaded = false;
-  
 
   prefix0.int index1;
 
   @override
   void initState() {
+    controller = PageController(initialPage: widget.value, keepPage: false);
+    currentPageValue = widget.currentPageValue;
+
     // Future<String> _loadAStudentAsset() async {
     //   newData = await rootBundle.loadString('assets/complete1.json');
     //   print(newData);
     // }
-
+    //currentPageValue = controller.initialPage; // as prefix0.double;
+    //currentPageValue = widget.currentPageValue;
     init();
     super.initState();
     // _loadAStudentAsset();
 
     controller.addListener(() {
       setState(() {
-        currentPageValue = controller.page; // .toInt() as double;
+        print("page value ${controller.page}");
+        currentPageValue = controller.page
+            as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
         print(currentPageValue);
-        cursor = currentPageValue; // as double);
+        cursor = currentPageValue;
+        // currentPageValue = (widget.value).toDouble(); // as double);
+
         // print("currenpagevalue:" + currentPageValue.toString());
         // print("page No:" + (currentPageValue + 1).toString());
       });
@@ -95,7 +109,6 @@ class MyApp44State extends State<MyApp44> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         // resizeToAvoidBottomInset: true,
@@ -103,10 +116,7 @@ class MyApp44State extends State<MyApp44> {
         appBar: AppBar(
           primary: true,
           leading: Builder(
-            
             builder: (BuildContext context) {
-              
-
               return IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
@@ -225,20 +235,37 @@ class MyApp44State extends State<MyApp44> {
                   builder: (context, snapshot) {
                     // Decode the JSON
                     var newData = json.decode(snapshot.data.toString());
-
+                    // currentPageValue = controller.initialPage as prefix0.double;
+                    // currentPageValue = widget.currentPageValue;// as prefix0.double;
                     return PageView.builder(
                       // Build the ListView
                       itemCount: 1330,
                       controller: controller,
-                      pageSnapping: true,
+                      // PageController(
+                      //   initialPage: widget.value,
+                      //   // keepPage: false,
+                      // ),
+                      // controller.initialpage = value,
+                      // pageSnapping: true,
                       scrollDirection: Axis.horizontal,
+
                       physics:
                           ClampingScrollPhysics(), //BouncingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
+                        // controller.addListener(() {
+                        //   setState(() {
+                        //     currentPageValue = index;
+                        //   });
+                        // });
                         // setState(() {
                         //   index1 = index;
                         // });
-                        index  = widget.value;
+                        // controller.jumpToPage(widget.value);
+                        // currentPageValue = widget.currentPageValue; // as prefix0.double;
+                        // currentPageValue = index; // as prefix0.double;
+                        // controller.addListener(currentPageValue);
+                        print(currentPageValue);
+                        print("index  $index");
                         return Card(
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -263,6 +290,7 @@ class MyApp44State extends State<MyApp44> {
 // icon: const Icon(Icons.favorite) ,
 // onPressed: null,
 //                                     ),
+
                                     new IconButton(
                                       icon: const Icon(Icons.search),
                                       onPressed: () {
@@ -303,16 +331,6 @@ class MyApp44State extends State<MyApp44> {
                                                   new FlatButton(
                                                     child: new Text('GO'),
                                                     onPressed: () {
-                                                      // Navigator.of(context).pop();
-                                                      // print("text.controller:  ${_textFieldController.text}");
-                                                      // var abcd = (_textFieldController.text).toString() ;
-                                                      // print("abcd " + abcd);
-                                                      // int.parse(abcd);
-
-                                                      // controller.jumpToPage(
-                                                      //     int.parse(abcd));
-                                                      // Navigator.of(context)
-                                                      //     .pop();
                                                       print(
                                                           "text.controller:  ${_textFieldController.text}");
                                                       var abcd =
@@ -322,7 +340,7 @@ class MyApp44State extends State<MyApp44> {
                                                       print("abcd " + abcd);
                                                       var ff =
                                                           int.parse(abcd) - 1;
-
+                                                      // controller.jumpTo(ff.toDouble());
                                                       controller.jumpToPage(ff);
                                                       Navigator.of(context)
                                                           .pop();
@@ -438,8 +456,11 @@ class MyApp44State extends State<MyApp44> {
                                                     color: Colors.white,
                                                     fontSize: 20),
                                               ),
-                                              onPressed: () =>
-                                                  Navigator.pop(context),
+                                              onPressed: () {
+                                                  //Navigator.pop(context),
+                                                  Navigator.of(context)
+                                                      .pop();// dismiss dialog
+                                                      }, 
                                               color: Color.fromRGBO(
                                                   0, 179, 134, 1.0),
                                               radius:
@@ -499,126 +520,121 @@ class MyApp44State extends State<MyApp44> {
                               ),
                               // new Container( child: CustomScrollView( slivers: //<Widget>[
                               new Expanded(
-                                    flex:1,
-                                      child: SingleChildScrollView(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5.0, vertical: 3.0),
-                                          child: Container(
-                                              decoration: new BoxDecoration(
-                                                  color: Colors.white),
-                                              //height: 00.0,
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  // mainAxisSize: MainAxisSize.min,
-                                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  // mainAxisSize: MainAxisSize.min,
-                                                  children: <Widget>[
-                                                    //                                     Text(
-                                                    //                                       "குறள்:", style: TextStyle( fontSize: 20,
-                                                    //   color: Colors.black,
-                                                    //   decoration: TextDecoration.underline,
-                                                    //   // decorationColor: Colors.red,
-                                                    //   // decorationStyle: TextDecorationStyle.wavy,
-                                                    //   fontWeight: FontWeight.bold,
-                                                    // ),
-                                                    // ),
-                                                    Text(
-                                                      newData[index]
-                                                          ['kural_tamil1'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.deepPurpleAccent, //purple[300],
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "விளக்கம்:",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      newData[index][
-                                                          'kuralvilakam_tamil'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.purple,
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "கலைஞர் உரை:",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      newData[index]['desc1'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.purple,
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "சாலமன் பாப்பைய்யா:",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      newData[index]['desc2'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.purple,
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text("English : " +
-                                                        newData[index]
-                                                            ['iyal_tamil']),
-                                                    Text("Explanation: " +
-                                                        newData[index]
-                                                            ['adhikarm_tamil']),
-                                                    // Text("kural_no: " + newData[index]['kural_no']),
-                                                  ])))),
+                                  flex: 1,
+                                  child: SingleChildScrollView(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 5.0, vertical: 3.0),
+                                      child: Container(
+                                          decoration: new BoxDecoration(
+                                              color: Colors.white),
+                                          //height: 00.0,
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              // mainAxisSize: MainAxisSize.min,
+                                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              // mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                //                                     Text(
+                                                //                                       "குறள்:", style: TextStyle( fontSize: 20,
+                                                //   color: Colors.black,
+                                                //   decoration: TextDecoration.underline,
+                                                //   // decorationColor: Colors.red,
+                                                //   // decorationStyle: TextDecorationStyle.wavy,
+                                                //   fontWeight: FontWeight.bold,
+                                                // ),
+                                                // ),
+                                                Text(
+                                                  newData[index]
+                                                      ['kural_tamil1'],
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors
+                                                        .deepPurpleAccent, //purple[300],
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "விளக்கம்:",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  newData[index]
+                                                      ['kuralvilakam_tamil'],
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.purple,
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "கலைஞர் உரை:",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  newData[index]['desc1'],
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.purple,
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "சாலமன் பாப்பைய்யா:",
+                                                  style: TextStyle(
+                                                    fontSize: 20,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  newData[index]['desc2'],
+                                                  style: TextStyle(
+                                                    fontSize: 15,
+                                                    color: Colors.purple,
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text("English : " +
+                                                    newData[index]
+                                                        ['iyal_tamil']),
+                                                Text("Explanation: " +
+                                                    newData[index]
+                                                        ['adhikarm_tamil']),
+                                                // Text("kural_no: " + newData[index]['kural_no']),
+                                              ])))),
                               // Text("adhikarm_no " + newData[index]['adhikarm_no']),
 
                               new Row(
@@ -631,9 +647,16 @@ class MyApp44State extends State<MyApp44> {
                                       // openPage(context);
                                       // return new MyApp2();
                                       //controller.jumpTo(currentPageValue-1.0);
-                                      controller.jumpToPage(
-                                          currentPageValue.floor() - 1);
-                                      print("searching");
+
+                                      // currentPageValue = (widget.value).toDouble();
+                                      // prefix0.print(currentPageValue);
+                                      // currentPageValue = widget.value.toDouble();
+                                      // prefix0.print(currentPageValue);
+                                      // currentPageValue = controller.page;
+
+                                      controller.jumpToPage(index.floor() - 1);
+
+                                      // print("searching");
                                     },
                                   ),
                                   OutlineButton(
@@ -652,8 +675,9 @@ class MyApp44State extends State<MyApp44> {
                                       // openPage(context);
                                       // return new MyApp2();
                                       //position = currentAnimationValue.floor() + 1;
-                                      controller.jumpToPage(
-                                          currentPageValue.floor() + 1);
+                                      // currentPageValue = controller.page;
+                                      prefix0.print(currentPageValue);
+                                      controller.jumpToPage(index.floor() + 1);
                                       //print("searching");
                                     },
                                   ),
@@ -756,7 +780,6 @@ class ImageEditor extends CustomPainter {
     return false;
   }
 }
-
 
 class FavoriteWidget extends StatefulWidget {
   @override

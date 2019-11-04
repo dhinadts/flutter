@@ -1,6 +1,7 @@
 // tenkurals from adhikaram
 
 import 'package:dhina/tapOption.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/fragments/first_fragment.dart';
@@ -57,7 +58,6 @@ class _TenSearchingKuralState extends State<TenSearchingKural> {
           itemBuilder: (BuildContext ctxt, int index) {
             return GestureDetector(
                 onTap: () {
-                  print("HI");
                   // indexKey = index;
                   // indexResult = result1;
                   //print(indexResult);
@@ -83,30 +83,46 @@ class _TenSearchingKuralState extends State<TenSearchingKural> {
                   //         builder: (context) => // null ));
                   // MyApp4())); // null = AdhikaramKural()
                   var route = new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                      new MyApp44(value: ff),
-                );
-                Navigator.of(context).push(route);
+                    builder: (BuildContext context) =>
+                        new MyApp44(value: ff, currentPageValue: ff),
+                  );
+                  Navigator.of(context).push(route);
 
                   //Navigator.push(context, new MaterialPageRoute(builder: (context) => new MyApp4(GlobalValueSet: ff)));
-
                 },
-                child: SizedBox(
-                    width: 150 * MediaQuery.of(context).devicePixelRatio,
+                child: Card(
+
+                    // padding: EdgeInsets.symmetric(horizontal: 20.0),
+                    // SizedBox(
+                    //width: 600.0, // 150 * MediaQuery.of(context).devicePixelRatio,
                     child: ListTile(
-                      contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                      title: new Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          new Text(
-                            '${adhikaramIndex[index]['kural_tamil1']}',
-                            style: new TextStyle(
-                                fontWeight:
-                                    FontWeight.bold), // textScaleFactor: 1.0,
-                          ),
-                        ],
+                  // contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
+                  leading: Text("${adhikaramIndex[index]['kural_no']}"),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  // isThreeLine: true,
+                  title: new Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: <Widget>[
+                      // new SingleChildScrollView(
+                      //scrollDirection: Axis.vertical,
+                      // primary: true,
+                      Expanded(
+                        child: Text(
+                          '${adhikaramIndex[index]['kural_tamil1']}',
+                          textScaleFactor: 1.0,
+                          softWrap: true,
+                          textAlign: TextAlign.start,
+                          style: new TextStyle(
+                            fontSize: 13,
+                            // fontWeight:
+                            //     FontWeight.bold
+                          ), // textScaleFactor: 1.0,
+                        ),
                       ),
-                    )));
+                    ],
+                  ),
+                )));
           }),
     );
   }
