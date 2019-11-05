@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
-import 'package:dhina/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
@@ -14,7 +13,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
-
+import 'package:dhina/db/sharedpref.dart';
 import 'fragments/first_fragment.dart';
 
 // import 'package:clipboard_manager/clipboard_manager.dart';
@@ -24,7 +23,7 @@ import 'fragments/first_fragment.dart';
 //     home: MyApp(),
 //   ));
 // }
-
+var prefs = Shared_Preference();
 int value1;
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
@@ -268,6 +267,7 @@ class MyApp44State extends State<MyApp44> {
                         // controller.addListener(currentPageValue);
                         print(currentPageValue);
                         print("index  $index");
+                        prefs.setint("cursor", index);
                         cursor = index;
                         return Card(
                           child: Column(

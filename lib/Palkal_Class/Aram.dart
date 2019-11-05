@@ -75,6 +75,7 @@
 // //   // print(I.pal_tamil[0]);
 // // }
 
+import 'package:dhina/pages/home_page.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';

@@ -6,8 +6,11 @@ import 'package:dhina/cate2pgview.dart' as prefix1;
 import 'package:dhina/main_pages/FavouritButtonEx.dart';
 import 'package:dhina/main_pages/starting3.dart';
 import 'package:dhina/main_pages/starting4.dart';
+import 'package:dhina/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
+
+import 'package:dhina/db/sharedpref.dart';
 import '../Gsearch.dart';
 import '../canvas1.dart';
 import '../tapOption.dart';
@@ -17,7 +20,9 @@ List<String> items = <String>[];
 List<Map<String, dynamic>> result;
 List<Map<String, dynamic>> result1, result2, result3;
 var cursor = 0;
+var defCursor = 0;
 var db = DatabaseHelper();
+var prefs = Shared_Preference();
 
 class FirstFragment extends StatefulWidget {
   @override
@@ -27,10 +32,15 @@ class FirstFragment extends StatefulWidget {
 }
 
 class FirstState extends State<FirstFragment> {
+  int cur1;
+  TextEditingController _textFieldController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
     // result = db.any_query(query, dbName)
+    prefs.setInt("cursor", cursor);
+    cur1 = cursor;
   }
 
   @override
@@ -65,7 +75,7 @@ class FirstState extends State<FirstFragment> {
         children: <Widget>[
           RaisedButton(
               color: Color(1000),
-              child: Text('start'),
+              child: Text('ஆரம்பிக்க'),
               onPressed: () async {
                 await Navigator.of(context).push(
                     MaterialPageRoute<Null>(builder: (BuildContext context) {
@@ -74,17 +84,30 @@ class FirstState extends State<FirstFragment> {
               }),
           RaisedButton(
             color: Color(1100),
-            child: Text('Continue'),
-            onPressed: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new MyApp44(value: cursor);
-              }));
+            child: Text('தொடர்க'),
+            onPressed: () async {
+              int v = await prefs.getInt("cursor");
+
+              if (v == 0) {
+                Navigator.of(context).push(
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  return new MyApp44(value: 0);
+                }));
+              } else {
+                Navigator.of(context).push(
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  return new MyApp44(value: v);
+                }));
+              }
+              // Navigator.of(context).push(
+              //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+              //   return new MyApp44(value: v);
+              // }));
             },
           ),
           RaisedButton(
             color: Color(1100),
-            child: Text('Categories'),
+            child: Text('வகைப்பட்டியல்'),
             onPressed: () async {
               result = await db.any_query(
                   'select DISTINCT pal_tamil from complete1',
@@ -98,25 +121,94 @@ class FirstState extends State<FirstFragment> {
               }));
             },
           ),
-          RaisedButton(
-            color: Color(1100),
-            child: Text('Search'),
-            onPressed: () async {
-              var kuralNo = "ஆதி";
-              var sql =
-                  "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
-              // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
-              var searchResult = await db.any_query(sql, "modi_kural_comp.db");
-              print(searchResult);
-              Navigator.of(context).push(
-                  MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new GlobalSearch();
-              }));
-            },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisSize: MainAxisSize.max,
+            children: <Widget>[
+              RaisedButton(
+                  color: Color(1100),
+                  child: Text('செல்'),
+                  onPressed: () {
+                    return showDialog(
+                      context: context,
+                      builder: (context) {
+                        prefix0.num _value;
+                        return AlertDialog(
+                          title: Text('Type Kural Number'),
+                          content: TextFormField(
+                            keyboardType: TextInputType
+                                .number, //numberWithOptions(decimal: true),
+                            controller: _textFieldController,
+                            decoration:
+                                InputDecoration(hintText: "Type Kural Number"),
+                            onSaved: (input) => _value = int.tryParse(input),
+                            // textInputAction: controller.jumpTo(value),
+                          ),
+                          actions: <Widget>[
+                            new FlatButton(
+                              child: new Text('CANCEL'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                // Navigator.of(context).pop();
+                              },
+                            ),
+                            new FlatButton(
+                              child: new Text('GO'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                print(
+                                    "text.controller:  ${_textFieldController.text}");
+                                var abcd =
+                                    (_textFieldController.text).toString();
+                                print("abcd " + abcd);
+                                var ff = int.parse(abcd) - 1;
+                                //               var route = new MaterialPageRoute(
+                                //   builder: (BuildContext context) =>
+                                //       new MyApp44(value: ff, ),
+                                // );
+                                // Navigator.of(context).push(route);
+                                // Navigator.of(context).push(route);
+
+                                Navigator.of(context).push(
+                                    MaterialPageRoute<Null>(
+                                        builder: (BuildContext context) {
+                                  return new MyApp44(value: ff);
+                                }));
+
+                                //Navigator.of(context).pop();
+
+                                // controller.jumpToPage(ff);
+                                // Navigator.of(context)
+                                //     .pop();
+                              },
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  }),
+              RaisedButton(
+                color: Color(1100),
+                child: Text('தேடல்'),
+                onPressed: () async {
+                  var kuralNo = "ஆதி";
+                  var sql =
+                      "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
+                  // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
+                  var searchResult =
+                      await db.any_query(sql, "modi_kural_comp.db");
+                  print(searchResult);
+                  Navigator.of(context).push(
+                      MaterialPageRoute<Null>(builder: (BuildContext context) {
+                    return new GlobalSearch();
+                  }));
+                },
+              ),
+            ],
           ),
           RaisedButton(
             color: Color(1100),
-            child: Text('Googe Adv'),
+            child: Text('நித்ரா தமிழ் நாட்காட்டி'),
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {

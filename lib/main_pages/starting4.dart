@@ -8,13 +8,12 @@ import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
-import 'package:dhina/pages/home_page.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
-
+  import 'package:dhina/db/sharedpref.dart';
 import '../Gsearch.dart';
 
 // import 'package:clipboard_manager/clipboard_manager.dart';
@@ -24,95 +23,95 @@ import '../Gsearch.dart';
 //     home: MyApp(),
 //   ));
 // }
-import 'package:flutter/material.dart';
 
-import '../cate2pgview.dart';
+import '../seekbar1.dart';
+var prefs = Shared_Preference();
 
-void main() {
-  runApp(MaterialApp(
-    title: 'Returning Data',
-    home: HomeScreen(),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     title: 'Returning Data',
+//     home: HomeScreen(),
+//   ));
+// }
 
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Returning Data Demo'),
-      ),
-      body: Center(child: SelectionButton()),
-    );
-  }
-}
+// class HomeScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Returning Data Demo'),
+//       ),
+//       body: Center(child: SelectionButton()),
+//     );
+//   }
+// }
 
-class SelectionButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      onPressed: () {
-        _navigateAndDisplaySelection(context);
-      },
-      child: Text('Pick an option, any option!'),
-    );
-  }
+// class SelectionButton extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return RaisedButton(
+//       onPressed: () {
+//         _navigateAndDisplaySelection(context);
+//       },
+//       child: Text('Pick an option, any option!'),
+//     );
+//   }
 
-  // A method that launches the SelectionScreen and awaits the result from
-  // Navigator.pop.
-  _navigateAndDisplaySelection(BuildContext context) async {
-    // Navigator.push returns a Future that completes after calling
-    // Navigator.pop on the Selection Screen.
-    final result = await Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => SelectionScreen()),
-    );
+//   // A method that launches the SelectionScreen and awaits the result from
+//   // Navigator.pop.
+//   _navigateAndDisplaySelection(BuildContext context) async {
+//     // Navigator.push returns a Future that completes after calling
+//     // Navigator.pop on the Selection Screen.
+//     final result = await Navigator.push(
+//       context,
+//       MaterialPageRoute(builder: (context) => SelectionScreen()),
+//     );
 
-    // After the Selection Screen returns a result, hide any previous snackbars
-    // and show the new result.
-    Scaffold.of(context)
-      ..removeCurrentSnackBar()
-      ..showSnackBar(SnackBar(content: Text("$result")));
-  }
-}
+//     // After the Selection Screen returns a result, hide any previous snackbars
+//     // and show the new result.
+//     Scaffold.of(context)
+//       ..removeCurrentSnackBar()
+//       ..showSnackBar(SnackBar(content: Text("$result")));
+//   }
+// }
 
-class SelectionScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Pick an option'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                onPressed: () {
-                  // Close the screen and return "Yep!" as the result.
-                  Navigator.pop(context, 'Yep!');
-                },
-                child: Text('Yep!'),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: RaisedButton(
-                onPressed: () {
-                  // Close the screen and return "Nope!" as the result.
-                  Navigator.pop(context, 'Nope.');
-                },
-                child: Text('Nope.'),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-}
+// class SelectionScreen extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Pick an option'),
+//       ),
+//       body: Center(
+//         child: Column(
+//           mainAxisAlignment: MainAxisAlignment.center,
+//           children: <Widget>[
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: RaisedButton(
+//                 onPressed: () {
+//                   // Close the screen and return "Yep!" as the result.
+//                   Navigator.pop(context, 'Yep!');
+//                 },
+//                 child: Text('Yep!'),
+//               ),
+//             ),
+//             Padding(
+//               padding: const EdgeInsets.all(8.0),
+//               child: RaisedButton(
+//                 onPressed: () {
+//                   // Close the screen and return "Nope!" as the result.
+//                   Navigator.pop(context, 'Nope.');
+//                 },
+//                 child: Text('Nope.'),
+//               ),
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
 class MyApp4 extends StatefulWidget {
@@ -191,7 +190,7 @@ class MyApp4State extends State<MyApp4> {
         // resizeToAvoidBottomInset: true,
         extendBody: true,
         appBar: AppBar(
-          primary: true,
+          // primary: true,
           leading: Builder(
             
             builder: (BuildContext context) {
@@ -227,6 +226,7 @@ class MyApp4State extends State<MyApp4> {
                 return Icon(
                   Icons.favorite,
                   color: isLiked ? Colors.deepPurpleAccent : Colors.grey,
+                
                   // size: buttonSize,
                 );
               },
@@ -285,9 +285,14 @@ class MyApp4State extends State<MyApp4> {
                 // openPage(context);
                 // return new MyApp2();
                 print("Text Font Size increasing");
-                var index = 12;
+                //var index = 12;
 
-                print("${newData[13]['kural_tamil1']} ");
+                // print("${newData[13]['kural_tamil1']} ");
+                Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new MyAppSeek();
+              }));
+                
               },
             ),
             IconButton(
@@ -335,6 +340,11 @@ class MyApp4State extends State<MyApp4> {
                         //   index1 = index;
                         // });
                         cursor = index;
+                      
+                        prefs.setint("cursor", cursor);
+
+                        
+                        // shared_preference.setint(cursor, index);
 
                         return Card(
                           child: Column(

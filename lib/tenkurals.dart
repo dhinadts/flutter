@@ -9,6 +9,7 @@ import 'package:dhina/searchingKural.dart';
 import 'Palkal_Class/Aram.dart';
 import 'cate2pgview.dart';
 import 'main_pages/starting4.dart';
+import 'package:dhina/db/sharedpref.dart';
 
 var GlobalValueSet;
 
@@ -20,6 +21,7 @@ class TenSearchingKural extends StatefulWidget {
 }
 
 class _TenSearchingKuralState extends State<TenSearchingKural> {
+  var prefs = Shared_Preference();
   @override
   void initState() {
     super.initState();
@@ -82,6 +84,7 @@ class _TenSearchingKuralState extends State<TenSearchingKural> {
                   //     MaterialPageRoute(
                   //         builder: (context) => // null ));
                   // MyApp4())); // null = AdhikaramKural()
+                  prefs.setint("cursor", ff);
                   var route = new MaterialPageRoute(
                     builder: (BuildContext context) =>
                         new MyApp44(value: ff, currentPageValue: ff),

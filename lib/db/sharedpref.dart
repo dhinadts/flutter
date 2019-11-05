@@ -39,8 +39,9 @@ class Shared_Preference {
     bool CheckValue = prefs.containsKey(key);
     if (CheckValue == false) {
       prefs.setBool(key, false);
-
       return prefs.getBool(key);
     }
   }
+
+  void setInt(String s, int index) {}
 }
