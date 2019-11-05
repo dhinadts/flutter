@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
+import 'package:dhina/fragments/first_fragment.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
@@ -14,6 +15,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
 
+import '../Gsearch.dart';
+
 // import 'package:clipboard_manager/clipboard_manager.dart';
 
 // void main() {
@@ -21,7 +24,95 @@ import 'dart:typed_data';
 //     home: MyApp(),
 //   ));
 // }
-var cursor;  
+import 'package:flutter/material.dart';
+
+import '../cate2pgview.dart';
+
+void main() {
+  runApp(MaterialApp(
+    title: 'Returning Data',
+    home: HomeScreen(),
+  ));
+}
+
+class HomeScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Returning Data Demo'),
+      ),
+      body: Center(child: SelectionButton()),
+    );
+  }
+}
+
+class SelectionButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return RaisedButton(
+      onPressed: () {
+        _navigateAndDisplaySelection(context);
+      },
+      child: Text('Pick an option, any option!'),
+    );
+  }
+
+  // A method that launches the SelectionScreen and awaits the result from
+  // Navigator.pop.
+  _navigateAndDisplaySelection(BuildContext context) async {
+    // Navigator.push returns a Future that completes after calling
+    // Navigator.pop on the Selection Screen.
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => SelectionScreen()),
+    );
+
+    // After the Selection Screen returns a result, hide any previous snackbars
+    // and show the new result.
+    Scaffold.of(context)
+      ..removeCurrentSnackBar()
+      ..showSnackBar(SnackBar(content: Text("$result")));
+  }
+}
+
+class SelectionScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Pick an option'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {
+                  // Close the screen and return "Yep!" as the result.
+                  Navigator.pop(context, 'Yep!');
+                },
+                child: Text('Yep!'),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: RaisedButton(
+                onPressed: () {
+                  // Close the screen and return "Nope!" as the result.
+                  Navigator.pop(context, 'Nope.');
+                },
+                child: Text('Nope.'),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
 class MyApp4 extends StatefulWidget {
@@ -57,7 +148,7 @@ class MyApp4State extends State<MyApp4> {
       setState(() {
         currentPageValue = controller.page; // .toInt() as double;
         print(currentPageValue);
-        cursor = currentPageValue; // as double);
+        
         // print("currenpagevalue:" + currentPageValue.toString());
         // print("page No:" + (currentPageValue + 1).toString());
       });
@@ -204,6 +295,12 @@ class MyApp4State extends State<MyApp4> {
               onPressed: () {
                 // openPage(context);
                 // return new MyApp2();
+                Navigator.of(context).push(
+                  MaterialPageRoute<Null>(builder: (BuildContext context) {
+                return new GlobalSearch();
+              }
+              )
+             );
                 print("searching");
               },
             ),
@@ -237,6 +334,7 @@ class MyApp4State extends State<MyApp4> {
                         // setState(() {
                         //   index1 = index;
                         // });
+                        cursor = index;
 
                         return Card(
                           child: Column(

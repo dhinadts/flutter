@@ -15,6 +15,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
 
+import 'fragments/first_fragment.dart';
+
 // import 'package:clipboard_manager/clipboard_manager.dart';
 
 // void main() {
@@ -22,7 +24,7 @@ import 'dart:typed_data';
 //     home: MyApp(),
 //   ));
 // }
-var cursor;
+
 int value1;
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
@@ -70,7 +72,7 @@ class MyApp44State extends State<MyApp44> {
         currentPageValue = controller.page
             as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
         print(currentPageValue);
-        cursor = currentPageValue;
+        // cursor = currentPageValue;
         // currentPageValue = (widget.value).toDouble(); // as double);
 
         // print("currenpagevalue:" + currentPageValue.toString());
@@ -266,6 +268,7 @@ class MyApp44State extends State<MyApp44> {
                         // controller.addListener(currentPageValue);
                         print(currentPageValue);
                         print("index  $index");
+                        cursor = index;
                         return Card(
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.stretch,

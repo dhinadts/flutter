@@ -1,6 +1,8 @@
 import 'dart:core';
 import 'dart:core' as prefix0;
 
+import 'package:dhina/cate2pgview.dart';
+import 'package:dhina/cate2pgview.dart' as prefix1;
 import 'package:dhina/main_pages/FavouritButtonEx.dart';
 import 'package:dhina/main_pages/starting3.dart';
 import 'package:dhina/main_pages/starting4.dart';
@@ -14,22 +16,21 @@ List<Map> x = [];
 List<String> items = <String>[];
 List<Map<String, dynamic>> result;
 List<Map<String, dynamic>> result1, result2, result3;
+var cursor = 0;
+var db = DatabaseHelper();
 
- var db = DatabaseHelper();
-                
 class FirstFragment extends StatefulWidget {
-   @override
+  @override
   FirstState createState() {
     return new FirstState();
   }
-
 }
-class FirstState extends State<FirstFragment> {
 
- @override
+class FirstState extends State<FirstFragment> {
+  @override
   void initState() {
     super.initState();
-  // result = db.any_query(query, dbName)
+    // result = db.any_query(query, dbName)
   }
 
   @override
@@ -37,8 +38,6 @@ class FirstState extends State<FirstFragment> {
 //     // todo: implement build
 //     return null;
 //   }}
-
-
 
 // class FirstFragment extends StatelessWidget {
 //   @override
@@ -54,13 +53,12 @@ class FirstState extends State<FirstFragment> {
         // )
         child: new SafeArea(
             child: new SizedBox(
-              
       width: 300.0,
       height: 500.0,
       child: new Column(
         // new SizedBox(
-          mainAxisAlignment: MainAxisAlignment.start,
-         // mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
+        // mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -69,7 +67,6 @@ class FirstState extends State<FirstFragment> {
               color: Color(1000),
               child: Text('start'),
               onPressed: () async {
-                
                 await Navigator.of(context).push(
                     MaterialPageRoute<Null>(builder: (BuildContext context) {
                   return new MyApp4();
@@ -81,7 +78,7 @@ class FirstState extends State<FirstFragment> {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new BeginingKural1();
+                return new MyApp44(value: cursor);
               }));
             },
           ),
@@ -89,12 +86,12 @@ class FirstState extends State<FirstFragment> {
             color: Color(1100),
             child: Text('Categories'),
             onPressed: () async {
-result = await db.any_query(
-                    'select DISTINCT pal_tamil from complete1',
-                    'modi_kural_comp.db');
-                                      await _onSelectItem1(result[0]['pal_tamil']);
-   await _onSelectItem2(result[1]['pal_tamil']);
-   await _onSelectItem3(result[2]['pal_tamil']);
+              result = await db.any_query(
+                  'select DISTINCT pal_tamil from complete1',
+                  'modi_kural_comp.db');
+              await _onSelectItem1(result[0]['pal_tamil']);
+              await _onSelectItem2(result[1]['pal_tamil']);
+              await _onSelectItem3(result[2]['pal_tamil']);
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
                 return new TabBarDemo();
@@ -105,17 +102,16 @@ result = await db.any_query(
             color: Color(1100),
             child: Text('Search'),
             onPressed: () async {
-              var kuralNo =  "ஆதி";
-                    var sql = "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
-                    // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
-                    var searchResult = await db.any_query(sql, "modi_kural_comp.db");
-                    print(searchResult);
+              var kuralNo = "ஆதி";
+              var sql =
+                  "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
+              // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
+              var searchResult = await db.any_query(sql, "modi_kural_comp.db");
+              print(searchResult);
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
                 return new GlobalSearch();
-              }
-              )
-             );
+              }));
             },
           ),
           RaisedButton(
@@ -143,8 +139,6 @@ result = await db.any_query(
     )));
   }
 }
-
-
 
 class SecondScreen extends StatelessWidget {
   @override
@@ -194,7 +188,7 @@ class ViewerActivity1 extends StatelessWidget {
                 result = await db.any_query(
                     'select DISTINCT pal_tamil from complete1',
                     'modi_kural_comp.db');
-  
+
                 // List.generate(result.length, (i) {
                 //   Pal(
                 //     pal_tamil: result[i]['pal_tamil'],
@@ -327,7 +321,7 @@ class ListedViewEx extends StatelessWidget {
 
 _onSelectItem1(String s) async {
   var db = DatabaseHelper();
-  
+
   result1 = await db.any_query(
       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="அறத்துப்பால்"',
       'modi_kural_comp.db');
@@ -343,6 +337,7 @@ _onSelectItem1(String s) async {
   // I = result as Items;
   // print(I.pal_tamil[0]);
 }
+
 _onSelectItem2(String s) async {
   var db = DatabaseHelper();
   result2 = await db.any_query(
@@ -363,7 +358,7 @@ _onSelectItem2(String s) async {
 
 _onSelectItem3(String s) async {
   var db = DatabaseHelper();
-   result3 = await db.any_query(
+  result3 = await db.any_query(
       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
       'modi_kural_comp.db');
   // List.generate(result3.length, (i) {
@@ -378,4 +373,3 @@ _onSelectItem3(String s) async {
   // I = result as Items;
   // print(I.pal_tamil[0]);
 }
-
