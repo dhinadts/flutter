@@ -11,7 +11,8 @@ import 'package:dhina/dia_rating.dart';
 import 'package:dhina/dia_examples.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:dhina/db/dbhelper.dart';
-
+import 'package:dhina/seekbar1.dart';
+import '../SeekBarEx.dart';
 import '../scrollviewEx.dart';
 
 var newData;
@@ -59,16 +60,16 @@ var db = DatabaseHelper();
          return new FirstFragment();
 
       case 1: {
-        result = db.any_query(
-                  'select DISTINCT pal_tamil from complete1',
-                  'modi_kural_comp.db');
-              onSelectItem1(result[0]['pal_tamil']);
-              onSelectItem2(result[1]['pal_tamil']);
-              onSelectItem3(result[2]['pal_tamil']);
-              Navigator.of(context).push(
-                  MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new TabBarDemo();
-              }));
+        // result = db.any_query(
+        //           'select DISTINCT pal_tamil from complete1',
+        //           'modi_kural_comp.db');
+        //       onSelectItem1(result[0]['pal_tamil']);
+        //       onSelectItem2(result[1]['pal_tamil']);
+        //       onSelectItem3(result[2]['pal_tamil']);
+        //       Navigator.of(context).push(
+        //           MaterialPageRoute<Null>(builder: (BuildContext context) {
+        //         return new TabBarDemo();
+        //       }));
         return new TabBarDemo();
       }
       case 2:
@@ -90,11 +91,11 @@ var db = DatabaseHelper();
       case 10:
         return new exa_dias();
       case 11:
-        return new TabBarDemo();
+        return null;
       case 12:
-        return TabBarDemo();
+        return SeekBarEx();
       default:
-        return new MyApp121123();
+        return null;
     }
   }
 
@@ -235,7 +236,7 @@ onSelectItem3(String s) async {
           child: new Column(
             children: <Widget>[
               new UserAccountsDrawerHeader(
-                accountName: new Text("திருக்குறள்"),
+                accountName: new Text("திருக்குறள்"), accountEmail: null,
                 //accountEmail: new Text('dhina@gmail.com')
               ),
               new Column(children: drawerOptions)

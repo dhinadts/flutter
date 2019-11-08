@@ -125,59 +125,59 @@ class ListedViewEx1 extends StatelessWidget {
   }
 }
 
-// _onSelectItem1(String s) async {
-//   var db = DatabaseHelper();
+_onSelectItem1(String s) async {
+  var db = DatabaseHelper();
   
-//   result1 = await db.any_query(
-//       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="அறத்துப்பால்"',
-//       'modi_kural_comp.db');
-//   // List.generate(result1.length, (i) {
-//   //   Iyal(
-//   //     iyal_tamil: result1[i]['iyal_tamil'],
-//   //   );
-//   // });
-//   print(result1.length);
-//   print(result1);
+  result1 = await db.any_query(
+      'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="அறத்துப்பால்"',
+      'modi_kural_comp.db');
+  // List.generate(result1.length, (i) {
+  //   Iyal(
+  //     iyal_tamil: result1[i]['iyal_tamil'],
+  //   );
+  // });
+  print(result1.length);
+  print(result1);
 
-//   // Items I = new Items();
-//   // I = result as Items;
-//   // print(I.pal_tamil[0]);
-// }
-// _onSelectItem2(String s) async {
-//   var db = DatabaseHelper();
-//   result2 = await db.any_query(
-//       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
-//       'modi_kural_comp.db');
-//   // List.generate(result2.length, (i) {
-//   //   Iyal(
-//   //     iyal_tamil: result2[i]['iyal_tamil'],
-//   //   );
-//   // });
-//   print(result2.length);
-//   print(result2);
+  // Items I = new Items();
+  // I = result as Items;
+  // print(I.pal_tamil[0]);
+}
+_onSelectItem2(String s) async {
+  var db = DatabaseHelper();
+  result2 = await db.any_query(
+      'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
+      'modi_kural_comp.db');
+  // List.generate(result2.length, (i) {
+  //   Iyal(
+  //     iyal_tamil: result2[i]['iyal_tamil'],
+  //   );
+  // });
+  print(result2.length);
+  print(result2);
 
-//   // Items I = new Items();
-//   // I = result as Items;
-//   // print(I.pal_tamil[0]);
-// }
+  // Items I = new Items();
+  // I = result as Items;
+  // print(I.pal_tamil[0]);
+}
 
-// _onSelectItem3(String s) async {
-//   var db = DatabaseHelper();
-//    result3 = await db.any_query(
-//       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
-//       'modi_kural_comp.db');
-//   // List.generate(result3.length, (i) {
-//   //   Iyal(
-//   //     iyal_tamil: result3[i]['iyal_tamil'],
-//   //   );
-//   // });
-//   print(result3.length);
-//   print(result3);
+_onSelectItem3(String s) async {
+  var db = DatabaseHelper();
+   result3 = await db.any_query(
+      'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
+      'modi_kural_comp.db');
+  // List.generate(result3.length, (i) {
+  //   Iyal(
+  //     iyal_tamil: result3[i]['iyal_tamil'],
+  //   );
+  // });
+  print(result3.length);
+  print(result3);
 
-//   // Items I = new Items();
-//   // I = result as Items;
-//   // print(I.pal_tamil[0]);
-// }
+  // Items I = new Items();
+  // I = result as Items;
+  // print(I.pal_tamil[0]);
+}
 
 
 

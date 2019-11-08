@@ -2,7 +2,10 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
+import 'package:dhina/SeekBarEx.dart';
 import 'package:dhina/fragments/first_fragment.dart';
+import 'package:dhina/main_pages/writeJSON.dart';
+import 'package:dhina/seekbar1.dart' as prefix1;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
@@ -13,20 +16,25 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
-  import 'package:dhina/db/sharedpref.dart';
+import 'package:dhina/db/sharedpref.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../Gsearch.dart';
-
+import 'package:dhina/db/dbhelper.dart';
 // import 'package:clipboard_manager/clipboard_manager.dart';
-
+import 'package:dhina/SeekBarEx.dart';
 // void main() {
 //   runApp(MaterialApp(
 //     home: MyApp(),
 //   ));
 // }
 
+import '../cate2pgview.dart';
 import '../seekbar1.dart';
-var prefs = Shared_Preference();
 
+var prefs = Shared_Preference();
+double valueHolder = 0.0;
+var db = DatabaseHelper();
+var favData;
 // void main() {
 //   runApp(MaterialApp(
 //     title: 'Returning Data',
@@ -114,8 +122,10 @@ var prefs = Shared_Preference();
 // }
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
+var fav_kural;
 class MyApp4 extends StatefulWidget {
-
+  final int fontSize1;
+  MyApp4({Key key, this.fontSize1}) : super(key: key);
   @override
   MyApp4State createState() => MyApp4State();
 }
@@ -128,9 +138,10 @@ class MyApp4State extends State<MyApp4> {
   final _formKey = GlobalKey<FormState>();
   ui.Image image;
   bool isImageloaded = false;
-  
 
   prefix0.int index1;
+
+  
 
   @override
   void initState() {
@@ -138,16 +149,24 @@ class MyApp4State extends State<MyApp4> {
     //   newData = await rootBundle.loadString('assets/complete1.json');
     //   print(newData);
     // }
-
+     // a= prefs.getInt("fontSize1") as prefix0.double;
+     // a = prefs.getInt("fontSize1") as prefix0.double;
+     // prefs.setInt("fontSize1", a as prefix0.int);
+    // a = valueHolder.toDouble();
+    //  as prefix0.double;
+//     Future checkFontSize1() async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     a = (prefs.getDouble('fontSize1')); // as prefix0.int;
+// }
     init();
     super.initState();
     // _loadAStudentAsset();
-
+// checkFontSize1();
     controller.addListener(() {
       setState(() {
         currentPageValue = controller.page; // .toInt() as double;
         print(currentPageValue);
-        
+
         // print("currenpagevalue:" + currentPageValue.toString());
         // print("page No:" + (currentPageValue + 1).toString());
       });
@@ -184,7 +203,8 @@ class MyApp4State extends State<MyApp4> {
 
   @override
   Widget build(BuildContext context) {
-    
+     
+                      
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         // resizeToAvoidBottomInset: true,
@@ -192,11 +212,17 @@ class MyApp4State extends State<MyApp4> {
         appBar: AppBar(
           // primary: true,
           leading: Builder(
-            
             builder: (BuildContext context) {
-              
+              return 
+              /*   child: FutureBuilder(
+                  future: DefaultAssetBundle.of(context)
+                      .loadString('assets/complete1.json'),
+                  builder: (context, snapshot) {
+                    // Decode the JSON
+                    var newData = json.decode(snapshot.data.toString());
 
-              return IconButton(
+               */
+              IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   // Scaffold.of(context).openDrawer();
@@ -213,8 +239,9 @@ class MyApp4State extends State<MyApp4> {
           title: const Text('திருக்குறள்'),
           actions: <Widget>[
             new FavoriteWidget(),
+             // FlutterDemo(storage: CounterStorage(),),
 
-            LikeButton(
+          /*  LikeButton(
               // size: buttonSize,
               circleColor:
                   CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
@@ -226,7 +253,7 @@ class MyApp4State extends State<MyApp4> {
                 return Icon(
                   Icons.favorite,
                   color: isLiked ? Colors.deepPurpleAccent : Colors.grey,
-                
+
                   // size: buttonSize,
                 );
               },
@@ -271,7 +298,7 @@ class MyApp4State extends State<MyApp4> {
               //   return result;
               // },
             ),
-
+*/
             // IconButton(
             //   icon: const Icon(Icons.favorite),
             //   onPressed: () {
@@ -281,18 +308,62 @@ class MyApp4State extends State<MyApp4> {
 
             IconButton(
               icon: const Icon(Icons.text_format),
-              onPressed: () {
-                // openPage(context);
-                // return new MyApp2();
+              onPressed: () async {
                 print("Text Font Size increasing");
                 //var index = 12;
+                // fontSize1 = await prefs.getInt("fontSize1");
+                // print("fontsize : $fontSize1");
+// Navigator.of(context).push(
+//                   MaterialPageRoute<Null>(builder: (BuildContext context) {
+//                 return new MyAppSeek(); }));
+// var _fontSize;
 
-                // print("${newData[13]['kural_tamil1']} ");
-                Navigator.of(context).push(
-                  MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new MyAppSeek();
-              }));
-                
+                return showDialog(
+                    context: context,
+                    builder: (context) => new AlertDialog(
+                          title: Text("Font Size"),
+                          content: new // MyAppSeek(),
+                          
+                          Slider(
+                            value: valueHolder, //.toDouble(),
+                            min: 0.0,
+                            max: 10.0,
+                            divisions: 2,
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.grey,
+                            label: '${valueHolder.round()}',
+                            onChanged: (double newValue) {
+                              setState(() {
+                                valueHolder = newValue; // as prefix0.double;
+                                print("Changed newValue: ${newValue.round()}");
+                                //print(fontSize1);
+                              });
+                            },
+                          ), 
+                          actions: <Widget>[
+                            RaisedButton(
+                              color: Color(100000),
+                              child: Text(
+                                "Done",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onPressed: () async {
+                                //    a = a+2 ;
+                                // a = valueHolder as prefix0.double;
+                                Navigator.of(context).pop();
+                                 prefs.setdouble("fontSize1", valueHolder);
+                                 
+                //                 Navigator.of(context).push(
+                //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                //   return new MyApp44(value: 0, fontSize1: valueHolder,);
+                // }));
+                                
+                                
+                                //               Navigator.pop(context); //, a);
+                              },
+                            )
+                          ],
+                        ));
               },
             ),
             IconButton(
@@ -301,11 +372,9 @@ class MyApp4State extends State<MyApp4> {
                 // openPage(context);
                 // return new MyApp2();
                 Navigator.of(context).push(
-                  MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new GlobalSearch();
-              }
-              )
-             );
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  return new GlobalSearch();
+                }));
                 print("searching");
               },
             ),
@@ -326,6 +395,7 @@ class MyApp4State extends State<MyApp4> {
                   builder: (context, snapshot) {
                     // Decode the JSON
                     var newData = json.decode(snapshot.data.toString());
+                    
 
                     return PageView.builder(
                       // Build the ListView
@@ -340,10 +410,13 @@ class MyApp4State extends State<MyApp4> {
                         //   index1 = index;
                         // });
                         cursor = index;
-                      
-                        prefs.setint("cursor", cursor);
+        favData = db.any_query("SELECT * from complete1 where kural_no=$index", "modi_kural_comp.db");
 
-                        
+
+                        prefs.setint("cursor", cursor);
+                        // prefs.setint("fav_kural", newData[index]['kural_no']);
+                        // fav_kural = newData[index]['kural_no'];
+
                         // shared_preference.setint(cursor, index);
 
                         return Card(
@@ -358,8 +431,8 @@ class MyApp4State extends State<MyApp4> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     new Text(
-                                      "குறள் எண்: ${newData[index]['kural_no']}", //${newData.kural_no}",
-                                      style: TextStyle(fontSize: 18),
+                                      "குறள்: ${newData[index]['kural_no']}", //${newData.kural_no}",
+                                      style: TextStyle(fontSize: (18 + a)),
                                     ),
                                     // new RaisedButton(
                                     //   onPressed: null,
@@ -370,6 +443,7 @@ class MyApp4State extends State<MyApp4> {
 // icon: const Icon(Icons.favorite) ,
 // onPressed: null,
 //                                     ),
+new FavoriteWidget(),
                                     new IconButton(
                                       icon: const Icon(Icons.search),
                                       onPressed: () {
@@ -535,8 +609,8 @@ class MyApp4State extends State<MyApp4> {
                                           title: "உதவி",
                                           desc:
                                               "பால்: ${newData[index]['pal_tamil']}   இயல்: ${newData[index]['iyal_tamil']}  அதிகாரம்: ${newData[index]['adhikarm_tamil']}",
-                                          image: Image.asset(
-                                              "assets/valluvar.png"),
+                                          // image: Image.asset(
+                                          //     "assets/valluvar.png"),
                                           buttons: [
                                             DialogButton(
                                               child: Text(
@@ -606,126 +680,121 @@ class MyApp4State extends State<MyApp4> {
                               ),
                               // new Container( child: CustomScrollView( slivers: //<Widget>[
                               new Expanded(
-                                    flex:1,
-                                      child: SingleChildScrollView(
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 5.0, vertical: 3.0),
-                                          child: Container(
-                                              decoration: new BoxDecoration(
-                                                  color: Colors.white),
-                                              //height: 00.0,
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  // mainAxisSize: MainAxisSize.min,
-                                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                  // mainAxisSize: MainAxisSize.min,
-                                                  children: <Widget>[
-                                                    //                                     Text(
-                                                    //                                       "குறள்:", style: TextStyle( fontSize: 20,
-                                                    //   color: Colors.black,
-                                                    //   decoration: TextDecoration.underline,
-                                                    //   // decorationColor: Colors.red,
-                                                    //   // decorationStyle: TextDecorationStyle.wavy,
-                                                    //   fontWeight: FontWeight.bold,
-                                                    // ),
-                                                    // ),
-                                                    Text(
-                                                      newData[index]
-                                                          ['kural_tamil1'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.deepPurpleAccent, //purple[300],
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "விளக்கம்:",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      newData[index][
-                                                          'kuralvilakam_tamil'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.purple,
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "கலைஞர் உரை:",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      newData[index]['desc1'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.purple,
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      "சாலமன் பாப்பைய்யா:",
-                                                      style: TextStyle(
-                                                        fontSize: 20,
-                                                        color: Colors.black,
-                                                        decoration:
-                                                            TextDecoration
-                                                                .underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      newData[index]['desc2'],
-                                                      style: TextStyle(
-                                                        fontSize: 15,
-                                                        color: Colors.purple,
-                                                        // decoration: TextDecoration.underline,
-                                                        // decorationColor: Colors.red,
-                                                        // decorationStyle: TextDecorationStyle.wavy,
-                                                        // fontWeight: FontWeight.bold,
-                                                      ),
-                                                    ),
-                                                    Text("English : " +
-                                                        newData[index]
-                                                            ['iyal_tamil']),
-                                                    Text("Explanation: " +
-                                                        newData[index]
-                                                            ['adhikarm_tamil']),
-                                                    // Text("kural_no: " + newData[index]['kural_no']),
-                                                  ])))),
+                                  flex: 1,
+                                  child: SingleChildScrollView(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 5.0, vertical: 3.0),
+                                      child: Container(
+                                          decoration: new BoxDecoration(
+                                              color: Colors.white),
+                                          //height: 00.0,
+                                          child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              // mainAxisSize: MainAxisSize.min,
+                                              // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              // mainAxisSize: MainAxisSize.min,
+                                              children: <Widget>[
+                                                //                                     Text(
+                                                //                                       "குறள்:", style: TextStyle( fontSize: 20,
+                                                //   color: Colors.black,
+                                                //   decoration: TextDecoration.underline,
+                                                //   // decorationColor: Colors.red,
+                                                //   // decorationStyle: TextDecorationStyle.wavy,
+                                                //   fontWeight: FontWeight.bold,
+                                                // ),
+                                                // ),
+                                                Text(
+                                                  newData[index]
+                                                      ['kural_tamil1'],
+                                                  style: TextStyle(
+                                                    fontSize: (15 + a),
+                                                    color: Colors
+                                                        .deepPurpleAccent, //purple[300],
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "விளக்கம்:",
+                                                  style: TextStyle(
+                                                    fontSize: 20 + a,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  newData[index]
+                                                      ['kuralvilakam_tamil'],
+                                                  style: TextStyle(
+                                                    fontSize: 15 + a,
+                                                    color: Colors.purple,
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "கலைஞர் உரை:",
+                                                  style: TextStyle(
+                                                    fontSize: 20 + a,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  newData[index]['desc1'],
+                                                  style: TextStyle(
+                                                    fontSize: 15 + a,
+                                                    color: Colors.purple,
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  "சாலமன் பாப்பைய்யா:",
+                                                  style: TextStyle(
+                                                    fontSize: 20 + a,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  newData[index]['desc2'],
+                                                  style: TextStyle(
+                                                    fontSize: 15 + a,
+                                                    color: Colors.purple,
+                                                    // decoration: TextDecoration.underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    // fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text("English : " +
+                                                    newData[index]
+                                                        ['iyal_tamil']),
+                                                Text("Explanation: " +
+                                                    newData[index]
+                                                        ['adhikarm_tamil']),
+                                                // Text("kural_no: " + newData[index]['kural_no']),
+                                              ])))),
                               // Text("adhikarm_no " + newData[index]['adhikarm_no']),
 
                               new Row(
@@ -864,7 +933,6 @@ class ImageEditor extends CustomPainter {
   }
 }
 
-
 class FavoriteWidget extends StatefulWidget {
   @override
   _FavoriteWidgetState createState() => _FavoriteWidgetState();
@@ -875,20 +943,48 @@ class FavoriteWidget extends StatefulWidget {
 class _FavoriteWidgetState extends State<FavoriteWidget> {
   // #enddocregion _FavoriteWidgetState-build
   bool _isFavorited = true;
+  var fav; 
+  List<Map<String, dynamic>> result, favResult;
   // int _favoriteCount = 41;
   // #enddocregion _FavoriteWidgetState-fields
 
   // #docregion _toggleFavorite
-  void _toggleFavorite() {
-    setState(() {
+  Future _toggleFavorite()  async {
+    // setState(()   async {
       if (_isFavorited) {
         // _favoriteCount -= 1;
         _isFavorited = false;
+        prefix0.print("Not DB calling");
+      //   fav = await prefs.getInt("fav_kural");
+      //   print(fav);
+      //  await  db.any_query(
+      //  'CREATE TABLE favourites(id INT, pal_tamil TEXT, iyal_tamil TEXT, adhikarm_no INT, adhikarm_tamil TEXT, kural_no INT, kuralvilakam_tamil TEXT, kural_tamil1 TEXT, isfav INT, "Kural_no:1", desc1 TEXT, desc2 TEXT)', 'modi_kural_comp.db');
+
+        // favResult =  await  db.any_query(
+        //     'INSERT into favourites SELECT * from complete1 where kural_no = 2',
+        // 'modi_kural_comp.db');
+      //  fav_result = await db.any_query(
+      //      'SELECT * from favourites',
+      //  'modi_kural_comp.db');
+                //  print("Added Favourite $fav_result");
+       
       } else {
         // _favoriteCount += 1;
         _isFavorited = true;
+        var i;
+          db.any_query(
+           'SELECT * from favourites',
+      // complete1 where kural_no = 2',
+        'modi_kural_comp.db');
+      print("DB::: complete1");
+       favResult = await  db.any_query(
+           'select * from complete1 where kural_no = 2',
+                  'modi_kural_comp.db');
+      for ( i = 0; i < favResult.length; i++)
+      print("Added Favourite $favResult");
+
       }
-    });
+    // });
   }
   // #enddocregion _toggleFavorite
 

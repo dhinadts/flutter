@@ -6,6 +6,7 @@ import 'package:dhina/cate2pgview.dart' as prefix1;
 import 'package:dhina/main_pages/FavouritButtonEx.dart';
 import 'package:dhina/main_pages/starting3.dart';
 import 'package:dhina/main_pages/starting4.dart';
+import 'package:dhina/main_pages/writeJSON.dart';
 import 'package:dhina/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
@@ -23,7 +24,9 @@ var cursor = 0;
 var defCursor = 0;
 var db = DatabaseHelper();
 var prefs = Shared_Preference();
+double a = 0.0, b = 0.0;
 
+var fontSize1 = 0; 
 class FirstFragment extends StatefulWidget {
   @override
   FirstState createState() {
@@ -40,7 +43,9 @@ class FirstState extends State<FirstFragment> {
     super.initState();
     // result = db.any_query(query, dbName)
     prefs.setInt("cursor", cursor);
+    // prefs.setint("fontSize1", a as int);
     cur1 = cursor;
+    // a = prefs.setint("fontSize1", b as int) as prefix0.double;
   }
 
   @override
@@ -79,7 +84,7 @@ class FirstState extends State<FirstFragment> {
               onPressed: () async {
                 await Navigator.of(context).push(
                     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                  return new MyApp4();
+                  return new MyApp4(fontSize1 : fontSize1);
                 }));
               }),
           RaisedButton(
@@ -222,7 +227,7 @@ class FirstState extends State<FirstFragment> {
             onPressed: () {
               Navigator.of(context).push(
                   MaterialPageRoute<Null>(builder: (BuildContext context) {
-                return new FancyFab(); // HomePage1();
+                return new CreateJSON(); // HomePage1();
               }));
             },
           ),

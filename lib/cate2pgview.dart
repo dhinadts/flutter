@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
+import 'package:dhina/seekbar1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
@@ -30,7 +31,8 @@ ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 class MyApp44 extends StatefulWidget {
   final int value;
   final int currentPageValue;
-  MyApp44({Key key, this.value, this.currentPageValue}) : super(key: key);
+  final double fontSize1;
+  MyApp44({Key key, this.value, this.currentPageValue, this.fontSize1}) : super(key: key);
 
   @override
   MyApp44State createState() => MyApp44State();
@@ -54,7 +56,7 @@ class MyApp44State extends State<MyApp44> {
   void initState() {
     controller = PageController(initialPage: widget.value, keepPage: false);
     currentPageValue = widget.currentPageValue;
-
+fontSize1 =  prefs.getdouble("fontSIze1") as int;
     // Future<String> _loadAStudentAsset() async {
     //   newData = await rootBundle.loadString('assets/complete1.json');
     //   print(newData);
@@ -282,7 +284,7 @@ class MyApp44State extends State<MyApp44> {
                                   children: <Widget>[
                                     new Text(
                                       "குறள் எண்: ${newData[index]['kural_no']}", //${newData.kural_no}",
-                                      style: TextStyle(fontSize: 18),
+                                      style: TextStyle(fontSize: 18 + widget.fontSize1),
                                     ),
                                     // new RaisedButton(
                                     //   onPressed: null,
@@ -551,7 +553,7 @@ class MyApp44State extends State<MyApp44> {
                                                   newData[index]
                                                       ['kural_tamil1'],
                                                   style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 15 + widget.fontSize1,
                                                     color: Colors
                                                         .deepPurpleAccent, //purple[300],
                                                     // decoration: TextDecoration.underline,
@@ -576,7 +578,7 @@ class MyApp44State extends State<MyApp44> {
                                                   newData[index]
                                                       ['kuralvilakam_tamil'],
                                                   style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 15 + widget.fontSize1,
                                                     color: Colors.purple,
                                                     // decoration: TextDecoration.underline,
                                                     // decorationColor: Colors.red,
@@ -587,7 +589,7 @@ class MyApp44State extends State<MyApp44> {
                                                 Text(
                                                   "கலைஞர் உரை:",
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 20 + widget.fontSize1,
                                                     color: Colors.black,
                                                     decoration: TextDecoration
                                                         .underline,
@@ -599,7 +601,7 @@ class MyApp44State extends State<MyApp44> {
                                                 Text(
                                                   newData[index]['desc1'],
                                                   style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 15 + widget.fontSize1,
                                                     color: Colors.purple,
                                                     // decoration: TextDecoration.underline,
                                                     // decorationColor: Colors.red,
@@ -610,7 +612,7 @@ class MyApp44State extends State<MyApp44> {
                                                 Text(
                                                   "சாலமன் பாப்பைய்யா:",
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 20 + widget.fontSize1,
                                                     color: Colors.black,
                                                     decoration: TextDecoration
                                                         .underline,
@@ -622,7 +624,7 @@ class MyApp44State extends State<MyApp44> {
                                                 Text(
                                                   newData[index]['desc2'],
                                                   style: TextStyle(
-                                                    fontSize: 15,
+                                                    fontSize: 15 + widget.fontSize1,
                                                     color: Colors.purple,
                                                     // decoration: TextDecoration.underline,
                                                     // decorationColor: Colors.red,
