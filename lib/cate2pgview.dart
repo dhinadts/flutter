@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
-import 'package:dhina/seekbar1.dart';
+import 'package:dhina/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:like_button/like_button.dart';
@@ -14,7 +14,9 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
-import 'package:dhina/db/sharedpref.dart';
+
+import 'Gsearch.dart';
+import 'db/dbhelper.dart';
 import 'fragments/first_fragment.dart';
 
 // import 'package:clipboard_manager/clipboard_manager.dart';
@@ -24,15 +26,24 @@ import 'fragments/first_fragment.dart';
 //     home: MyApp(),
 //   ));
 // }
-var prefs = Shared_Preference();
+bool _isFavorited = false;
+bool _isfav = false;
 int value1;
+var favKural;
+var db = DatabaseHelper();
+double valueHolder = 0.0;
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
+List<Map<String, dynamic>> ResultFav;
+List<Map<String, dynamic>> testR;
+var currentPageValue = 0;
+PageController controller = PageController();
 
 class MyApp44 extends StatefulWidget {
   final int value;
   final int currentPageValue;
-  final double fontSize1;
-  MyApp44({Key key, this.value, this.currentPageValue, this.fontSize1}) : super(key: key);
+  MyApp44(
+      {Key key, this.value, this.currentPageValue, prefix0.double fontSize1})
+      : super(key: key);
 
   @override
   MyApp44State createState() => MyApp44State();
@@ -40,10 +51,10 @@ class MyApp44 extends StatefulWidget {
 
 class MyApp44State extends State<MyApp44> {
   List data;
-  PageController controller = PageController();
+  // PageController controller = PageController();
   // var vv = value) as prefix0.double();
   // PageController controller = PageController(initialPage: value, keepPage: false);
-  var currentPageValue = 0;
+  // var currentPageValue = 0;
   // =0.0;
   TextEditingController _textFieldController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -54,9 +65,10 @@ class MyApp44State extends State<MyApp44> {
 
   @override
   void initState() {
-    controller = PageController(initialPage: widget.value, keepPage: false);
+    controller = PageController(
+        initialPage: widget.value, keepPage: true, viewportFraction: 1.0);
     currentPageValue = widget.currentPageValue;
-fontSize1 =  prefs.getdouble("fontSIze1") as int;
+
     // Future<String> _loadAStudentAsset() async {
     //   newData = await rootBundle.loadString('assets/complete1.json');
     //   print(newData);
@@ -68,11 +80,13 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
     // _loadAStudentAsset();
 
     controller.addListener(() {
+      // summa(controller.page as prefix0.int);
       setState(() {
-        print("page value ${controller.page}");
+        // print("page value ${controller.page}");
         currentPageValue = controller.page
             as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
-        print(currentPageValue);
+        // print(currentPageValue);
+
         // cursor = currentPageValue;
         // currentPageValue = (widget.value).toDouble(); // as double);
 
@@ -136,8 +150,21 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
           ),
           title: const Text('திருக்குறள்'),
           actions: <Widget>[
-            new FavoriteWidget(),
+            // IconButton(
+            //     icon: (_isFavorited == 1
+            //         ? Icon(Icons.star)
+            //         : Icon(Icons.star_border)),
+            //     color: Colors.red[500],
+            //     onPressed: () async {
+            //       setState(() {
+            //         _isFavorited = 1;
+            //       });
+            //       db.any_query(
+            //           "insert into complete select * from complete1 where kural_no = $favKural",
+            //           "modi_kural_comp.db");
+            //     }),
 
+/*
             LikeButton(
               // size: buttonSize,
               circleColor:
@@ -194,6 +221,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
               //   return result;
               // },
             ),
+            */
 
             // IconButton(
             //   icon: const Icon(Icons.favorite),
@@ -204,13 +232,64 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
 
             IconButton(
               icon: const Icon(Icons.text_format),
-              onPressed: () {
-                // openPage(context);
-                // return new MyApp2();
+              onPressed: () async {
                 print("Text Font Size increasing");
-                var index = 12;
+                //var index = 12;
+                // fontSize1 = await prefs.getInt("fontSize1");
+                // print("fontsize : $fontSize1");
+// Navigator.of(context).push(
+//                   MaterialPageRoute<Null>(builder: (BuildContext context) {
+//                 return new MyAppSeek(); }));
+// var _fontSize;
 
-                print("${newData[13]['kural_tamil1']} ");
+                /* return showDialog(
+                                    context: context,
+                                    builder: (context) => new AlertDialog(
+                                          title: Text("Font Size"),
+                                          content: new // MyAppSeek(),
+                                          
+                                          Slider(
+                                            value: valueHolder, //.toDouble(),
+                            min: 0.0,
+                            max: 10.0,
+                            divisions: 2,
+                            activeColor: Colors.green,
+                            inactiveColor: Colors.grey,
+                            label: '${valueHolder.round()}',
+                            onChanged: (double newValue) {
+                              setState(() {
+                                valueHolder = newValue; // as prefix0.double;
+                                print("Changed newValue: ${newValue.round()}");
+                                //print(fontSize1);
+                              });
+                            },
+                          ), 
+                          actions: <Widget>[
+                            RaisedButton(
+                              color: Color(100000),
+                              child: Text(
+                                "Done",
+                                style: TextStyle(color: Colors.black),
+                              ),
+                              onPressed: () async {
+                                   a = a+2 ;
+                                
+                                prefix0.double valueHolder;
+                                                                a = valueHolder; // as prefix0.double;
+                                Navigator.of(context).pop();
+                                 prefs.setdouble("fontSize1", valueHolder);
+                                 
+                                Navigator.of(context).push(
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  return new MyApp44(value: 0, fontSize1: valueHolder,);
+                }));
+                                
+                                
+                                              Navigator.pop(context); //, a);
+                              },
+                            )
+                          ],
+                        )); */
               },
             ),
             IconButton(
@@ -218,6 +297,10 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
               onPressed: () {
                 // openPage(context);
                 // return new MyApp2();
+                Navigator.of(context).push(
+                    MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  return new GlobalSearch();
+                }));
                 print("searching");
               },
             ),
@@ -238,22 +321,41 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                   builder: (context, snapshot) {
                     // Decode the JSON
                     var newData = json.decode(snapshot.data.toString());
+
                     // currentPageValue = controller.initialPage as prefix0.double;
                     // currentPageValue = widget.currentPageValue;// as prefix0.double;
                     return PageView.builder(
                       // Build the ListView
                       itemCount: 1330,
                       controller: controller,
-                      // PageController(
-                      //   initialPage: widget.value,
-                      //   // keepPage: false,
-                      // ),
-                      // controller.initialpage = value,
-                      // pageSnapping: true,
+                      pageSnapping: true,
                       scrollDirection: Axis.horizontal,
-
-                      physics:
-                          ClampingScrollPhysics(), //BouncingScrollPhysics(),
+                      onPageChanged: (int index) {
+                        prefix0.print("OnPageChanegd:: index:: $index");
+                        summa((index).round() + 1);
+                        summa((index).round() + 2);
+                        summa((index).round() );
+                        if(newData[index]['isfav'] == 0)
+                        {
+                          
+                            _isFavorited = false;
+                            _isfav = false;
+                          
+                        }
+                        else {
+                          
+                            _isFavorited = true;
+                            _isfav = true;
+                          
+                        }
+                        prefix0.print("rounded Index: ${index.round()}");
+                        // summa(index+3);summa(index+4);summa(index+5);summa(index+6);summa(index+7);
+                        // summa(index-3);summa(index-4);summa(index-5);summa(index-6);summa(index-7);
+                        // summa(index.round());
+                      },
+                      // summa(currentPageValue),
+                      // physics:
+                      //     ClampingScrollPhysics(), //BouncingScrollPhysics(),
                       itemBuilder: (BuildContext context, int index) {
                         // controller.addListener(() {
                         //   setState(() {
@@ -267,10 +369,23 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                         // currentPageValue = widget.currentPageValue; // as prefix0.double;
                         // currentPageValue = index; // as prefix0.double;
                         // controller.addListener(currentPageValue);
-                        print(currentPageValue);
-                        print("index  $index");
-                        prefs.setint("cursor", index);
+                        // print(currentPageValue);
+                        // print("index  $index");
                         cursor = index;
+                        prefs.setint("cursor", cursor);
+                        favKural = index + 1;
+                        prefix0.print(favKural);
+                        // _isFavorited = 0;
+                        prefix0.print("${newData[index]['kural_tamil1']}");
+                        // summa(index.round() + 2);
+                        // summa(index.round() + 1);
+                        // summa(index.round() - 1);
+                        // summa(index.round() - 2);
+                        // summa(index.round());
+summa(favKural);
+                        prefix0.print("rounded Index: ${index.round()}");
+                        prefix0.print("_isFavorited:: $_isFavorited");
+
                         return Card(
                           child: Column(
                             // crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -283,18 +398,57 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     new Text(
-                                      "குறள் எண்: ${newData[index]['kural_no']}", //${newData.kural_no}",
-                                      style: TextStyle(fontSize: 18 + widget.fontSize1),
+                                      "குறள்: ${newData[index]['kural_no']}", //${newData.kural_no}",
+                                      style: TextStyle(fontSize: 18),
                                     ),
-                                    // new RaisedButton(
-                                    //   onPressed: null,
-                                    //   child: Text(" ")
 
-                                    // ),
-//                                     new IconButton(
-// icon: const Icon(Icons.favorite) ,
-// onPressed: null,
-//                                     ),
+                                    // new FavoriteWidget(),
+                                    IconButton(
+                                        icon: (_isFavorited == true &&
+                                                _isfav == true
+                                            ? Icon(Icons.star)
+                                            : Icon(Icons.star_border)),
+                                        color: Colors.red[500],
+                                        autofocus: true,
+                                        onPressed: () async {
+                                          var favTest = (index + 1);
+
+                                          // prefix0.print("favTest:  $favTest");
+                                          testR = await db.any_query(
+                                              // "SELECT * from complete where isfav = 0 and kural_no =$favKural",
+                                              "SELECT * from complete where kural_no = $favTest",
+                                              "modi_kural_comp.db");
+                                          prefix0.print("testR: $testR");
+                                          if (testR.isEmpty) {
+                                            //testR.contains((index+1)) ) {
+                                            setState(() {
+                                              _isFavorited = true;
+                                              _isfav = true;
+                                              db.any_query(
+                                                  //"UPDATE complete1 SET isfav=0 WHERE kural_no = $favKural",
+                                                  "insert into complete select * from complete1 where kural_no = ($index+1)",
+                                                  "modi_kural_comp.db");
+                                              prefix0.print(
+                                                  "_isFavorited00 : $_isFavorited");
+                                            });
+                                          } else {
+                                            setState(() {
+                                              _isFavorited = false;
+                                              _isfav = false;
+                                              db.any_query(
+                                                  // "UPDATE complete1 SET isfav=1 WHERE kural_no = $favKural",
+                                                  "delete from complete where kural_no = $favTest",
+                                                  "modi_kural_comp.db");
+                                              prefix0.print(
+                                                  "_isFavorited 000 : $_isFavorited");
+                                            });
+                                          }
+                                          // _isFavorited = 1;
+
+                                          // db.any_query(
+                                          //     "insert into complete select * from complete1 where kural_no = $favKural",
+                                          //     "modi_kural_comp.db");
+                                        }),
 
                                     new IconButton(
                                       icon: const Icon(Icons.search),
@@ -406,19 +560,19 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                             'image/png',
                                             text:
                                                 'குறள் ${newData[index]['kural_no']}: ${newData[index]['kural_tamil1']} ');
-// var abcd = ImageEditor(image: image);
-// if (this.isImageloaded) {
-//       return new CustomPaint(
-//         child: Text("${newData[index]['kural_no']}: ${newData[index]['kural_tamil1']}"),
-//           painter: new ImageEditor(image: image),
-//         );
-//     } else {
-//       return new Center(child: new Text('loading'));
-//     }
+                                        // var abcd = ImageEditor(image: image);
+                                        // if (this.isImageloaded) {
+                                        //       return new CustomPaint(
+                                        //         child: Text("${newData[index]['kural_no']}: ${newData[index]['kural_tamil1']}"),
+                                        //           painter: new ImageEditor(image: image),
+                                        //         );
+                                        //     } else {
+                                        //       return new Center(child: new Text('loading'));
+                                        //     }
 
                                         //ui.PictureRecorder recorder = ui.PictureRecorder();
 
-// await Share.file('esys image', 'esys.png', bytes.buffer.asUint8List(), 'image/png', text: 'குறள் ${newData[index]['kural_no']}: ${newData[index]['kural_tamil1']} ');
+                                        // await Share.file('esys image', 'esys.png', bytes.buffer.asUint8List(), 'image/png', text: 'குறள் ${newData[index]['kural_no']}: ${newData[index]['kural_tamil1']} ');
 
                                         // Share.share(
                                         //     'App Link... www.nithra.mobi');
@@ -462,10 +616,10 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                     fontSize: 20),
                                               ),
                                               onPressed: () {
-                                                  //Navigator.pop(context),
-                                                  Navigator.of(context)
-                                                      .pop();// dismiss dialog
-                                                      }, 
+                                                //Navigator.pop(context),
+                                                Navigator.of(context)
+                                                    .pop(); // dismiss dialog
+                                              },
                                               color: Color.fromRGBO(
                                                   0, 179, 134, 1.0),
                                               radius:
@@ -553,7 +707,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                   newData[index]
                                                       ['kural_tamil1'],
                                                   style: TextStyle(
-                                                    fontSize: 15 + widget.fontSize1,
+                                                    fontSize: 15 + a,
                                                     color: Colors
                                                         .deepPurpleAccent, //purple[300],
                                                     // decoration: TextDecoration.underline,
@@ -565,7 +719,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                 Text(
                                                   "விளக்கம்:",
                                                   style: TextStyle(
-                                                    fontSize: 20,
+                                                    fontSize: 20 + a,
                                                     color: Colors.black,
                                                     decoration: TextDecoration
                                                         .underline,
@@ -578,7 +732,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                   newData[index]
                                                       ['kuralvilakam_tamil'],
                                                   style: TextStyle(
-                                                    fontSize: 15 + widget.fontSize1,
+                                                    fontSize: 15 + a,
                                                     color: Colors.purple,
                                                     // decoration: TextDecoration.underline,
                                                     // decorationColor: Colors.red,
@@ -589,7 +743,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                 Text(
                                                   "கலைஞர் உரை:",
                                                   style: TextStyle(
-                                                    fontSize: 20 + widget.fontSize1,
+                                                    fontSize: 20 + a,
                                                     color: Colors.black,
                                                     decoration: TextDecoration
                                                         .underline,
@@ -601,7 +755,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                 Text(
                                                   newData[index]['desc1'],
                                                   style: TextStyle(
-                                                    fontSize: 15 + widget.fontSize1,
+                                                    fontSize: 15 + a,
                                                     color: Colors.purple,
                                                     // decoration: TextDecoration.underline,
                                                     // decorationColor: Colors.red,
@@ -612,7 +766,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                 Text(
                                                   "சாலமன் பாப்பைய்யா:",
                                                   style: TextStyle(
-                                                    fontSize: 20 + widget.fontSize1,
+                                                    fontSize: 20 + a,
                                                     color: Colors.black,
                                                     decoration: TextDecoration
                                                         .underline,
@@ -624,7 +778,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                                 Text(
                                                   newData[index]['desc2'],
                                                   style: TextStyle(
-                                                    fontSize: 15 + widget.fontSize1,
+                                                    fontSize: 15 + a,
                                                     color: Colors.purple,
                                                     // decoration: TextDecoration.underline,
                                                     // decorationColor: Colors.red,
@@ -660,7 +814,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                       // currentPageValue = controller.page;
 
                                       controller.jumpToPage(index.floor() - 1);
-
+                                      prefix0.print("index: $index");
                                       // print("searching");
                                     },
                                   ),
@@ -681,7 +835,7 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
                                       // return new MyApp2();
                                       //position = currentAnimationValue.floor() + 1;
                                       // currentPageValue = controller.page;
-                                      prefix0.print(currentPageValue);
+                                      prefix0.print("index: $index");
                                       controller.jumpToPage(index.floor() + 1);
                                       //print("searching");
                                     },
@@ -698,6 +852,112 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
             ),
           ),
         ));
+  }
+
+  // summa_init () async {
+  //   List<Map<String, dynamic>> result10; // = null;
+  //   List<Map<String, dynamic>> result09; // = null;
+  //   var result9;
+  //   List<Map<String, dynamic>> result11; // = null;
+  //   // int temp = await prefs.getInt("cursor");
+  //   try {
+  //     result10 =
+  //         await db.any_query("select * from complete", "modi_kural_comp.db");
+  //     if (result10.isEmpty) {
+  //       _isFavorited = false;
+  //       _isfav = false;
+  //     } else if (result10.isNotEmpty) {
+  //       result09 = await db.any_query(
+  //           "select kural_no from complete", "modi_kural_comp.db");
+  //       for (var i = 0; i < result09.length; i++) {
+  //         prefix0.print("Try Catch: ${result09[i]['kural_no']}");
+  //         await db.any_query(
+  //             "UPDATE complete1 SET isfav=1 WHERE kural_no = ${result09[i]['kural_no']}",
+  //             "modi_kural_comp.db");
+  //         // controller.addListener(() {
+  //         //   setState(() {
+  //         //     if(currentPageValue == result09[i]['kural_no'])
+  //         //     _isFavorited = true;
+  //         //   });
+  //         // });
+  //       }
+  //     } else {
+  //       prefix0.print("Not Happening");
+  //     }
+  //   } catch (e) {
+  //     prefix0
+  //         .print("Exception result10: Complete Table   true  " + e.toString());
+  //   }
+
+  //   try {
+  //     result11 = await db.any_query(
+  //         "SELECT * from complete where kural_no =$value ",
+  //         "modi_kural_comp.db");
+  //     prefix0.print("Summa : result11: $result11");
+  //     if (result11.isEmpty) {
+  //       _isFavorited = false;
+  //       _isfav = false;
+  //     } else {
+  //       _isFavorited = true;
+  //       _isfav = true;
+  //     }
+  //     // prefix0.print("result11: ${result11[0]['kural_tamil1']}");
+  //   } catch (Exception) {
+  //     prefix0.print("Exception result11:   true  " + Exception.toString());
+  //   }
+  // }
+  summa(int value) async {
+    List<Map<String, dynamic>> result10; // = null;
+    List<Map<String, dynamic>> result09; // = null;
+    var result9;
+    List<Map<String, dynamic>> result11; // = null;
+    // int temp = await prefs.getInt("cursor");
+    try {
+      result10 =
+          await db.any_query("select * from complete", "modi_kural_comp.db");
+      if (result10.isEmpty) {
+        
+        _isFavorited = false;
+        _isfav = false;  
+        
+        
+      } else if (result10.isNotEmpty) {
+        result09 = await db.any_query(
+            "select kural_no from complete", "modi_kural_comp.db");
+        for (var i = 0; i < result09.length; i++) {
+          prefix0.print("Try Catch: ${result09[i]['kural_no']}");
+          await db.any_query(
+              "UPDATE complete1 SET isfav=1 WHERE kural_no = ${result09[i]['kural_no']}",
+              "modi_kural_comp.db");
+        }
+      } else {
+        prefix0.print("Not Happening");
+      }
+    } catch (e) {
+      prefix0
+          .print("Exception result10: Complete Table   true  " + e.toString());
+    }
+
+    try {
+      result11 = await db.any_query(
+          "SELECT * from complete where kural_no =$value ",
+          "modi_kural_comp.db");
+      prefix0.print("Summa : result11: $result11");
+      if (result11.isEmpty) {
+        
+          _isFavorited = false;
+          _isfav = false;
+        
+      } else {
+        
+          _isFavorited = true;
+          _isfav = true;
+        
+      }
+      // prefix0.print("result11: ${result11[0]['kural_tamil1']}");
+    } catch (Exception) {
+      prefix0.print("Exception result11:   true  " + Exception.toString());
+    }
   }
 
   _displayDialog(BuildContext context) async {
@@ -767,6 +1027,10 @@ fontSize1 =  prefs.getdouble("fontSIze1") as int;
   // }
 }
 
+_summa(int value) {
+  prefix0.print("_summa :: currentPageValue: $value ");
+}
+
 class ImageEditor extends CustomPainter {
   ImageEditor({
     this.image,
@@ -795,19 +1059,41 @@ class FavoriteWidget extends StatefulWidget {
 // #docregion _FavoriteWidgetState, _FavoriteWidgetState-fields, _FavoriteWidgetState-build
 class _FavoriteWidgetState extends State<FavoriteWidget> {
   // #enddocregion _FavoriteWidgetState-build
-  bool _isFavorited = true;
+
   // int _favoriteCount = 41;
   // #enddocregion _FavoriteWidgetState-fields
 
   // #docregion _toggleFavorite
-  void _toggleFavorite() {
-    setState(() {
-      if (_isFavorited) {
+
+  void _toggleFavorite() async {
+    setState(() async {
+      if (_isFavorited == true) {
         // _favoriteCount -= 1;
-        _isFavorited = false;
+        _isFavorited = false; // as prefix0.int;
+        await db.any_query("delete * from complete where kural_no = $favKural",
+            "modi_kural_comp.db");
+        // DELETE FROM Students WHERE StudentId = 11 OR StudentId = 12;
+
       } else {
         // _favoriteCount += 1;
-        _isFavorited = true;
+        _isFavorited = true; // as prefix0.int;
+        //  var kSearch = db.any_query("select * from complete where kural_no LIKE $favKural ", "modi_kural_comp.db");
+        //  print("kSearch $kSearch");
+        //  if(kSearch){
+        //    prefix0.print("Already inserted");
+        //  } else {
+        await db.any_query(
+            "insert into complete select * from complete1 where kural_no = $favKural",
+            "modi_kural_comp.db");
+        // }
+        // setState(() {
+        //   _isFavorited = true;
+        // });
+        // }
+
+//  ResultFav = await db.any_query("select * from complete", "modi_kural_comp.db");
+//         prefix0.print("ResultFav $ResultFav");
+
       }
     });
   }
@@ -822,7 +1108,9 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
         Container(
           padding: EdgeInsets.all(0),
           child: IconButton(
-            icon: (_isFavorited ? Icon(Icons.star) : Icon(Icons.star_border)),
+            icon: (_isFavorited == true
+                ? Icon(Icons.star)
+                : Icon(Icons.star_border)),
             color: Colors.red[500],
             onPressed: _toggleFavorite,
           ),

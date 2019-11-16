@@ -44,16 +44,33 @@ class Shared_Preference {
   }
 
   void setInt(String s, int index) {}
-  Future setdouble(String key, double value) async {
+
+ Future setdouble(String key, double value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     prefs.setDouble(key, value);
   }
-  Future getdouble(String key) async {
+
+
+  // Future setdouble(String key, double value) async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   prefs.setDouble(key, value);
+  // }
+
+  Future getDouble(String key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool CheckValue = prefs.containsKey(key);
     if (CheckValue == false) {
-      await prefs.setDouble(key, 0);
+      await prefs.setDouble(key, 0.0);
     }
     return await prefs.getDouble(key);
   }
 }
+//   Future getdouble(String key, double fontSize11) async {
+//     SharedPreferences prefs = await SharedPreferences.getInstance();
+//     bool CheckValue = prefs.containsKey(key);
+//     if (CheckValue == false) {
+//       await prefs.setDouble(key, 0);
+//     }
+//     return await prefs.getDouble(key);
+//   }
+// }

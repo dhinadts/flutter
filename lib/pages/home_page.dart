@@ -1,5 +1,6 @@
 import 'package:dhina/Gsearch.dart';
 import 'package:dhina/fragments/first_fragment.dart';
+import 'package:dhina/main_pages/favorite_Displays.dart';
 import 'package:dhina/main_pages/starting4.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/feedback_ex.dart';
@@ -13,9 +14,11 @@ import 'package:dhina/tapOption.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/seekbar1.dart';
 import '../SeekBarEx.dart';
+import '../cate2pgview.dart';
 import '../scrollviewEx.dart';
 
 var newData;
+List<Map<String, dynamic>> newData1;
 // List<Map<String, dynamic>> result1, result2, result3;
 
 class DrawerItem {
@@ -29,6 +32,7 @@ class HomePage extends StatefulWidget {
     new DrawerItem("முகப்பு", Icons.home),
     new DrawerItem("வகைப்பட்டியல்", Icons.category),
     new DrawerItem("முழு பட்டியல்", Icons.fullscreen),
+    new DrawerItem("favourites", Icons.favorite),
     new DrawerItem("தேடல்", Icons.search),
     new DrawerItem("செல்", Icons.find_in_page),
     new DrawerItem("தனியுரிமைக் கொள்கை", Icons.security),
@@ -39,7 +43,7 @@ class HomePage extends StatefulWidget {
     new DrawerItem("DiaEXam", Icons.explore),
     new DrawerItem("checkDB", Icons.explore),
     new DrawerItem("title", Icons.expand_less),
-    new DrawerItem("ExtraCheck", Icons.expand_less),
+    new DrawerItem("Favourites", Icons.favorite),
   ];
 
   @override
@@ -74,8 +78,10 @@ var db = DatabaseHelper();
       }
       case 2:
         return new MyApp4();
-      case 3:
-        return new GlobalSearch();
+      case 3: {
+         
+        return new Favorite11();
+      }
       case 4:
         return new GlobalSearch();
       case 5:
@@ -93,7 +99,7 @@ var db = DatabaseHelper();
       case 11:
         return null;
       case 12:
-        return SeekBarEx();
+        return Favorite11();
       default:
         return null;
     }
@@ -177,10 +183,20 @@ onSelectItem3(String s) async {
     @override
     Future<String> _loadAStudentAsset() async {
       newData = await rootBundle.loadString('assets/complete1.json');
+       await db.db_move();
+       
     }
+    dbmove() async {
+      await db.db_move();
+      ResultFav =  await db.any_query('SELECT * from complete', //1 where isfav=1', 
+                   //1 where isfav=1', 
+                   "modi_kural_comp.db");
+    }
+    
 
     super.initState();
-    dbhelp.db_move();
+    // dbmove();
+    // dbhelp.db_move();
     _loadAStudentAsset();
   }
 

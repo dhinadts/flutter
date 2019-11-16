@@ -105,7 +105,7 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
           onPressed: () {
             // Use the second argument of Navigator.pop(...) to pass
             // back a result to the page that opened the dialog
-              prefs.setint("fontSize1", _fontSize as int);
+              // prefs.setint("fontSize1", _fontSize as int);
             Navigator.pop(context, _fontSize);
           },
           child: Text('DONE'),

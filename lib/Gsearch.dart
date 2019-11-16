@@ -29,7 +29,7 @@ class _GlobalSearchState extends State<GlobalSearch> {
           appBar: AppBar(
             // backgroundColor: Color(0xFF),
             title: Text(
-              'Kural Searching...',
+              'குறள் தேடல்...',
               textAlign: TextAlign.center,
             ),
           ),
@@ -43,8 +43,8 @@ class _GlobalSearchState extends State<GlobalSearch> {
                   decoration: InputDecoration(
                       contentPadding:
                           const EdgeInsets.symmetric(vertical: 20.0),
-                      hintText: "Type word in tamil",
-                      labelText: 'search'),
+                      hintText: "Text search/உரைத்தேடல் ",
+                      labelText: 'search/தேடல்: '),
                 ),
                 new Text('     '),
                 new Text('     '),
@@ -101,7 +101,7 @@ class GlobalSearchingKural extends StatelessWidget {
               );
             },
           ),
-          title: Text('Results'),
+          title: Text('குறள்கள்:'),
         ),
         body: ListView.builder(
             itemCount: searchResult1.length,
@@ -113,7 +113,7 @@ class GlobalSearchingKural extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => MyApp44(
                                 value:
-                                    (searchResult1[index]['kural_no']) - 1)));
+                                    (searchResult1[index]['kural_no']) -1 )));
                     //GlobalSearchingNavigation() ));
                     // SearchingKural())); // null = AdhikaramKural()
                   },

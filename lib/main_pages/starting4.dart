@@ -2,13 +2,9 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
-import 'package:dhina/SeekBarEx.dart';
 import 'package:dhina/fragments/first_fragment.dart';
-import 'package:dhina/main_pages/writeJSON.dart';
-import 'package:dhina/seekbar1.dart' as prefix1;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:like_button/like_button.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
@@ -17,24 +13,17 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
 import 'package:dhina/db/sharedpref.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../Gsearch.dart';
 import 'package:dhina/db/dbhelper.dart';
-// import 'package:clipboard_manager/clipboard_manager.dart';
-import 'package:dhina/SeekBarEx.dart';
-// void main() {
-//   runApp(MaterialApp(
-//     home: MyApp(),
-//   ));
-// }
-
-import '../cate2pgview.dart';
-import '../seekbar1.dart';
 
 var prefs = Shared_Preference();
 double valueHolder = 0.0;
 var db = DatabaseHelper();
 var favData;
+bool _isFavorited = false;
+bool _isfav = false;
+var favKural;
+List<Map<String, dynamic>> testR;
 // void main() {
 //   runApp(MaterialApp(
 //     title: 'Returning Data',
@@ -121,8 +110,9 @@ var favData;
 //   }
 // }
 ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
-
+List<Map<String, dynamic>> favResult;
 var fav_kural;
+
 class MyApp4 extends StatefulWidget {
   final int fontSize1;
   MyApp4({Key key, this.fontSize1}) : super(key: key);
@@ -141,17 +131,15 @@ class MyApp4State extends State<MyApp4> {
 
   prefix0.int index1;
 
-  
-
   @override
   void initState() {
     // Future<String> _loadAStudentAsset() async {
     //   newData = await rootBundle.loadString('assets/complete1.json');
     //   print(newData);
     // }
-     // a= prefs.getInt("fontSize1") as prefix0.double;
-     // a = prefs.getInt("fontSize1") as prefix0.double;
-     // prefs.setInt("fontSize1", a as prefix0.int);
+    // a= prefs.getInt("fontSize1") as prefix0.double;
+    // a = prefs.getInt("fontSize1") as prefix0.double;
+    // prefs.setInt("fontSize1", a as prefix0.int);
     // a = valueHolder.toDouble();
     //  as prefix0.double;
 //     Future checkFontSize1() async {
@@ -203,8 +191,6 @@ class MyApp4State extends State<MyApp4> {
 
   @override
   Widget build(BuildContext context) {
-     
-                      
     return Scaffold(
         resizeToAvoidBottomPadding: false,
         // resizeToAvoidBottomInset: true,
@@ -213,8 +199,8 @@ class MyApp4State extends State<MyApp4> {
           // primary: true,
           leading: Builder(
             builder: (BuildContext context) {
-              return 
-              /*   child: FutureBuilder(
+              return
+                  /*   child: FutureBuilder(
                   future: DefaultAssetBundle.of(context)
                       .loadString('assets/complete1.json'),
                   builder: (context, snapshot) {
@@ -222,7 +208,7 @@ class MyApp4State extends State<MyApp4> {
                     var newData = json.decode(snapshot.data.toString());
 
                */
-              IconButton(
+                  IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () {
                   // Scaffold.of(context).openDrawer();
@@ -239,9 +225,9 @@ class MyApp4State extends State<MyApp4> {
           title: const Text('திருக்குறள்'),
           actions: <Widget>[
             new FavoriteWidget(),
-             // FlutterDemo(storage: CounterStorage(),),
+            // FlutterDemo(storage: CounterStorage(),),
 
-          /*  LikeButton(
+            /*  LikeButton(
               // size: buttonSize,
               circleColor:
                   CircleColor(start: Color(0xff00ddff), end: Color(0xff0099cc)),
@@ -317,7 +303,7 @@ class MyApp4State extends State<MyApp4> {
 //                   MaterialPageRoute<Null>(builder: (BuildContext context) {
 //                 return new MyAppSeek(); }));
 // var _fontSize;
-
+/*
                 return showDialog(
                     context: context,
                     builder: (context) => new AlertDialog(
@@ -350,8 +336,8 @@ class MyApp4State extends State<MyApp4> {
                               onPressed: () async {
                                 //    a = a+2 ;
                                 // a = valueHolder as prefix0.double;
-                                Navigator.of(context).pop();
-                                 prefs.setdouble("fontSize1", valueHolder);
+                                // Navigator.of(context).pop();
+                                //  prefs.setdouble("fontSize1", valueHolder);
                                  
                 //                 Navigator.of(context).push(
                 //     MaterialPageRoute<Null>(builder: (BuildContext context) {
@@ -363,7 +349,7 @@ class MyApp4State extends State<MyApp4> {
                               },
                             )
                           ],
-                        ));
+                        )); */
               },
             ),
             IconButton(
@@ -395,7 +381,6 @@ class MyApp4State extends State<MyApp4> {
                   builder: (context, snapshot) {
                     // Decode the JSON
                     var newData = json.decode(snapshot.data.toString());
-                    
 
                     return PageView.builder(
                       // Build the ListView
@@ -403,17 +388,30 @@ class MyApp4State extends State<MyApp4> {
                       controller: controller,
                       pageSnapping: true,
                       scrollDirection: Axis.horizontal,
-                      physics:
-                          ClampingScrollPhysics(), //BouncingScrollPhysics(),
+                      onPageChanged: (int index) {
+                        prefix0.print("OnPageChanegd:: index:: $index");
+                        summa((index).round() + 1);
+                        prefix0.print("rounded Index: ${index.round()}");
+                        // summa(index+3);summa(index+4);summa(index+5);summa(index+6);summa(index+7);
+                        // summa(index-3);summa(index-4);summa(index-5);summa(index-6);summa(index-7);
+                        summa(index.round());
+                      },
                       itemBuilder: (BuildContext context, int index) {
                         // setState(() {
                         //   index1 = index;
                         // });
                         cursor = index;
-        favData = db.any_query("SELECT * from complete1 where kural_no=$index", "modi_kural_comp.db");
-
-
                         prefs.setint("cursor", cursor);
+                        favKural = index + 1;
+                        prefix0.print(favKural);
+                        // _isFavorited = 0;
+                        prefix0.print("${newData[index]['kural_tamil1']}");
+                        summa(index.round() + 2);
+
+                        prefix0.print("rounded Index: ${index.round()}");
+                        prefix0.print("_isFavorited:: $_isFavorited");
+
+                        // prefs.setint("cursor", cursor);
                         // prefs.setint("fav_kural", newData[index]['kural_no']);
                         // fav_kural = newData[index]['kural_no'];
 
@@ -434,16 +432,50 @@ class MyApp4State extends State<MyApp4> {
                                       "குறள்: ${newData[index]['kural_no']}", //${newData.kural_no}",
                                       style: TextStyle(fontSize: (18 + a)),
                                     ),
-                                    // new RaisedButton(
-                                    //   onPressed: null,
-                                    //   child: Text(" ")
+                                    IconButton(
+                                        icon: (_isFavorited == true &&
+                                                _isfav == true
+                                            ? Icon(Icons.star)
+                                            : Icon(Icons.star_border)),
+                                        color: Colors.red[500],
+                                        onPressed: () async {
+                                          var favTest = (index + 1);
+                                          // prefix0.print("favTest:  $favTest");
+                                          testR = await db.any_query(
+                                              // "SELECT * from complete where isfav = 0 and kural_no =$favKural",
+                                              "SELECT * from complete where kural_no = $favTest",
+                                              "modi_kural_comp.db");
+                                          prefix0.print("testR: $testR");
+                                          if (testR.isEmpty) {
+                                            //testR.contains((index+1)) ) {
+                                            setState(() {
+                                              _isFavorited = true;
+                                              _isfav = true;
+                                              db.any_query(
+                                                  //"UPDATE complete1 SET isfav=0 WHERE kural_no = $favKural",
+                                                  "insert into complete select * from complete1 where kural_no = ($index+1)",
+                                                  "modi_kural_comp.db");
+                                              prefix0.print(
+                                                  "_isFavorited00 : $_isFavorited");
+                                            });
+                                          } else {
+                                            setState(() {
+                                              _isFavorited = false;
+                                              _isfav = false;
+                                              db.any_query(
+                                                  // "UPDATE complete1 SET isfav=1 WHERE kural_no = $favKural",
+                                                  "delete from complete where kural_no = $favTest",
+                                                  "modi_kural_comp.db");
+                                              prefix0.print(
+                                                  "_isFavorited 000 : $_isFavorited");
+                                            });
+                                          }
+                                          // _isFavorited = 1;
 
-                                    // ),
-//                                     new IconButton(
-// icon: const Icon(Icons.favorite) ,
-// onPressed: null,
-//                                     ),
-new FavoriteWidget(),
+                                          // db.any_query(
+                                          //     "insert into complete select * from complete1 where kural_no = $favKural",
+                                          //     "modi_kural_comp.db");
+                                        }),
                                     new IconButton(
                                       icon: const Icon(Icons.search),
                                       onPressed: () {
@@ -459,30 +491,29 @@ new FavoriteWidget(),
                                             builder: (context) {
                                               prefix0.num _value;
                                               return AlertDialog(
-                                                title:
-                                                    Text('Type Kural Number'),
+                                                title: Text(
+                                                    'குறள் எண்ணை தட்டவும்'),
                                                 content: TextFormField(
                                                   keyboardType: TextInputType
                                                       .number, //numberWithOptions(decimal: true),
                                                   controller:
                                                       _textFieldController,
                                                   decoration: InputDecoration(
-                                                      hintText:
-                                                          "Type Kural Number"),
+                                                      hintText: "குறள் எண்: "),
                                                   onSaved: (input) => _value =
                                                       int.tryParse(input),
                                                   // textInputAction: controller.jumpTo(value),
                                                 ),
                                                 actions: <Widget>[
                                                   new FlatButton(
-                                                    child: new Text('CANCEL'),
+                                                    child: new Text('இல்லை'),
                                                     onPressed: () {
                                                       Navigator.of(context)
                                                           .pop();
                                                     },
                                                   ),
                                                   new FlatButton(
-                                                    child: new Text('GO'),
+                                                    child: new Text('ஆம்'),
                                                     onPressed: () {
                                                       // Navigator.of(context).pop();
                                                       // print("text.controller:  ${_textFieldController.text}");
@@ -787,12 +818,52 @@ new FavoriteWidget(),
                                                     // fontWeight: FontWeight.bold,
                                                   ),
                                                 ),
-                                                Text("English : " +
+                                                Text(
+                                                  "Kural: ${newData[index]['kural_no']}",
+                                                  style: TextStyle(
+                                                    fontSize: 20 + a,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
                                                     newData[index]
-                                                        ['iyal_tamil']),
-                                                Text("Explanation: " +
+                                                        ['kural_thanglish1'],
+                                                    style: TextStyle(
+                                                      fontSize: 15 + a,
+                                                      color: Colors.purple,
+                                                    )),
+                                                Text(
                                                     newData[index]
-                                                        ['adhikarm_tamil']),
+                                                        ['kural_thanglish2'],
+                                                    style: TextStyle(
+                                                      fontSize: 15 + a,
+                                                      color: Colors.purple,
+                                                    )),
+                                                Text(
+                                                  "Explanation: ",
+                                                  style: TextStyle(
+                                                    fontSize: 20 + a,
+                                                    color: Colors.black,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                    // decorationColor: Colors.red,
+                                                    // decorationStyle: TextDecorationStyle.wavy,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                                ),
+                                                Text(
+                                                  newData[index]
+                                                      ['kuralvilakam_english'],
+                                                  style: TextStyle(
+                                                    fontSize: 15 + a,
+                                                    color: Colors.purple,
+                                                  ),
+                                                ),
                                                 // Text("kural_no: " + newData[index]['kural_no']),
                                               ])))),
                               // Text("adhikarm_no " + newData[index]['adhikarm_no']),
@@ -845,6 +916,59 @@ new FavoriteWidget(),
             ),
           ),
         ));
+  }
+
+  summa(int value) async {
+    List<Map<String, dynamic>> result10; // = null;
+    List<Map<String, dynamic>> result09; // = null;
+    var result9;
+    List<Map<String, dynamic>> result11; // = null;
+    // int temp = await prefs.getInt("cursor");
+    try {
+      result10 =
+          await db.any_query("select * from complete", "modi_kural_comp.db");
+      if (result10.isEmpty) {
+        _isFavorited = false;
+        _isfav = false;
+      } else if (result10.isNotEmpty) {
+        result09 = await db.any_query(
+            "select kural_no from complete", "modi_kural_comp.db");
+        for (var i = 0; i < result09.length; i++) {
+          prefix0.print("Try Catch: ${result09[i]['kural_no']}");
+          await db.any_query(
+              "UPDATE complete1 SET isfav=1 WHERE kural_no = ${result09[i]['kural_no']}",
+              "modi_kural_comp.db");
+          // controller.addListener(() {
+          //   setState(() {
+          //     if(currentPageValue == result09[i]['kural_no'])
+          //     _isFavorited = true;
+          //   });
+          // });
+        }
+      } else {
+        prefix0.print("Not Happening");
+      }
+    } catch (e) {
+      prefix0
+          .print("Exception result10: Complete Table   true  " + e.toString());
+    }
+
+    try {
+      result11 = await db.any_query(
+          "SELECT * from complete where kural_no =$value ",
+          "modi_kural_comp.db");
+      prefix0.print("Summa : result11: $result11");
+      if (result11.isEmpty) {
+        _isFavorited = false;
+        _isfav = false;
+      } else {
+        _isFavorited = true;
+        _isfav = true;
+      }
+      // prefix0.print("result11: ${result11[0]['kural_tamil1']}");
+    } catch (Exception) {
+      prefix0.print("Exception result11:   true  " + Exception.toString());
+    }
   }
 
   _displayDialog(BuildContext context) async {
@@ -943,48 +1067,48 @@ class FavoriteWidget extends StatefulWidget {
 class _FavoriteWidgetState extends State<FavoriteWidget> {
   // #enddocregion _FavoriteWidgetState-build
   bool _isFavorited = true;
-  var fav; 
-  List<Map<String, dynamic>> result, favResult;
+  var fav;
+
   // int _favoriteCount = 41;
   // #enddocregion _FavoriteWidgetState-fields
 
   // #docregion _toggleFavorite
-  Future _toggleFavorite()  async {
-    // setState(()   async {
+  void _toggleFavorite() async {
+    setState(() async {
       if (_isFavorited) {
         // _favoriteCount -= 1;
         _isFavorited = false;
         prefix0.print("Not DB calling");
-      //   fav = await prefs.getInt("fav_kural");
-      //   print(fav);
-      //  await  db.any_query(
-      //  'CREATE TABLE favourites(id INT, pal_tamil TEXT, iyal_tamil TEXT, adhikarm_no INT, adhikarm_tamil TEXT, kural_no INT, kuralvilakam_tamil TEXT, kural_tamil1 TEXT, isfav INT, "Kural_no:1", desc1 TEXT, desc2 TEXT)', 'modi_kural_comp.db');
+        //   fav = await prefs.getInt("fav_kural");
+        //   print(fav);
+        // await  db.any_query(
+        // 'CREATE TABLE complete(id INT, pal_tamil TEXT, iyal_tamil TEXT, adhikarm_no INT, adhikarm_tamil TEXT, kural_no INT, kuralvilakam_tamil TEXT, kural_tamil1 TEXT, isfav INT, "Kural_no:1", desc1 TEXT, desc2 TEXT)', 'modi_kural_comp.db');
 
-        // favResult =  await  db.any_query(
-        //     'INSERT into favourites SELECT * from complete1 where kural_no = 2',
-        // 'modi_kural_comp.db');
-      //  fav_result = await db.any_query(
-      //      'SELECT * from favourites',
-      //  'modi_kural_comp.db');
-                //  print("Added Favourite $fav_result");
-       
+        await db.any_query(
+            'INSERT into complete SELECT * from complete1 where kural_no = $fav_kural',
+            'modi_kural_comp.db');
+        //  fav_result = await db.any_query(
+        //      'SELECT * from favourites',
+        //  'modi_kural_comp.db');
+        //  print("Added Favourite $fav_result");
+
       } else {
         // _favoriteCount += 1;
         _isFavorited = true;
-        var i;
-          db.any_query(
-           'SELECT * from favourites',
-      // complete1 where kural_no = 2',
-        'modi_kural_comp.db');
-      print("DB::: complete1");
-       favResult = await  db.any_query(
-           'select * from complete1 where kural_no = 2',
-                  'modi_kural_comp.db');
-      for ( i = 0; i < favResult.length; i++)
-      print("Added Favourite $favResult");
-
+        //   var i;
+        //  i = await  db.any_query(
+        //      'SELECT * from complete',
+        // // complete1 where kural_no = 2',
+        //   'modi_kural_comp.db');
+        print("DB::: complete1");
+        favResult = await db.any_query(
+            //  SELECT * from complete ORDER BY kural_no ASC
+            'select * from complete ',
+            'modi_kural_comp.db');
+        // // for ( i = 0; i < favResult.length; i++)
+        // print("Added Favourite $favResult");
       }
-    // });
+    });
   }
   // #enddocregion _toggleFavorite
 

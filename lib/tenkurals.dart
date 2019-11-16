@@ -100,8 +100,8 @@ class _TenSearchingKuralState extends State<TenSearchingKural> {
                     //width: 600.0, // 150 * MediaQuery.of(context).devicePixelRatio,
                     child: ListTile(
                   // contentPadding: EdgeInsets.symmetric(horizontal: 20.0),
-                  leading: Text("${adhikaramIndex[index]['kural_no']}"),
-                  trailing: Icon(Icons.keyboard_arrow_right),
+                  // leading: Text("${adhikaramIndex[index]['kural_no']}"),
+                  // trailing: Icon(Icons.keyboard_arrow_right),
                   // isThreeLine: true,
                   title: new Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,6 +112,7 @@ class _TenSearchingKuralState extends State<TenSearchingKural> {
                       // primary: true,
                       Expanded(
                         child: Text(
+                          // '${adhikaramIndex[index]['kural_no']}.'
                           '${adhikaramIndex[index]['kural_tamil1']}',
                           textScaleFactor: 1.0,
                           softWrap: true,

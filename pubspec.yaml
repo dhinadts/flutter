@@ -78,6 +78,7 @@ flutter:
     - privacy.js
     - 123.html
     - modi_kural_comp.db
+    - new_modi_kural_comp.db
     - complete1.json
     - PrivacyPolicy.js
     - valluvar.png
