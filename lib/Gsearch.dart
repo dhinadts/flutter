@@ -1,4 +1,5 @@
 import 'package:dhina/cate2pgview.dart';
+import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/material.dart';
 
 import 'package:dhina/db/dbhelper.dart';
@@ -111,7 +112,7 @@ class GlobalSearchingKural extends StatelessWidget {
                     await Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => MyApp44(
+                            builder: (context) => MyApp444(
                                 value:
                                     (searchResult1[index]['kural_no']) -1 )));
                     //GlobalSearchingNavigation() ));

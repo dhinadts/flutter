@@ -23,6 +23,8 @@ Depends on all your plugins, and provides a function to register them.
   s.dependency 'esys_flutter_share'
   s.dependency 'flutter_webview_plugin'
   s.dependency 'fluttertoast'
+  s.dependency 'launch_review'
+  s.dependency 'open_appstore'
   s.dependency 'package_info'
   s.dependency 'path_provider'
   s.dependency 'share'

@@ -44,6 +44,11 @@ dependencies:
   rflutter_alert: ^1.0.2
   esys_flutter_share: ^1.0.2
   seekbar: ^0.0.2
+  splashscreen:
+  open_appstore: ^1.0.2
+  launch_review: ^1.0.1
+
+
 flutter_seekbar:
     path: ../
   
@@ -59,7 +64,12 @@ flutter_seekbar:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  flutter_launcher_icons: "^0.7.3"
 
+flutter_icons:
+  android: "launcher_icon" 
+  ios: true
+  image_path: "assets/thirukural_round.png"  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -78,12 +88,20 @@ flutter:
     - privacy.js
     - 123.html
     - modi_kural_comp.db
-    - new_modi_kural_comp.db
+    - old_modi_kural_comp.db
     - complete1.json
     - PrivacyPolicy.js
     - valluvar.png
     - valluvar.jpeg
     - lake.jpg
+    - play.png
+    - play1.png
+    - skip.png
+    - category.png
+    - search.png
+    - gobutton.png
+    - tamil_calendar.webp
+    - spalsh_image.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -2,6 +2,7 @@ import 'dart:core';
 import 'dart:core' as prefix0;
 
 import 'package:dhina/cate2pgview.dart';
+import 'package:dhina/firstPage.dart';
 import 'package:dhina/main_pages/favorite_Displays.dart';
 import 'package:dhina/main_pages/starting3.dart';
 import 'package:dhina/main_pages/starting4.dart';
@@ -18,6 +19,8 @@ import '../SimpleSlider1.dart';
 import '../canvas1.dart';
 import '../tapOption.dart';
 import 'package:dhina/newMainpage1.dart';
+import 'package:open_appstore/open_appstore.dart';
+
 
 List<Map> x = [];
 List<String> items = <String>[];
@@ -65,6 +68,8 @@ class FirstState extends State<FirstFragment> {
     // class FirstFragment extends StatelessWidget {
     //   @override
     //   Widget build(BuildContext context) {
+
+
         return new Center(
             // return new Container(
     // width: 300.0,
@@ -129,7 +134,7 @@ class FirstState extends State<FirstFragment> {
                   if (v == 0) {
                     Navigator.of(context).push(
                         MaterialPageRoute<Null>(builder: (BuildContext context) {
-                      return new MyApp444(value: 0);
+                      return new MyApp444(value: 0, currentPageValue: 0, fontSize1: a,);
                     }));
                   } else {
                     Navigator.of(context).push(
@@ -212,7 +217,7 @@ class FirstState extends State<FirstFragment> {
                                     Navigator.of(context).push(
                                         MaterialPageRoute<Null>(
                                             builder: (BuildContext context) {
-                                      return new MyApp44(value: ff);
+                                      return new MyApp444(value: ff);
                                     }));
     
                                     //Navigator.of(context).pop();
@@ -340,13 +345,15 @@ class FirstState extends State<FirstFragment> {
                 color: Color(1100),
                 child: Text('நித்ரா தமிழ் நாட்காட்டி'),
                 onPressed: () async {
-                  ResultFav = await db.any_query('SELECT * from complete1 where isfav=1', 
-                   //1 where isfav=1', 
-                   "modi_kural_comp.db");
-                  Navigator.of(context).push(
-                      MaterialPageRoute<Null>(builder: (BuildContext context) {
-                    return new Favorite11(); // HomePage1();
-                  }));
+                //   ResultFav = await db.any_query('SELECT * from complete1 where isfav=1', 
+                //    //1 where isfav=1', 
+                //    "modi_kural_comp.db");
+                //   Navigator.of(context).push(
+                //       MaterialPageRoute<Null>(builder: (BuildContext context) {
+                //     return new Favorite11(); // HomePage1();
+                //   }));
+                OpenAppstore.launch(androidAppId: "com.facebook.katana&hl=ko", iOSAppId: "284882215");
+
                 },
               ),
               RaisedButton(
@@ -361,6 +368,24 @@ class FirstState extends State<FirstFragment> {
                       MaterialPageRoute<Null>(builder: (BuildContext context) {
                     return new Favorite11(); // HomePage1();
                   }));
+                },
+              ),
+              RaisedButton(
+                child: Text('FavouritesSample'),
+                color: Color(5400),
+                onPressed: () async {
+                  // BackupKurals = await db.any_query("SELECT kural_no ", dbName)
+                  // ResultFav = await db.any_query('SELECT * from complete', //1 where isfav=1', 
+                  //  //1 where isfav=1', 
+                  //  "modi_kural_comp.db");
+                  Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => FirstFragment1()),
+        );
+                  // Navigator.of(context).push(
+                  //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  //   return new FirstFragment1(); // HomePage1();
+                  // }));
                 },
               ),
               // RaisedButton(

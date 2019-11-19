@@ -9,6 +9,8 @@
 #import <esys_flutter_share/EsysFlutterSharePlugin.h>
 #import <flutter_webview_plugin/FlutterWebviewPlugin.h>
 #import <fluttertoast/FluttertoastPlugin.h>
+#import <launch_review/LaunchReviewPlugin.h>
+#import <open_appstore/OpenAppstorePlugin.h>
 #import <package_info/PackageInfoPlugin.h>
 #import <path_provider/PathProviderPlugin.h>
 #import <share/SharePlugin.h>
@@ -26,6 +28,8 @@
   [EsysFlutterSharePlugin registerWithRegistrar:[registry registrarForPlugin:@"EsysFlutterSharePlugin"]];
   [FlutterWebviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterWebviewPlugin"]];
   [FluttertoastPlugin registerWithRegistrar:[registry registrarForPlugin:@"FluttertoastPlugin"]];
+  [LaunchReviewPlugin registerWithRegistrar:[registry registrarForPlugin:@"LaunchReviewPlugin"]];
+  [OpenAppstorePlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenAppstorePlugin"]];
   [FLTPackageInfoPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlugin"]];
   [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
   [FLTSharePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharePlugin"]];

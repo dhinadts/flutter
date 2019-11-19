@@ -1,7 +1,10 @@
 import 'package:dhina/Gsearch.dart';
+import 'package:dhina/firstPage.dart';
 import 'package:dhina/fragments/first_fragment.dart';
+import 'package:dhina/fragments/second_fragment.dart';
 import 'package:dhina/main_pages/favorite_Displays.dart';
 import 'package:dhina/main_pages/starting4.dart';
+import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/feedback_ex.dart';
 import 'package:dhina/privacy_link.dart';
@@ -61,7 +64,7 @@ var db = DatabaseHelper();
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-         return new FirstFragment();
+         return new FirstFragment11();
 
       case 1: {
         // result = db.any_query(
@@ -77,7 +80,7 @@ var db = DatabaseHelper();
         return new TabBarDemo();
       }
       case 2:
-        return new MyApp4();
+        return new MyApp444(value: 0, currentPageValue: 0, fontSize1: 0,);
       case 3: {
          
         return new Favorite11();
@@ -101,7 +104,7 @@ var db = DatabaseHelper();
       case 12:
         return Favorite11();
       default:
-        return null;
+        return MyApp44();
     }
   }
 
@@ -188,6 +191,7 @@ onSelectItem3(String s) async {
     }
     dbmove() async {
       await db.db_move();
+      //newData1 = await db.any_query("select * from complete1", "modi_kural_comp.db");
       ResultFav =  await db.any_query('SELECT * from complete', //1 where isfav=1', 
                    //1 where isfav=1', 
                    "modi_kural_comp.db");
@@ -218,6 +222,8 @@ onSelectItem3(String s) async {
         // here we display the title corresponding to the fragment
         // you can instead choose to have a static title
         title: new Text('திருக்குறள்'),
+        //   automaticallyImplyLeading: false, // this will hide Drawer hamburger icon
+  
         actions: <Widget>[
           IconButton(
             icon: const Icon(Icons.share),

@@ -36,6 +36,8 @@ ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 
 // List<Map<String, dynamic>> newData1;
 List<Map<String, dynamic>> testR;
+List<Map<String, dynamic>> resFav;
+List<Map<String, dynamic>> favArray;
 var currentPageValue = 0;
 PageController controller = PageController();
 
@@ -102,6 +104,7 @@ class MyApp444State extends State<MyApp444> {
     super.initState();
     // _loadAStudentAsset();
     loadDb();
+    favouriteTable();
 
     controller.addListener(() {
       // summa(controller.page as prefix0.int);
@@ -121,6 +124,33 @@ class MyApp444State extends State<MyApp444> {
   loadDb() async {
     newData1 =
         await db.any_query("select * from complete1", "modi_kural_comp.db");
+  }
+
+  favouriteTable() async {
+    // resFav = await db.any_query(
+    //     // "SELECT * from complete where isfav = 0 and kural_no =$favKural",
+    //     "SELECT * from complete", // where kural_no = $favTest",
+    //     "modi_kural_comp.db");
+    // if (resFav.isEmpty) {
+    //   _isFavorited = false;
+    // } else {
+    //   favArray = await db.any_query(
+    //       "SELECT id from complete", // where kural_no = $favTest",
+    //       "modi_kural_comp.db");
+    //   prefix0.print("resFav+ $favArray");
+    // }
+    resFav = await db.any_query(
+        // "SELECT * from complete where isfav = 0 and kural_no =$favKural",
+        "SELECT * from complete1 where isfav =1", // where kural_no = $favTest",
+        "modi_kural_comp.db");
+    if (resFav.isEmpty) {
+      _isFavorited = false;
+    } else {
+      favArray = await db.any_query(
+          "SELECT id from complete1 where isfav = 1", // where kural_no = $favTest",
+          "modi_kural_comp.db");
+      prefix0.print("resFav+ $favArray");
+    }
   }
 
   Future<ui.Image> loadImage(List<int> img) async {
@@ -194,14 +224,40 @@ class MyApp444State extends State<MyApp444> {
           pageSnapping: true,
           scrollDirection: Axis.horizontal,
           onPageChanged: (int index) {
+            
+            for (var i = 0; i < favArray.length; i++) {
+              if ((index + 1) == favArray[i]['id']) {
+                setState(() {
+                  _isFavorited = true;
+                  _isfav = true;
+                });
+              } else {
+                setState(() {
+                  _isFavorited = false;
+                  _isfav = false;
+                });
+              }
+            }
+for (var i = 0; i < favArray.length; i++) {
+            if(newData1[index]['id']== favArray[i]['id'])
+            {
+              _isFavorited = true;
+              _isfav = true;
+            }
+            else {
+              _isFavorited =false;
+              _isfav = false;
+            }
+}
             prefix0.print("OnPageChanegd:: index:: $index");
             summa(index);
             summa((index).round() + 1);
             summa((index).round() + 2);
             prefix0.print("rounded Index: ${index.round()}");
-
+            // checkFavourites();
             prefix0.print(newData1[index]['kural_tamil1']);
             // prefix0.print(newData1[index+1]['kural_tamil1']);
+            
             if (newData1[index]['isfav'] == 0) {
               _isFavorited = false;
               _isfav = false;
@@ -216,13 +272,20 @@ class MyApp444State extends State<MyApp444> {
             prefs.setint("cursor", cursor);
             favKural = index + 1;
             prefix0.print(favKural);
+            
+
+            // if (newData1[index]['isfav'] == 0) {
+            //   _isFavorited = false;
+            //   _isfav = false;
+            // } else {
+            //   _isFavorited = true;
+            //   _isfav = true;
+            // }
             // _isFavorited = 0;
             prefix0.print("${newData1[index]['kural_tamil1']}");
             summa(index.round() + 2);
-
             prefix0.print("rounded Index: ${index.round()}");
             prefix0.print("_isFavorited:: $_isFavorited");
-
             return Card(
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -237,7 +300,6 @@ class MyApp444State extends State<MyApp444> {
                           "குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
                           style: TextStyle(fontSize: 18),
                         ),
-
                         // new FavoriteWidget(),
                         IconButton(
                             icon: (_isFavorited == true && _isfav == true
@@ -258,9 +320,8 @@ class MyApp444State extends State<MyApp444> {
                                 setState(() {
                                   _isFavorited = true;
                                   _isfav = true;
-
                                   db.any_query(
-                                      "UPDATE complete1 SET isfav=1 WHERE kural_no = $favKural",
+                                      "UPDATE complete1 SET isfav=1 WHERE kural_no = ($index+1)",
                                       // "insert into complete select * from complete1 where kural_no = ($index+1)",
                                       "modi_kural_comp.db");
                                   db.any_query(
@@ -275,7 +336,7 @@ class MyApp444State extends State<MyApp444> {
                                   _isFavorited = false;
                                   _isfav = false;
                                   db.any_query(
-                                      "UPDATE complete1 SET isfav=0 WHERE kural_no = $favKural",
+                                      "UPDATE complete1 SET isfav=0 WHERE kural_no = ($index+1)",
                                       //     // "delete from complete where kural_no = $favTest",
                                       "modi_kural_comp.db");
                                   db.any_query(
@@ -287,7 +348,6 @@ class MyApp444State extends State<MyApp444> {
                                 });
                               }
                             }),
-
                         new IconButton(
                           icon: const Icon(Icons.search),
                           onPressed: () {
@@ -558,52 +618,45 @@ class MyApp444State extends State<MyApp444> {
                                         // fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    //  Text(
-                                    //                 "Kural: ${newData1[index]['kural_no']}",
-                                    //                 style: TextStyle(
-                                    //                   fontSize: 20 + a,
-                                    //                   color: Colors.black,
-                                    //                   decoration: TextDecoration
-                                    //                       .underline,
-                                    //                   // decorationColor: Colors.red,
-                                    //                   // decorationStyle: TextDecorationStyle.wavy,
-                                    //                   fontWeight: FontWeight.bold,
-                                    //                 ),
-                                    //               ),
-                                    //               Text(
-                                    //                   newData1[index]
-                                    //                       ['kural_thanglish1'],
-                                    //                   style: TextStyle(
-                                    //                     fontSize: 15 + a,
-                                    //                     color: Colors.purple,
-                                    //                   )),
-                                    //               Text(
-                                    //                   newData1[index]
-                                    //                       ['kural_thanglish2'],
-                                    //                   style: TextStyle(
-                                    //                     fontSize: 15 + a,
-                                    //                     color: Colors.purple,
-                                    //                   )),
-                                    //               Text(
-                                    //                 "Explanation: ",
-                                    //                 style: TextStyle(
-                                    //                   fontSize: 20 + a,
-                                    //                   color: Colors.black,
-                                    //                   decoration: TextDecoration
-                                    //                       .underline,
-                                    //                   // decorationColor: Colors.red,
-                                    //                   // decorationStyle: TextDecorationStyle.wavy,
-                                    //                   fontWeight: FontWeight.bold,
-                                    //                 ),
-                                    //               ),
-                                    //               Text(
-                                    //                 newData1[index]
-                                    //                     ['kuralvilakam_english'],
-                                    //                 style: TextStyle(
-                                    //                   fontSize: 15 + a,
-                                    //                   color: Colors.purple,
-                                    //                 ),
-                                    //               ),
+                                    Text(
+                                      "Kural: ${newData1[index]['kural_no']}",
+                                      style: TextStyle(
+                                        fontSize: 20 + a,
+                                        color: Colors.black,
+                                        decoration: TextDecoration.underline,
+                                        // decorationColor: Colors.red,
+                                        // decorationStyle: TextDecorationStyle.wavy,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(newData1[index]['kural_thanglish1'],
+                                        style: TextStyle(
+                                          fontSize: 15 + a,
+                                          color: Colors.purple,
+                                        )),
+                                    Text(newData1[index]['kural_thanglish2'],
+                                        style: TextStyle(
+                                          fontSize: 15 + a,
+                                          color: Colors.purple,
+                                        )),
+                                    Text(
+                                      "Explanation: ",
+                                      style: TextStyle(
+                                        fontSize: 20 + a,
+                                        color: Colors.black,
+                                        decoration: TextDecoration.underline,
+                                        // decorationColor: Colors.red,
+                                        // decorationStyle: TextDecorationStyle.wavy,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      newData1[index]['kuralvilakam_english'],
+                                      style: TextStyle(
+                                        fontSize: 15 + a,
+                                        color: Colors.purple,
+                                      ),
+                                    ),
                                     // Text("kural_no: " + newData1[index]['kural_no']),
                                   ])))),
                   // Text("adhikarm_no " + newData1[index]['adhikarm_no']),
@@ -650,6 +703,44 @@ class MyApp444State extends State<MyApp444> {
         );
   }
 
+  favArrayCheck() {}
+
+  checkFavourites() async {
+    List<Map<String, dynamic>> result10; // = null;
+    List<Map<String, dynamic>> result09; // = null;
+    var result9;
+    List<Map<String, dynamic>> result11; // = null;
+
+    try {
+      result10 =
+          await db.any_query("select * from complete", "modi_kural_comp.db");
+      if (result10.isEmpty) {
+        _isFavorited = false;
+        _isfav = false;
+      } else if (result10.isNotEmpty) {
+        result09 = await db.any_query(
+            "select kural_no from complete", "modi_kural_comp.db");
+        for (var i = 0; i < result09.length; i++) {
+          // prefix0.print("Try Catch: ${result09[i]['kural_no']}");
+          await db.any_query(
+              "UPDATE complete1 SET isfav=1 WHERE kural_no = ${result09[i]['kural_no']}",
+              "modi_kural_comp.db");
+          controller.addListener(() {
+            setState(() {
+              if (currentPageValue == result09[i]['kural_no'])
+                _isFavorited = true;
+            });
+          });
+        }
+      } else {
+        prefix0.print("Not Happening");
+      }
+    } catch (e) {
+      prefix0
+          .print("Exception result10: Complete Table   true  " + e.toString());
+    }
+  }
+
   summa(int value) async {
     List<Map<String, dynamic>> result10; // = null;
     List<Map<String, dynamic>> result09; // = null;
@@ -685,6 +776,19 @@ class MyApp444State extends State<MyApp444> {
       prefix0
           .print("Exception result10: Complete Table   true  " + e.toString());
     } */
+
+// try {
+//   if (newData1[favKural-1]['isfav'] == 0) {
+//               _isFavorited = false;
+//               _isfav = false;
+//             } else {
+//               _isFavorited = true;
+//               _isfav = true;
+//             }
+// } catch (e) {
+//   prefix0.print("Exception result11:   true  " + e.toString());
+
+// }
 
     try {
       result11 = await db.any_query(
