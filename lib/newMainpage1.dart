@@ -17,7 +17,7 @@ import 'dart:typed_data';
 import 'Gsearch.dart';
 import 'db/dbhelper.dart';
 import 'fragments/first_fragment.dart';
-
+import 'package:dhina/main.dart';
 // import 'package:clipboard_manager/clipboard_manager.dart';
 
 // void main() {
@@ -25,10 +25,11 @@ import 'fragments/first_fragment.dart';
 //     home: MyApp(),
 //   ));
 // }
-bool _isFavorited = false;
-bool _isfav = false;
+
 int value1;
 var favKural;
+bool _isFavorited = false;
+bool _isfav = false;
 
 var db = DatabaseHelper();
 double valueHolder = 0.0;
@@ -38,6 +39,7 @@ ByteData bytes; // = await rootBundle.load('assets/valluvar.png');
 List<Map<String, dynamic>> testR;
 List<Map<String, dynamic>> resFav;
 List<Map<String, dynamic>> favArray;
+List<Map<String, dynamic>> summaR;
 var currentPageValue = 0;
 PageController controller = PageController();
 
@@ -108,12 +110,38 @@ class MyApp444State extends State<MyApp444> {
 
     controller.addListener(() {
       // summa(controller.page as prefix0.int);
+      summaR = db.any_query("SELECT * from complete where kural_no = ($currentPageValue + 1)", "modi_kural_comp.db");
       setState(() {
         // print("page value ${controller.page}");
         currentPageValue = controller.page
             as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
+    if (summaR.isEmpty) {
+            _isFavorited = false;
+            _isfav = false;
+          } else {
+            _isFavorited = true;
+            _isfav = true;
+          }
+      
+        /*
+        try {
+          summaR = db.any_query("SELECT * from complete where kural_no = ($currentPageValue + 1)", "modi_kural_comp.db");
+          if (summaR.isEmpty) {
+            _isFavorited = false;
+            _isfav = false;
+          } else {
+            _isFavorited = true;
+            _isfav = true;
+          }
+        } catch (e) {} 
+        */
       });
     });
+  }
+  @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
   }
 
   Future<Null> init() async {
@@ -145,6 +173,7 @@ class MyApp444State extends State<MyApp444> {
         "modi_kural_comp.db");
     if (resFav.isEmpty) {
       _isFavorited = false;
+      _isfav = false;
     } else {
       favArray = await db.any_query(
           "SELECT id from complete1 where isfav = 1", // where kural_no = $favTest",
@@ -220,13 +249,14 @@ class MyApp444State extends State<MyApp444> {
           // Build the ListView
           itemCount: 1330,
           controller: controller,
-
+        // physics: NeverScrollableScrollPhysics(),
+reverse: false,
           pageSnapping: true,
-          scrollDirection: Axis.horizontal,
+          // scrollDirection: Axis.horizontal,
           onPageChanged: (int index) {
-            
+            favouriteTable();
             for (var i = 0; i < favArray.length; i++) {
-              if ((index + 1) == favArray[i]['id']) {
+              if ((index + 1) == favArray[i]['id']  && newData1[index]['id'] == favArray[i]['id']) {
                 setState(() {
                   _isFavorited = true;
                   _isfav = true;
@@ -238,18 +268,19 @@ class MyApp444State extends State<MyApp444> {
                 });
               }
             }
-for (var i = 0; i < favArray.length; i++) {
-            if(newData1[index]['id']== favArray[i]['id'])
-            {
-              _isFavorited = true;
-              _isfav = true;
-            }
-            else {
-              _isFavorited =false;
-              _isfav = false;
-            }
-}
+           
+            // for (var i = 0; i < favArray.length; i++) {
+            //   if (newData1[index]['id'] == favArray[i]['id']) {
+            //     _isFavorited = true;
+            //     _isfav = true;
+            //   } else {
+            //     _isFavorited = false;
+            //     _isfav = false;
+            //   }
+            // }
+
             prefix0.print("OnPageChanegd:: index:: $index");
+            summa1(index);
             summa(index);
             summa((index).round() + 1);
             summa((index).round() + 2);
@@ -257,7 +288,7 @@ for (var i = 0; i < favArray.length; i++) {
             // checkFavourites();
             prefix0.print(newData1[index]['kural_tamil1']);
             // prefix0.print(newData1[index+1]['kural_tamil1']);
-            
+
             if (newData1[index]['isfav'] == 0) {
               _isFavorited = false;
               _isfav = false;
@@ -265,15 +296,28 @@ for (var i = 0; i < favArray.length; i++) {
               _isFavorited = true;
               _isfav = true;
             }
+            summa1(index);
           },
 
           itemBuilder: (BuildContext context, int index) {
+//             bool _isFavorited = false;
+// bool _isfav = false;
+
             cursor = index;
             prefs.setint("cursor", cursor);
             favKural = index + 1;
             prefix0.print(favKural);
-            
-
+favouriteTable();
+// summaR = db.any_query("SELECT * from complete where kural_no = $favKural", "modi_kural_comp.db");
+// if(summaR.isEmpty){
+//   _isFavorited = false;
+//   _isfav = false;
+// }
+// else{
+//   _isFavorited = true;
+//   _isfav = true;
+// }
+// summaR = db.any_query(query, dbName);
             // if (newData1[index]['isfav'] == 0) {
             //   _isFavorited = false;
             //   _isfav = false;
@@ -282,10 +326,13 @@ for (var i = 0; i < favArray.length; i++) {
             //   _isfav = true;
             // }
             // _isFavorited = 0;
-            prefix0.print("${newData1[index]['kural_tamil1']}");
-            summa(index.round() + 2);
+            // prefix0.print("${newData1[index]['kural_tamil1']}");
+            // summa(index.round() + 2);
             prefix0.print("rounded Index: ${index.round()}");
             prefix0.print("_isFavorited:: $_isFavorited");
+            summa1(index);
+            summa1(index-1);
+
             return Card(
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -302,16 +349,20 @@ for (var i = 0; i < favArray.length; i++) {
                         ),
                         // new FavoriteWidget(),
                         IconButton(
+                          autofocus: false,
+                          tooltip: "favourite",
                             icon: (_isFavorited == true && _isfav == true
                                 ? Icon(Icons.star)
                                 : Icon(Icons.star_border)),
-                            color: Colors.red[500],
+                            color: (_isFavorited == true && _isfav == true ? Colors.red[500] : Colors.red),
                             onPressed: () async {
+                              
                               var favTest = (index + 1);
                               // prefix0.print("favTest:  $favTest");
-                              await summa(favTest);
+                              // await summa(favTest);
                               testR = await db.any_query(
-                                  // "SELECT * from complete where isfav = 0 and kural_no =$favKural",
+                                  // "SELECT * from complete1 where isfav = 0 and kural_no =$favTest",
+                                  // "SELECT * from complete1 where kural_no = $favTest and isfav = 0",
                                   "SELECT * from complete where kural_no = $favTest",
                                   "modi_kural_comp.db");
                               prefix0.print("testR: $testR");
@@ -347,6 +398,7 @@ for (var i = 0; i < favArray.length; i++) {
                                       "_isFavorited 000 : $_isFavorited");
                                 });
                               }
+                              favouriteTable();
                             }),
                         new IconButton(
                           icon: const Icon(Icons.search),
@@ -363,26 +415,26 @@ for (var i = 0; i < favArray.length; i++) {
                                 builder: (context) {
                                   prefix0.num _value;
                                   return AlertDialog(
-                                    title: Text('Type Kural Number'),
+                                    title: Text('குறள் எண்ணை உள்ளிடவும்'),
                                     content: TextFormField(
                                       keyboardType: TextInputType
                                           .number, //numberWithOptions(decimal: true),
                                       controller: _textFieldController,
                                       decoration: InputDecoration(
-                                          hintText: "Type Kural Number"),
+                                          hintText: "குறள் எண்: "),
                                       onSaved: (input) =>
                                           _value = int.tryParse(input),
                                       // textInputAction: controller.jumpTo(value),
                                     ),
                                     actions: <Widget>[
                                       new FlatButton(
-                                        child: new Text('CANCEL'),
+                                        child: new Text('இல்லை'),
                                         onPressed: () {
                                           Navigator.of(context).pop();
                                         },
                                       ),
                                       new FlatButton(
-                                        child: new Text('GO'),
+                                        child: new Text('ஆம்'),
                                         onPressed: () {
                                           print(
                                               "text.controller:  ${_textFieldController.text}");
@@ -415,7 +467,7 @@ for (var i = 0; i < favArray.length; i++) {
                               final snackBar = SnackBar(
                                 content: Text('Copied to Clipboard'),
                                 action: SnackBarAction(
-                                  label: 'Undo',
+                                  label: '',
                                   onPressed: () {
                                     print("Copied");
                                   },
@@ -490,7 +542,7 @@ for (var i = 0; i < favArray.length; i++) {
                               title: "உதவி",
                               desc:
                                   "பால்: ${newData1[index]['pal_tamil']}   இயல்: ${newData1[index]['iyal_tamil']}  அதிகாரம்: ${newData1[index]['adhikarm_tamil']}",
-                              image: Image.asset("assets/valluvar.png"),
+                              // image: Image.asset("assets/valluvar.png"),
                               buttons: [
                                 DialogButton(
                                   child: Text(
@@ -499,9 +551,10 @@ for (var i = 0; i < favArray.length; i++) {
                                         color: Colors.white, fontSize: 20),
                                   ),
                                   onPressed: () {
-                                    //Navigator.pop(context),
-                                    Navigator.of(context)
-                                        .pop(); // dismiss dialog
+                                    Navigator.of(context, rootNavigator: true).pop();
+                                    // Navigator.pop(context);
+                                    // Navigator.of(context)
+                                    //     .pop(); // dismiss dialog
                                   },
                                   color: Color.fromRGBO(0, 179, 134, 1.0),
                                   radius: BorderRadius.circular(0.0),
@@ -667,6 +720,10 @@ for (var i = 0; i < favArray.length; i++) {
                       IconButton(
                         icon: const Icon(Icons.arrow_back_ios),
                         onPressed: () {
+                          summa(index-1);
+                          summa(index);
+                          _summa(index);
+                          _summa(index-1);
                           controller.jumpToPage(index.floor() - 1);
                           prefix0.print("index: $index");
                           // print("searching");
@@ -683,6 +740,10 @@ for (var i = 0; i < favArray.length; i++) {
                         icon: const Icon(Icons.arrow_forward_ios),
                         onPressed: () {
                           prefix0.print("index: $index");
+                          summa(index+1);
+                          summa(index);
+                          _summa(index);
+                          _summa(index+1);
                           controller.jumpToPage(index.floor() + 1);
                           //print("searching");
                         },
@@ -748,51 +809,38 @@ for (var i = 0; i < favArray.length; i++) {
     List<Map<String, dynamic>> result11; // = null;
     // int temp = await prefs.getInt("cursor");
     /*
-    try {
-      result10 =
-          await db.any_query("select * from complete", "modi_kural_comp.db");
-      if (result10.isEmpty) {
-        _isFavorited = false;
-        _isfav = false;
-      } else if (result10.isNotEmpty) {
-        result09 = await db.any_query(
-            "select kural_no from complete", "modi_kural_comp.db");
-        for (var i = 0; i < result09.length; i++) {
-          // prefix0.print("Try Catch: ${result09[i]['kural_no']}");
-          await db.any_query(
-              "UPDATE complete1 SET isfav=1 WHERE kural_no = ${result09[i]['kural_no']}",
-              "modi_kural_comp.db");
-          controller.addListener(() {
-            setState(() {
-              if (currentPageValue == result09[i]['kural_no'])
-                _isFavorited = true;
-            });
-          });
-        }
-      } else {
-        prefix0.print("Not Happening");
-      }
-    } catch (e) {
-      prefix0
-          .print("Exception result10: Complete Table   true  " + e.toString());
-    } */
-
-// try {
-//   if (newData1[favKural-1]['isfav'] == 0) {
-//               _isFavorited = false;
-//               _isfav = false;
-//             } else {
-//               _isFavorited = true;
-//               _isfav = true;
-//             }
-// } catch (e) {
-//   prefix0.print("Exception result11:   true  " + e.toString());
-
-// }
+                try {
+                  result10 =
+                      await db.any_query("select * from complete", "modi_kural_comp.db");
+                  if (result10.isEmpty) {
+                    _isFavorited = false;
+                    _isfav = false;
+                  } else if (result10.isNotEmpty) {
+                    result09 = await db.any_query(
+                        "select kural_no from complete", "modi_kural_comp.db");
+                    for (var i = 0; i < result09.length; i++) {
+                      // prefix0.print("Try Catch: ${result09[i]['kural_no']}");
+                      await db.any_query(
+                          "UPDATE complete1 SET isfav=1 WHERE kural_no = ${result09[i]['kural_no']}",
+                          "modi_kural_comp.db");
+                      controller.addListener(() {
+                        setState(() {
+                          if (currentPageValue == result09[i]['kural_no'])
+                            _isFavorited = true;
+                        });
+                      });
+                    }
+                  } else {
+                    prefix0.print("Not Happening");
+                  }
+                } catch (e) {
+                  prefix0
+                      .print("Exception result10: Complete Table   true  " + e.toString());
+                } */
 
     try {
       result11 = await db.any_query(
-          "SELECT * from complete where kural_no =$value ",
+          "SELECT * from complete where kural_no =$value and isfav = 0",
           "modi_kural_comp.db");
       prefix0.print("Summa : result11: $result11");
       if (result11.isEmpty) {
@@ -802,10 +850,33 @@ for (var i = 0; i < favArray.length; i++) {
         _isFavorited = true;
         _isfav = true;
       }
-      // prefix0.print("result11: ${result11[0]['kural_tamil1']}");
-    } catch (Exception) {
-      prefix0.print("Exception result11:   true  " + Exception.toString());
+      //   if (newData1[favKural-1]['isfav'] == 0) {
+      //               _isFavorited = false;
+      //               _isfav = false;
+      //             } else {
+      //               _isFavorited = true;
+      //               _isfav = true;
+      //             }
+    } catch (e) {
+      prefix0.print("Exception result11:   true  " + e.toString());
     }
+
+    // try {
+    //   result11 = await db.any_query(
+    //       "SELECT * from complete where kural_no =$value ",
+    //       "modi_kural_comp.db");
+    //   prefix0.print("Summa : result11: $result11");
+    //   if (result11.isEmpty) {
+    //     _isFavorited = false;
+    //     _isfav = false;
+    //   } else {
+    //     _isFavorited = true;
+    //     _isfav = true;
+    //   }
+    //   // prefix0.print("result11: ${result11[0]['kural_tamil1']}");
+    // } catch (Exception) {
+    //   prefix0.print("Exception result11:   true  " + Exception.toString());
+    // }
   }
 
   _displayDialog(BuildContext context) async {
@@ -873,6 +944,25 @@ for (var i = 0; i < favArray.length; i++) {
   //     },
   //   );
   // }
+}
+
+void summa1(prefix0.int index) async {
+  var i = index + 1;
+  try {
+    summaR = await db.any_query(
+        "SELECT * from complete where kural_no = ($index + 1)",
+        "modi_kural_comp.db");
+    if (summaR.isEmpty) {
+      _isFavorited = false;
+      _isfav = false;
+    } else {
+      _isFavorited = true;
+      _isfav = true;
+    }
+    prefix0.print("summa1: isfav for $i: $_isFavorited");
+  } catch (e) {
+    prefix0.print("exception" + e.toString());
+  }
 }
 
 _summa(int value) {

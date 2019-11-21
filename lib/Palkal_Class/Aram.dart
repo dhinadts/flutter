@@ -113,6 +113,7 @@ class AramState extends State<Aram> {
           title: Text(
             'இயல்கள்',
             textAlign: TextAlign.justify,
+            
           ),
         ),
         body: new ListView.builder(

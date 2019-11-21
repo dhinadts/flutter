@@ -125,9 +125,9 @@ class Feedback_ex extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       // title: "WEB SERVICE",
-      // theme: ThemeData(
-      //   primaryColor: Colors.deepOrange,
-      // ),
+      theme: ThemeData(
+        primaryColor: Colors.blueGrey,
+      ),
       home: Scaffold(
           resizeToAvoidBottomPadding: false,
           appBar: AppBar(

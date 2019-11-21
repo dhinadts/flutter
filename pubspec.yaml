@@ -47,6 +47,7 @@ dependencies:
   splashscreen:
   open_appstore: ^1.0.2
   launch_review: ^1.0.1
+  transformer_page_view: ^0.1.6
 
 
 flutter_seekbar:

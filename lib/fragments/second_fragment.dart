@@ -12,6 +12,7 @@ import 'package:dhina/db/sharedpref.dart';
 import 'package:dhina/fragments/first_fragment.dart';
 import 'package:open_appstore/open_appstore.dart';
 import 'package:launch_review/launch_review.dart'; 
+import 'package:dhina/main.dart';
 
 
 import 'first_fragment.dart';
@@ -420,7 +421,7 @@ class FirstState11 extends State<FirstFragment11> {
                       */
                       RaisedButton(
                 color: Color(1100),
-                child: Text('நித்ரா தமிழ் நாட்காட்டி'),
+                child: Text('Favourites using "isfav'),
                 onPressed: () async {
                   ResultFav = await db.any_query('SELECT * from complete1 where isfav=1', 
                    //1 where isfav=1', 
@@ -434,7 +435,7 @@ class FirstState11 extends State<FirstFragment11> {
                 },
               ),
               RaisedButton(
-                child: Text('Favourites'),
+                child: Text('Favourites using complete table'),
                 color: Color(5400),
                 onPressed: () async {
                   // BackupKurals = await db.any_query("SELECT kural_no ", dbName)

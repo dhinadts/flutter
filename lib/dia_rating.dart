@@ -8,11 +8,12 @@ class dia_rateUs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Rating Dialog Demo',
+      title: 'Rating ',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blueGrey,
       ),
       home: ExampleScreen(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
@@ -30,9 +31,9 @@ class _ExampleScreenState extends State<ExampleScreen> {
                 colors: Colors.red), // set your own image/icon widget
             title: "The Rating Dialog",
             description:
-                "Tap a star to set your rating. Add more description here if you want.",
+                "Rate this thirukkural APP",
             submitButton: "SUBMIT",
-            alternativeButton: "Contact us instead?", // optional
+            //alternativeButton: "Contact us instead?", // optional
             positiveComment: "We are so happy to hear :)", // optional
             negativeComment: "We're sad to hear :(", // optional
             accentColor: Colors.red, // optional

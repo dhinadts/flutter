@@ -19,9 +19,11 @@ import 'package:dhina/seekbar1.dart';
 import '../SeekBarEx.dart';
 import '../cate2pgview.dart';
 import '../scrollviewEx.dart';
+import 'package:dhina/main.dart';
+
 
 var newData;
-List<Map<String, dynamic>> newData1;
+// List<Map<String, dynamic>> newData1;
 // List<Map<String, dynamic>> result1, result2, result3;
 
 class DrawerItem {
@@ -32,21 +34,21 @@ class DrawerItem {
 
 class HomePage extends StatefulWidget {
   final drawerItems = [
-    new DrawerItem("முகப்பு", Icons.home),
-    new DrawerItem("வகைப்பட்டியல்", Icons.category),
-    new DrawerItem("முழு பட்டியல்", Icons.fullscreen),
-    new DrawerItem("favourites", Icons.favorite),
-    new DrawerItem("தேடல்", Icons.search),
-    new DrawerItem("செல்", Icons.find_in_page),
-    new DrawerItem("தனியுரிமைக் கொள்கை", Icons.security),
-    new DrawerItem("கருத்து", Icons.feedback),
-    new DrawerItem("பகிரவும்", Icons.share),
-    new DrawerItem("மதிப்பிடவும்", Icons.rate_review),
-    new DrawerItem("Start", Icons.play_arrow),
-    new DrawerItem("DiaEXam", Icons.explore),
-    new DrawerItem("checkDB", Icons.explore),
-    new DrawerItem("title", Icons.expand_less),
-    new DrawerItem("Favourites", Icons.favorite),
+    new DrawerItem("முகப்பு", Icons.home),                //0 
+    new DrawerItem("முழு பட்டியல்", Icons.fullscreen),    //1
+    // new DrawerItem("வகைப்பட்டியல்", Icons.category),     //2
+    // new DrawerItem("தேடல்", Icons.search),              //3
+    // new DrawerItem("செல்", Icons.find_in_page),         //4
+    // new DrawerItem("பிடித்தவைகள்", Icons.favorite),      //5
+    new DrawerItem("தனியுரிமைக் கொள்கை", Icons.security), //6
+    new DrawerItem("கருத்து", Icons.feedback),           //7
+    new DrawerItem("பகிரவும்", Icons.share),             //8
+    new DrawerItem("மதிப்பிடவும்", Icons.rate_review),   //9
+    // new DrawerItem("Start", Icons.play_arrow),
+    // new DrawerItem("DiaEXam", Icons.explore),
+    // new DrawerItem("checkDB", Icons.explore),
+    // new DrawerItem("title", Icons.expand_less),
+    // new DrawerItem("Favourites", Icons.favorite),
   ];
 
   @override
@@ -59,7 +61,8 @@ class HomePageState extends State<HomePage> {
   int _selectedDrawerIndex = 0;
   var dbhelp = DatabaseHelper();
 var db = DatabaseHelper();
-  
+ 
+  // TextEditingController _textFieldController = TextEditingController();
 
   _getDrawerItemWidget(int pos) {
     switch (pos) {
@@ -67,6 +70,11 @@ var db = DatabaseHelper();
          return new FirstFragment11();
 
       case 1: {
+        
+        return new MyApp444(value: 0, currentPageValue: 0, fontSize1: 0,);
+        
+      }
+      // case 2:{
         // result = db.any_query(
         //           'select DISTINCT pal_tamil from complete1',
         //           'modi_kural_comp.db');
@@ -77,34 +85,101 @@ var db = DatabaseHelper();
         //           MaterialPageRoute<Null>(builder: (BuildContext context) {
         //         return new TabBarDemo();
         //       }));
-        return new TabBarDemo();
-      }
+        //  return new TabBarDemo();
+      // }
+      // case 3: {
+      //    return new GlobalSearch();
+        
+      // }
+      // case 4:
+      //   return new GlobalSearch();
+      //   // {
+      //     // return showDialog(
+      //     //                   context: context,
+      //     //                   builder: (context) {
+      //     //                     var _value;
+      //     //                     return AlertDialog(
+      //     //                       title: Text('குறள் எண்ணை தட்டவும்'),
+      //     //                       content: TextFormField(
+      //     //                         keyboardType: TextInputType
+      //     //                             .number, //numberWithOptions(decimal: true),
+      //     //                         controller: _textFieldController,
+      //     //                         decoration:
+      //     //                             InputDecoration(hintText: "குறள் எண்: "),
+      //     //                         onSaved: (input) =>
+      //     //                             _value = int.tryParse(input),
+      //     //                         // textInputAction: controller.jumpTo(value),
+      //     //                       ),
+      //     //                       actions: <Widget>[
+      //     //                         new FlatButton(
+      //     //                           child: new Text('இல்லை'),
+      //     //                           onPressed: () {
+      //     //                             Navigator.of(context).pop();
+      //     //                             // Navigator.of(context).pop();
+      //     //                           },
+      //     //                         ),
+      //     //                         new FlatButton(
+      //     //                           child: new Text('ஆம்'),
+      //     //                           onPressed: () {
+      //     //                             Navigator.of(context).pop();
+      //     //                             print(
+      //     //                                 "text.controller:  ${_textFieldController.text}");
+      //     //                             var abcd = (_textFieldController.text)
+      //     //                                 .toString();
+      //     //                             print("abcd " + abcd);
+      //     //                             var ff = int.parse(abcd) - 1;
+      //     //                             //               var route = new MaterialPageRoute(
+      //     //                             //   builder: (BuildContext context) =>
+      //     //                             //       new MyApp44(value: ff, ),
+      //     //                             // );
+      //     //                             // Navigator.of(context).push(route);
+      //     //                             // Navigator.of(context).push(route);
+
+      //     //                             Navigator.of(context).push(
+      //     //                                 MaterialPageRoute<Null>(
+      //     //                                     builder: (BuildContext context) {
+      //     //                               return new MyApp444(value: ff);
+      //     //                             }));
+
+      //     //                             //Navigator.of(context).pop();
+
+      //     //                             // controller.jumpToPage(ff);
+      //     //                             // Navigator.of(context)
+      //     //                             //     .pop();
+      //     //                           },
+      //     //                         )
+      //     //                       ],
+      //     //                     );
+      //     //                   },
+      //     //                 );
+
+      //   // }
+        
+      // case 5:
+      // return new Favorite11();
+        
+      // case 6:
       case 2:
-        return new MyApp444(value: 0, currentPageValue: 0, fontSize1: 0,);
-      case 3: {
-         
-        return new Favorite11();
-      }
+      return new MyApp2(); // Privacy Policy
+        
+      // case 7:
+      case 3:
+      return new Feedback_ex(); // feedback form
+      // case 7:  
       case 4:
-        return new GlobalSearch();
-      case 5:
-        return new MyApp2(); // Privacy Policy
-      case 6:
-        return new Feedback_ex(); // feedback form
-      case 7:
-        return sharing3(); // share
-      case 8:
-        return new dia_rateUs(); // test
-      case 9:
-        return new JSON1();
-      case 10:
-        return new exa_dias();
-      case 11:
-        return null;
-      case 12:
-        return Favorite11();
+      return sharing3(); // share
+        // return new dia_rateUs(); // test
+      // case 9:
+      //   return new JSON1();
+      // case 10:
+      //   return new exa_dias();
+      // case 11:
+      //   return null;
+      // case 12:
+      //   return Favorite11();
       default:
-        return MyApp44();
+         return new dia_rateUs(); // test
+        // return MyApp44();
     }
   }
 
@@ -196,10 +271,15 @@ onSelectItem3(String s) async {
                    //1 where isfav=1', 
                    "modi_kural_comp.db");
     }
+     loadDb() async {
+    newData1 =
+        await db.any_query("select * from complete1", "modi_kural_comp.db");
+  }
     
 
     super.initState();
-    // dbmove();
+     dbmove();
+     loadDb();
     // dbhelp.db_move();
     _loadAStudentAsset();
   }
@@ -207,8 +287,17 @@ onSelectItem3(String s) async {
   @override
   Widget build(BuildContext context) {
     List<Widget> drawerOptions = [];
+    // result = db.any_query(
+    //               'select DISTINCT pal_tamil from complete1',
+    //               'modi_kural_comp.db');
+    //           onSelectItem1(result[0]['pal_tamil']);
+    //           onSelectItem2(result[1]['pal_tamil']);
+    //           onSelectItem3(result[2]['pal_tamil']);
+
     for (var i = 0; i < widget.drawerItems.length; i++) {
       var d = widget.drawerItems[i];
+      
+              
       drawerOptions.add(new ListTile(
         leading: new Icon(d.icon),
         title: new Text(d.title),
@@ -228,7 +317,7 @@ onSelectItem3(String s) async {
           IconButton(
             icon: const Icon(Icons.share),
             onPressed: () {
-              Share.share("Text");
+              Share.share("Nithra Edu Solutions Thirukkural Appp Id: ");
             },
           ),
           IconButton(

@@ -37,7 +37,7 @@ class FavState extends State<Favorite11> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            'Favourites',
+            'பிடித்தவைகள்',
             textAlign: TextAlign.justify,
           ),
         ),

@@ -8,16 +8,16 @@ import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 class MyApp2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-     var title = 'PrivacyPolicy';
+     // var title = 'PrivacyPolicy';
     return new MaterialApp(
-       title: title,
+       // title: title,
       routes: {
         '/widget': (_) => new WebviewScaffold(
               url:  "file:///android_asset/flutter_assets/assets/PrivacyPolicy.html",
-              appBar: 
-              new AppBar(
-                  title: const Text('PrivacyPolicy'),
-                  ),
+              // appBar: 
+              // new AppBar(
+              //     // title: const Text('PrivacyPolicy'),
+              //     ),
               withZoom: false,
               withLocalStorage: true,
             )

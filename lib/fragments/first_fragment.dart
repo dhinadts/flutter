@@ -20,6 +20,7 @@ import '../canvas1.dart';
 import '../tapOption.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:open_appstore/open_appstore.dart';
+import 'package:dhina/main.dart';
 
 
 List<Map> x = [];

@@ -54,10 +54,12 @@ class TabState extends State<TabBarDemo> {
               tabs: [
                 Tab(
                   text: "அறம்",
-                  icon: Icon(Icons.directions_car),
+                 // icon: Icon(Icons.directions_car),
                 ),
-                Tab(text: "பொருள்", icon: Icon(Icons.directions_transit)),
-                Tab(text: "இன்பம்", icon: Icon(Icons.directions_bike)),
+                Tab(text: "பொருள்", // icon: Icon(Icons.directions_transit)
+                ),
+                Tab(text: "இன்பம்", // icon: Icon(Icons.directions_bike)
+                ),
               ],
             ),
             title: Text('முப்பால்'),

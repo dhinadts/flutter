@@ -43,7 +43,6 @@ class Shared_Preference {
     }
   }
 
-  void setInt(String s, int index) {}
 
  Future setdouble(String key, double value) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
