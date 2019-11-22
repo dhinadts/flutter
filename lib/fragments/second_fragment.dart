@@ -10,8 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/db/sharedpref.dart';
 import 'package:dhina/fragments/first_fragment.dart';
-import 'package:open_appstore/open_appstore.dart';
-import 'package:launch_review/launch_review.dart'; 
+
+// import 'package:launch_review/launch_review.dart'; 
 import 'package:dhina/main.dart';
 
 

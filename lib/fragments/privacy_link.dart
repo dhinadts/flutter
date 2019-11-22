@@ -13,8 +13,10 @@ class MyApp2 extends StatelessWidget {
       debugShowCheckedModeBanner: false,
         // title: title,
         routes: {
-          '/widget': (_) => new WebviewScaffold(
-            url: "https://www.nithra.mobi/privacy.php",
+          // '/widget': (_) => new WebviewScaffold(
+            '/': (_) => new WebviewScaffold(
+            // url: "https://www.nithra.mobi/privacy.php",
+            url:  "file:///android_asset/flutter_assets/assets/PrivacyPolicy.html",
             // appBar: new AppBar(
             //   title: const Text('Widget Webview'),
             // ),
@@ -22,7 +24,7 @@ class MyApp2 extends StatelessWidget {
             withLocalStorage: true,
           )
         },
-        home: new MyAppHomePage(),
+        //  home: new MyAppHomePage(),
     );
   }
 }
@@ -45,7 +47,8 @@ class _MyAppState extends State<MyAppHomePage> {
           // appBar: AppBar(
           //   // title: Text("Nithra Privacy Policy"),
           // ),
-          body: new Center(
+          body: //  _opennewpage()
+          new Center(
             child: new RaisedButton(
               child: Text('Privacy Policy'),
               onPressed: () { 

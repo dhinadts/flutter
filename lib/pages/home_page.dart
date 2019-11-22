@@ -1,24 +1,14 @@
-import 'package:dhina/Gsearch.dart';
-import 'package:dhina/firstPage.dart';
 import 'package:dhina/fragments/first_fragment.dart';
+import 'package:dhina/fragments/privacy_link.dart';
 import 'package:dhina/fragments/second_fragment.dart';
-import 'package:dhina/main_pages/favorite_Displays.dart';
-import 'package:dhina/main_pages/starting4.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/feedback_ex.dart';
-import 'package:dhina/privacy_link.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
-import 'package:dhina/db/db.dart';
 import 'package:dhina/dia_rating.dart';
-import 'package:dhina/dia_examples.dart';
-import 'package:dhina/tapOption.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/seekbar1.dart';
-import '../SeekBarEx.dart';
 import '../cate2pgview.dart';
-import '../scrollviewEx.dart';
 import 'package:dhina/main.dart';
 
 

@@ -27,13 +27,39 @@ class _GlobalSearchState extends State<GlobalSearch> {
       home: Scaffold(
           resizeToAvoidBottomPadding: false,
           // primary: true,
-          appBar: AppBar(
-            // backgroundColor: Color(0xFF),
-            title: Text(
-              'குறள் தேடல்...',
-              textAlign: TextAlign.center,
-            ),
-          ),
+         appBar: AppBar(
+          primary: true,
+          // leading: Builder(
+          //   builder: (BuildContext context) {
+          //     return IconButton(
+          //       icon: const Icon(Icons.arrow_back),
+          //       onPressed: () {
+          //         Navigator.pop(context);
+          //       },
+          //     );
+          //   },
+          // ),
+          title: const Text('குறள் தேடல்...'),
+          actions: <Widget>[
+            
+          ],
+        ),
+          // appBar: AppBar(
+          //   // backgroundColor: Color(0xFF),
+          //   actions: <Widget>[
+          //     IconButton(
+          //       icon: const Icon(Icons.arrow_back),
+          //       onPressed: () {
+          //         Navigator.pop(context);
+          //       },
+          //     ),
+          //   ],
+          //   title: Text(
+          //     'குறள் தேடல்...',
+          //     textAlign: TextAlign.center,
+          //   ),
+            
+          // ),
           body: new Container(
             margin: const EdgeInsets.only(left: 8.0, right: 8.0),
             child: new Column(
@@ -54,7 +80,7 @@ class _GlobalSearchState extends State<GlobalSearch> {
                     var kuralWord = (inputControler.text);
                     print(kuralWord);
                     var sql =
-                        'SELECT * FROM complete1 WHERE kural_tamil1 like "%$kuralWord%"';
+                        'SELECT * FROM complete1 WHERE kural_tamil1 like "%$kuralWord%" or kural_thanglish1 like "%$kuralWord%" or kural_thanglish2 like "%$kuralWord%" ';
                     searchResult1 =
                         await db.any_query(sql, "modi_kural_comp.db");
 
@@ -86,22 +112,23 @@ class GlobalSearchingKural extends StatelessWidget {
         extendBody: true,
         appBar: AppBar(
           primary: true,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return IconButton(
-                icon: const Icon(Icons.arrow_back),
-                onPressed: () {
-                  // Scaffold.of(context).openDrawer();
-                  //       Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => FirstFragment()),
-                  // );
-                  Navigator.pop(context);
-                },
-                // tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-              );
-            },
-          ),
+          // leading: Builder(
+          //   builder: (BuildContext context) {
+          //     return IconButton(
+          //       icon: const Icon(Icons.arrow_back),
+          //       onPressed: () {
+          //         // Scaffold.of(context).openDrawer();
+          //         //       Navigator.push(
+          //         //   context,
+          //         //   MaterialPageRoute(builder: (context) => FirstFragment()),
+          //         // );
+          //         // Navigator.pop(context);
+          //         Navigator.of(context, rootNavigator: true).pop();
+          //       },
+          //       // tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+          //     );
+          //   },
+          // ),
           title: Text('குறள்கள்:'),
         ),
         body: ListView.builder(

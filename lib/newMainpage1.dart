@@ -422,9 +422,9 @@ favouriteTable();
                                       controller: _textFieldController,
                                       decoration: InputDecoration(
                                           hintText: "குறள் எண்: "),
-                                      onSaved: (input) =>
-                                          _value = int.tryParse(input),
-                                      // textInputAction: controller.jumpTo(value),
+                                      // onSaved: (input) =>
+                                      //     _value = int.tryParse(input),
+                                      // textInputAction: controller.jumpTo(_value),
                                     ),
                                     actions: <Widget>[
                                       new FlatButton(
@@ -443,8 +443,14 @@ favouriteTable();
                                           print("abcd " + abcd);
                                           var ff = int.parse(abcd) - 1;
                                           // controller.jumpTo(ff.toDouble());
-                                          controller.jumpToPage(ff);
                                           Navigator.of(context).pop();
+                                          controller.jumpToPage(ff);
+                                          // Navigator.of(context).pop();
+                                          // Navigator.pop(context);
+                                          // Navigator.of(context).pop();
+
+                                          // Navigator.of(context, rootNavigator: true).pop();
+
                                         },
                                       )
                                     ],

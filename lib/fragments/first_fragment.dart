@@ -19,7 +19,7 @@ import '../SimpleSlider1.dart';
 import '../canvas1.dart';
 import '../tapOption.dart';
 import 'package:dhina/newMainpage1.dart';
-import 'package:open_appstore/open_appstore.dart';
+
 import 'package:dhina/main.dart';
 
 
@@ -353,7 +353,7 @@ class FirstState extends State<FirstFragment> {
                 //       MaterialPageRoute<Null>(builder: (BuildContext context) {
                 //     return new Favorite11(); // HomePage1();
                 //   }));
-                OpenAppstore.launch(androidAppId: "com.facebook.katana&hl=ko", iOSAppId: "284882215");
+                // OpenAppstore.launch(androidAppId: "com.facebook.katana&hl=ko", iOSAppId: "284882215");
 
                 },
               ),

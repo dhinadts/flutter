@@ -13,18 +13,22 @@ import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/services.dart';
+
+import 'package:launch_review/launch_review.dart';
+// import 'package:open_appstore/open_appstore.dart';
+
 import 'package:share/share.dart';
 import 'package:dhina/main.dart';
 
-
 import '../cate2pgview.dart';
 import '../newMainpage1.dart';
+// import 'package:dhina/utility/ScreenUtil.dart';
 
 var db = DatabaseHelper();
 var prefs = Shared_Preference();
 // var newData;
 //List<Map<String, dynamic>> newData1;
-
+// ScreenUtil.instance = ScreenUtil.getInstance().init(context);
 TextEditingController _textFieldController = TextEditingController();
 
 // void main() => runApp(MyApp12345());
@@ -37,21 +41,22 @@ class MyApp12345 extends StatefulWidget {
 }
 
 class _MyApp12345State extends State<MyApp12345> {
-   @override
+  @override
   void initState() {
     // todo: implement initState
     // @override
     // Future<String> _loadAStudentAsset() async {
     //   newData = await rootBundle.loadString('assets/complete1.json');
     //    await db.db_move();
-       
+
     // }
     dbmove() async {
       await db.db_move();
       //newData1 = await db.any_query("select * from complete1", "modi_kural_comp.db");
-      ResultFav =  await db.any_query('SELECT * from complete', //1 where isfav=1', 
-                   //1 where isfav=1', 
-                   "modi_kural_comp.db");
+      ResultFav = await db.any_query(
+          'SELECT * from complete', //1 where isfav=1',
+          //1 where isfav=1',
+          "modi_kural_comp.db");
     }
 
     super.initState();
@@ -59,10 +64,10 @@ class _MyApp12345State extends State<MyApp12345> {
     // dbhelp.db_move();
     // _loadAStudentAsset();
   }
+
   @override
   Widget build(BuildContext context) {
-    return 
-    MaterialApp(
+    return MaterialApp(
       // title: appTitle,
       theme: new ThemeData(
         primarySwatch: Colors.blueGrey,
@@ -105,6 +110,7 @@ class _MyApp12345State extends State<MyApp12345> {
         ),
         body: MyHomePage(),
         drawer: Drawer(
+          
           // Add a ListView to the drawer. This ensures the user can scroll
           // through the options in the drawer if there isn't enough vertical
           // space to fit everything.
@@ -113,29 +119,46 @@ class _MyApp12345State extends State<MyApp12345> {
             padding: EdgeInsets.zero,
             children: <Widget>[
               DrawerHeader(
-                child: Text('திருக்குறள்'),
+                child: Column(
+                  children: <Widget>[
+                    // Image.asset("assets/valluvar.jpeg"),
+                    Text('திருக்குறள்'),
+                  ],
+                 ), 
                 decoration: BoxDecoration(
                   color: Colors.blueGrey,
                 ),
               ),
-              ListTile(
-                title: Text('முகப்பு'),
+              
+  //             ListView(
+  // children: ListTile.divideTiles( //          <-- ListTile.divideTiles
+  //     context: context,
+  //     tiles: [
+              Card(
+              child: ListTile(
+                leading: Image.asset("home.png", height:20, width: 20),
+                
+                title: Text('முகப்பு', ),
+                
                 onTap: () async {
+                  
                   a = await prefs.getDouble("fontSize1");
                   newData1 = await db.any_query(
                       "select * from complete1", "modi_kural_comp.db");
+
                   await Navigator.of(context).push(
                       MaterialPageRoute<Null>(builder: (BuildContext context) {
                     return new MyApp12345();
-                      
                   }));
                   // await Navigator.of(context).push(
                   //     MaterialPageRoute<Null>(builder: (BuildContext context) {
                   //   return new MyApp4(fontSize1 : fontSize1);
                   // }));
                 },
-              ),
+              )),
+
               ListTile(
+                leading: Image.asset("play1.png", width:20, height:20),
                 title: Text('முழு பட்டியல்'),
                 onTap: () async {
                   a = await prefs.getDouble("fontSize1");
@@ -156,30 +179,33 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
+                leading: Image.asset("skip.png", width:20, height:20),
                 title: Text('தொடர்க'),
                 onTap: () async {
+                  
                   int v = await prefs.getInt("cursor");
-                        a = await prefs.getDouble("fontSize1");
-                        
-                          Navigator.of(context).push(MaterialPageRoute<Null>(
-                              builder: (BuildContext context) {
-                            return new MyApp444(
-                              value: v,
-                              currentPageValue: v,
-                              fontSize1: a,
-                            );
-                          }));
-                        
-                        // Navigator.of(context).push(
-                        //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                        //   return new MyApp44(value: v);
-                        // }));
-                      
+                  a = await prefs.getDouble("fontSize1");
+
+                  Navigator.of(context).push(
+                      MaterialPageRoute<Null>(builder: (BuildContext context) {
+                    return new MyApp444(
+                      value: v,
+                      currentPageValue: v,
+                      fontSize1: a,
+                    );
+                  }));
+
+                  // Navigator.of(context).push(
+                  //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  //   return new MyApp44(value: v);
+                  // }));
                 },
               ),
               ListTile(
+                leading: Image.asset("category.png", width:20, height:20),
                 title: Text('வகைப்பட்டியல்'),
                 onTap: () async {
+                  
                   result = await db.any_query(
                       'select DISTINCT pal_tamil from complete1',
                       'modi_kural_comp.db');
@@ -193,8 +219,10 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
+                leading: Image.asset("gobutton.png", width:20, height:20),
                 title: Text('செல்'),
                 onTap: () async {
+                  
                   return showDialog(
                     context: context,
                     builder: (context) {
@@ -253,8 +281,10 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
+                leading: Image.asset("search.png", width:20, height:20),
                 title: Text('தேடல்'),
                 onTap: () async {
+                  
                   var kuralNo = "ஆதி";
                   var sql =
                       "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
@@ -269,22 +299,34 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
+                leading: Image.asset("star.png", width:20, height:20),
                 title: Text('பிடித்தவைகள்'),
                 onTap: () async {
+                  
                   // BackupKurals = await db.any_query("SELECT kural_no ", dbName)
                   ResultFav = await db.any_query(
-                      'SELECT * from complete', //1 where isfav=1',
+                      'SELECT * from complete1 where isfav=1',
                       //1 where isfav=1',
                       "modi_kural_comp.db");
                   Navigator.of(context).push(
                       MaterialPageRoute<Null>(builder: (BuildContext context) {
                     return new Favorite11(); // HomePage1();
                   }));
+                  // ResultFav = await db.any_query(
+                  //     'SELECT * from complete', //1 where isfav=1',
+                  //     //1 where isfav=1',
+                  //     "modi_kural_comp.db");
+                  // Navigator.of(context).push(
+                  //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                  //   return new Favorite11(); // HomePage1();
+                  // }));
                 },
               ),
               ListTile(
+                leading: Image.asset("protection.png", width:20, height:20),
                 title: Text('தனியுரிமைக் கொள்கை'),
                 onTap: () {
+                  
                   Navigator.of(context).push(
                       MaterialPageRoute<Null>(builder: (BuildContext context) {
                     return new MyApp2(); // HomePage1();
@@ -292,8 +334,10 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
+                leading: Image.asset("feedback.png", width:20, height:20),
                 title: Text('கருத்து'),
                 onTap: () {
+                  
                   Navigator.of(context).push(
                       MaterialPageRoute<Null>(builder: (BuildContext context) {
                     return new Feedback_ex(); // HomePage1();
@@ -301,14 +345,18 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
+                leading: Image.asset("share.png", width:20, height:20),
                 title: Text('பகிரவும்'),
                 onTap: () {
+                  
                   return sharing3();
                 },
               ),
               ListTile(
+                leading: Image.asset("rate.png", width:20, height:20),
                 title: Text('மதிப்பிடவும்'),
                 onTap: () {
+                  
                   return dia_rateUs();
                 },
               ),
@@ -379,7 +427,8 @@ class MyHomePage extends StatelessWidget {
               child: new SizedBox(
             width: 300.0,
             height: 500.0,
-            child: new Column(
+            child: SingleChildScrollView(
+                child: new Column(
               // new SizedBox(
               mainAxisAlignment: MainAxisAlignment.start,
               // mainAxisAlignment: MainAxisAlignment.center,
@@ -418,6 +467,7 @@ class MyHomePage extends StatelessWidget {
                       // )
                       ,
                       onPressed: () async {
+                        
                         a = await prefs.getDouble("fontSize1");
                         newData1 = await db.any_query(
                             "select * from complete1", "modi_kural_comp.db");
@@ -464,6 +514,7 @@ class MyHomePage extends StatelessWidget {
                         //  )
                         ),
                     onPressed: () async {
+                      
                       //   int v = await prefs.getInt("cursor");
                       //   double ab = await prefs.getDouble("fontSize1");
                       //   if (v == 0) {
@@ -542,6 +593,7 @@ class MyHomePage extends StatelessWidget {
                       // )
                       ,
                       onPressed: () async {
+                        
                         result = await db.any_query(
                             'select DISTINCT pal_tamil from complete1',
                             'modi_kural_comp.db');
@@ -591,12 +643,13 @@ class MyHomePage extends StatelessWidget {
                       // )
                       ,
                       onPressed: () async {
+                        
                         return showDialog(
                           context: context,
                           builder: (context) {
                             var _value;
                             return AlertDialog(
-                              title: Text('குறள் எண்ணை தட்டவும்'),
+                              title: Text('குறள் எண்ணை உள்ளிடவும்'),
                               content: TextFormField(
                                 keyboardType: TextInputType
                                     .number, //numberWithOptions(decimal: true),
@@ -683,6 +736,7 @@ class MyHomePage extends StatelessWidget {
                           //)
                           ),
                       onPressed: () async {
+                        
                         var kuralNo = "ஆதி";
                         var sql =
                             "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
@@ -697,10 +751,10 @@ class MyHomePage extends StatelessWidget {
                       },
                     )),
                 // ]),
-                /*
-                  Card(
-                      color: Colors.grey,
-                      child: RaisedButton(
+                
+                Card(
+                    color: Colors.grey,
+                    child: RaisedButton(
                         color: Colors.white,
                         // child: SizedBox(
                         //     height: 60,
@@ -729,7 +783,8 @@ class MyHomePage extends StatelessWidget {
                             //)
                             //)
                             ),
-                        onPressed: () => 
+                        onPressed: () {
+                          
                           // Navigator.of(context).push(MaterialPageRoute<Null>(
                           //     builder: (BuildContext context) {
                           //   return new MyApp444(
@@ -739,16 +794,16 @@ class MyHomePage extends StatelessWidget {
                           //   );
                           // }));
                           //OpenAppstore.launch(androidAppId: "com.facebook.katana&hl=ko", iOSAppId: "284882215")
-                          LaunchReview.launch(        androidAppId: "nithra.tamil.quiz",        iOSAppId: "id1484332988")
+                          LaunchReview.launch(
+                              androidAppId: "nithra.tamil.quiz",
+                              iOSAppId: "id1484332988");
+                        })),
 
-                        ,
-                      )),
-
-                      */
                 RaisedButton(
                   color: Color(1100),
                   child: Text('Favourites using "isfav'),
                   onPressed: () async {
+                    
                     ResultFav = await db.any_query(
                         'SELECT * from complete1 where isfav=1',
                         //1 where isfav=1',
@@ -757,26 +812,38 @@ class MyHomePage extends StatelessWidget {
                         builder: (BuildContext context) {
                       return new Favorite11(); // HomePage1();
                     }));
-                    // OpenAppstore.launch(androidAppId: "com.facebook.katana&hl=ko", iOSAppId: "284882215");
                   },
                 ),
                 RaisedButton(
-                  child: Text('Favourites using complete table'),
-                  color: Color(5400),
-                  onPressed: () async {
-                    // BackupKurals = await db.any_query("SELECT kural_no ", dbName)
-                    ResultFav = await db.any_query(
-                        'SELECT * from complete', //1 where isfav=1',
-                        //1 where isfav=1',
-                        "modi_kural_comp.db");
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new Favorite11(); // HomePage1();
-                    }));
+                  child: Text("Rate App"),
+                  onPressed: () {
+                    
+                    // print("Rate this object")
+                    LaunchReview.launch(
+                      androidAppId: "com.iyaffle.kural",
+                      iOSAppId: "585027354",
+                      writeReview: true,
+                    );
                   },
                 ),
+                // RaisedButton(
+                //   child: Text('Favourites using complete table'),
+                //   color: Color(5400),
+                //   onPressed: ()  {
+                //     // BackupKurals = await db.any_query("SELECT kural_no ", dbName)
+                //     // ResultFav = await db.any_query(
+                //     //     'SELECT * from complete', //1 where isfav=1',
+                //     //     //1 where isfav=1',
+                //     //     "modi_kural_comp.db");
+                //        LaunchReview.launch(androidAppId: "nithra.tamil.quiz", iOSAppId: "id1484332988");
+                //     // Navigator.of(context).push(MaterialPageRoute<Null>(
+                //     //     builder: (BuildContext context) {
+                //     //   return new Favorite11(); // HomePage1();
+                //     // }));
+                //   },
+                // ),
               ],
-            ),
+            )),
           ))),
       // drawer: Drawer(
       //   // Add a ListView to the drawer. This ensures the user can scroll

@@ -82,12 +82,12 @@ class FontSizePickerDialog extends StatefulWidget {
 
 class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
   /// current selection of the slider
-  double _fontSize11;
+  double _fontSize12;
 
   @override
   void initState() {
     super.initState();
-    _fontSize11 = widget.initialFontSize;
+    _fontSize12 = widget.initialFontSize;
   }
 
   @override
@@ -98,13 +98,13 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
         width: 100,
         height: 50,
         child: Slider(
-          value: _fontSize11,
+          value: _fontSize12,
           min: 0,
           max: 20,
           divisions: 10,
           onChanged: (value) {
             setState(() {
-              _fontSize11 = value;
+              _fontSize12 = value;
             });
           },
         ),
@@ -114,7 +114,7 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
           onPressed: () {
             // Use the second argument of Navigator.pop(...) to pass
             // back a result to the page that opened the dialog
-            Navigator.pop(context, _fontSize11);
+            Navigator.pop(context, _fontSize12);
           },
           child: Text('DONE'),
         )
