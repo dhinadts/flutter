@@ -110,38 +110,40 @@ class _MyApp12345State extends State<MyApp12345> {
         ),
         body: MyHomePage(),
         drawer: Drawer(
-          
           // Add a ListView to the drawer. This ensures the user can scroll
           // through the options in the drawer if there isn't enough vertical
           // space to fit everything.
           child: ListView(
             // Important: Remove any padding from the ListView.
             padding: EdgeInsets.zero,
-            children: <Widget>[
+
+            children: ListTile.divideTiles(
+              context: context,
+              tiles: [
+            // <Widget>[
               DrawerHeader(
                 child: Column(
                   children: <Widget>[
-                    // Image.asset("assets/valluvar.jpeg"),
+                    Image.asset("assets/thirukural_round.png", width: 100, height: 100,),
                     Text('திருக்குறள்'),
                   ],
-                 ), 
+                ),
                 decoration: BoxDecoration(
                   color: Colors.blueGrey,
                 ),
               ),
-              
-  //             ListView(
-  // children: ListTile.divideTiles( //          <-- ListTile.divideTiles
-  //     context: context,
-  //     tiles: [
-              Card(
-              child: ListTile(
-                leading: Image.asset("home.png", height:20, width: 20),
-                
-                title: Text('முகப்பு', ),
-                
+
+        //       ListView(
+        // children: ListTile.divideTiles(
+        //   context: context,
+        //   tiles: [
+              // Card( child:
+                   ListTile(
+                leading: Image.asset("home.png", height: 20, width: 20),
+                title: Text(
+                  'முகப்பு',
+                ),
                 onTap: () async {
-                  
                   a = await prefs.getDouble("fontSize1");
                   newData1 = await db.any_query(
                       "select * from complete1", "modi_kural_comp.db");
@@ -155,10 +157,11 @@ class _MyApp12345State extends State<MyApp12345> {
                   //   return new MyApp4(fontSize1 : fontSize1);
                   // }));
                 },
-              )),
+              // )
+              ),
 
               ListTile(
-                leading: Image.asset("play1.png", width:20, height:20),
+                leading: Image.asset("play1.png", width: 20, height: 20),
                 title: Text('முழு பட்டியல்'),
                 onTap: () async {
                   a = await prefs.getDouble("fontSize1");
@@ -179,10 +182,9 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("skip.png", width:20, height:20),
+                leading: Image.asset("skip.png", width: 20, height: 20),
                 title: Text('தொடர்க'),
                 onTap: () async {
-                  
                   int v = await prefs.getInt("cursor");
                   a = await prefs.getDouble("fontSize1");
 
@@ -202,10 +204,9 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("category.png", width:20, height:20),
+                leading: Image.asset("category.png", width: 20, height: 20),
                 title: Text('வகைப்பட்டியல்'),
                 onTap: () async {
-                  
                   result = await db.any_query(
                       'select DISTINCT pal_tamil from complete1',
                       'modi_kural_comp.db');
@@ -219,10 +220,9 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("gobutton.png", width:20, height:20),
+                leading: Image.asset("gotoSearch.png", width: 20, height: 20),
                 title: Text('செல்'),
                 onTap: () async {
-                  
                   return showDialog(
                     context: context,
                     builder: (context) {
@@ -281,10 +281,9 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("search.png", width:20, height:20),
+                leading: Image.asset("search.png", width: 20, height: 20),
                 title: Text('தேடல்'),
                 onTap: () async {
-                  
                   var kuralNo = "ஆதி";
                   var sql =
                       "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
@@ -299,10 +298,9 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("star.png", width:20, height:20),
+                leading: Image.asset("star.png", width: 20, height: 20),
                 title: Text('பிடித்தவைகள்'),
                 onTap: () async {
-                  
                   // BackupKurals = await db.any_query("SELECT kural_no ", dbName)
                   ResultFav = await db.any_query(
                       'SELECT * from complete1 where isfav=1',
@@ -323,10 +321,9 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("protection.png", width:20, height:20),
+                leading: Image.asset("protection.png", width: 20, height: 20),
                 title: Text('தனியுரிமைக் கொள்கை'),
                 onTap: () {
-                  
                   Navigator.of(context).push(
                       MaterialPageRoute<Null>(builder: (BuildContext context) {
                     return new MyApp2(); // HomePage1();
@@ -334,10 +331,9 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("feedback.png", width:20, height:20),
+                leading: Image.asset("feedback.png", width: 20, height: 20),
                 title: Text('கருத்து'),
                 onTap: () {
-                  
                   Navigator.of(context).push(
                       MaterialPageRoute<Null>(builder: (BuildContext context) {
                     return new Feedback_ex(); // HomePage1();
@@ -345,22 +341,22 @@ class _MyApp12345State extends State<MyApp12345> {
                 },
               ),
               ListTile(
-                leading: Image.asset("share.png", width:20, height:20),
+                leading: Image.asset("share.png", width: 20, height: 20),
                 title: Text('பகிரவும்'),
                 onTap: () {
-                  
                   return sharing3();
                 },
               ),
               ListTile(
-                leading: Image.asset("rate.png", width:20, height:20),
+                leading: Image.asset("rate.png", width: 20, height: 20),
                 title: Text('மதிப்பிடவும்'),
                 onTap: () {
-                  
                   return dia_rateUs();
                 },
               ),
+          // ],).toList(),)
             ],
+            ).toList(),
           ),
         ),
       ),
@@ -467,7 +463,6 @@ class MyHomePage extends StatelessWidget {
                       // )
                       ,
                       onPressed: () async {
-                        
                         a = await prefs.getDouble("fontSize1");
                         newData1 = await db.any_query(
                             "select * from complete1", "modi_kural_comp.db");
@@ -514,7 +509,6 @@ class MyHomePage extends StatelessWidget {
                         //  )
                         ),
                     onPressed: () async {
-                      
                       //   int v = await prefs.getInt("cursor");
                       //   double ab = await prefs.getDouble("fontSize1");
                       //   if (v == 0) {
@@ -593,7 +587,6 @@ class MyHomePage extends StatelessWidget {
                       // )
                       ,
                       onPressed: () async {
-                        
                         result = await db.any_query(
                             'select DISTINCT pal_tamil from complete1',
                             'modi_kural_comp.db');
@@ -643,7 +636,7 @@ class MyHomePage extends StatelessWidget {
                       // )
                       ,
                       onPressed: () async {
-                        
+                        a = await prefs.getDouble("fontSize1");
                         return showDialog(
                           context: context,
                           builder: (context) {
@@ -671,6 +664,7 @@ class MyHomePage extends StatelessWidget {
                                 new FlatButton(
                                   child: new Text('ஆம்'),
                                   onPressed: () {
+                                    
                                     Navigator.of(context).pop();
                                     print(
                                         "text.controller:  ${_textFieldController.text}");
@@ -688,7 +682,7 @@ class MyHomePage extends StatelessWidget {
                                     Navigator.of(context).push(
                                         MaterialPageRoute<Null>(
                                             builder: (BuildContext context) {
-                                      return new MyApp444(value: ff);
+                                      return new MyApp444(value: ff, fontSize1: a,);
                                     }));
 
                                     //Navigator.of(context).pop();
@@ -736,7 +730,6 @@ class MyHomePage extends StatelessWidget {
                           //)
                           ),
                       onPressed: () async {
-                        
                         var kuralNo = "ஆதி";
                         var sql =
                             "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
@@ -751,7 +744,7 @@ class MyHomePage extends StatelessWidget {
                       },
                     )),
                 // ]),
-                
+
                 Card(
                     color: Colors.grey,
                     child: RaisedButton(
@@ -784,7 +777,6 @@ class MyHomePage extends StatelessWidget {
                             //)
                             ),
                         onPressed: () {
-                          
                           // Navigator.of(context).push(MaterialPageRoute<Null>(
                           //     builder: (BuildContext context) {
                           //   return new MyApp444(
@@ -803,7 +795,6 @@ class MyHomePage extends StatelessWidget {
                   color: Color(1100),
                   child: Text('Favourites using "isfav'),
                   onPressed: () async {
-                    
                     ResultFav = await db.any_query(
                         'SELECT * from complete1 where isfav=1',
                         //1 where isfav=1',
@@ -817,7 +808,6 @@ class MyHomePage extends StatelessWidget {
                 RaisedButton(
                   child: Text("Rate App"),
                   onPressed: () {
-                    
                     // print("Rate this object")
                     LaunchReview.launch(
                       androidAppId: "com.iyaffle.kural",

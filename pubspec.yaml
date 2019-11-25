@@ -45,6 +45,8 @@ dependencies:
   esys_flutter_share: ^1.0.2
   seekbar: ^0.0.2
   splashscreen:
+  
+  
   # launch_review: ^2.0.0
   
 
@@ -112,6 +114,9 @@ flutter:
     - share.png
     - rate.png
     - home.png
+    - gotoSearch.png
+    - thirukural_round.png
+    - front.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -70,7 +70,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
             //   'Nithra Edu Solutions',
             //   style: new TextStyle(fontWeight: FontWeight.bold, fontSize: 20.0),
             // ),
-            image: new Image.asset('assets/spalsh_image.png'),
+            image: new Image.asset('assets/front.png'),
             //backgroundColor: Colors.white,
             //styleTextUnderTheLoader: new TextStyle(fontSize: 0),
             loaderColor: Colors.blue,

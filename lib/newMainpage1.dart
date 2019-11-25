@@ -13,6 +13,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;
 import 'dart:async';
 import 'dart:typed_data';
+// import 'package:flutter/cupertino.dart';
 
 import 'Gsearch.dart';
 import 'db/dbhelper.dart';
@@ -68,12 +69,13 @@ class MyApp444State extends State<MyApp444> {
 
   prefix0.int index1;
 
-  double _fontSize11 = 20.0;
+  double _fontSize11 = 0.0;
 
   void _showFontSizePickerDialog() async {
     // <-- note the async keyword here
 
     // this will contain the result from Navigator.pop(context, result)
+    _fontSize11 = await prefs.getDouble("fontSize1");
 
     final selectedFontSize = await showDialog<double>(
       context: context,
@@ -110,19 +112,21 @@ class MyApp444State extends State<MyApp444> {
 
     controller.addListener(() {
       // summa(controller.page as prefix0.int);
-      summaR = db.any_query("SELECT * from complete where kural_no = ($currentPageValue + 1)", "modi_kural_comp.db");
+      summaR = db.any_query(
+          "SELECT * from complete where kural_no = ($currentPageValue + 1)",
+          "modi_kural_comp.db");
       setState(() {
         // print("page value ${controller.page}");
         currentPageValue = controller.page
             as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
-    if (summaR.isEmpty) {
-            _isFavorited = false;
-            _isfav = false;
-          } else {
-            _isFavorited = true;
-            _isfav = true;
-          }
-      
+        if (summaR.isEmpty) {
+          _isFavorited = false;
+          _isfav = false;
+        } else {
+          _isFavorited = true;
+          _isfav = true;
+        }
+
         /*
         try {
           summaR = db.any_query("SELECT * from complete where kural_no = ($currentPageValue + 1)", "modi_kural_comp.db");
@@ -138,6 +142,7 @@ class MyApp444State extends State<MyApp444> {
       });
     });
   }
+
   @override
   void dispose() {
     controller.dispose();
@@ -249,14 +254,15 @@ class MyApp444State extends State<MyApp444> {
           // Build the ListView
           itemCount: 1330,
           controller: controller,
-        // physics: NeverScrollableScrollPhysics(),
-reverse: false,
+          // physics: NeverScrollableScrollPhysics(),
+          reverse: false,
           pageSnapping: true,
           // scrollDirection: Axis.horizontal,
           onPageChanged: (int index) {
             favouriteTable();
             for (var i = 0; i < favArray.length; i++) {
-              if ((index + 1) == favArray[i]['id']  && newData1[index]['id'] == favArray[i]['id']) {
+              if ((index + 1) == favArray[i]['id'] &&
+                  newData1[index]['id'] == favArray[i]['id']) {
                 setState(() {
                   _isFavorited = true;
                   _isfav = true;
@@ -268,7 +274,7 @@ reverse: false,
                 });
               }
             }
-           
+
             // for (var i = 0; i < favArray.length; i++) {
             //   if (newData1[index]['id'] == favArray[i]['id']) {
             //     _isFavorited = true;
@@ -307,7 +313,7 @@ reverse: false,
             prefs.setint("cursor", cursor);
             favKural = index + 1;
             prefix0.print(favKural);
-favouriteTable();
+            favouriteTable();
 // summaR = db.any_query("SELECT * from complete where kural_no = $favKural", "modi_kural_comp.db");
 // if(summaR.isEmpty){
 //   _isFavorited = false;
@@ -331,7 +337,7 @@ favouriteTable();
             prefix0.print("rounded Index: ${index.round()}");
             prefix0.print("_isFavorited:: $_isFavorited");
             summa1(index);
-            summa1(index-1);
+            summa1(index - 1);
 
             return Card(
               child: Column(
@@ -349,14 +355,15 @@ favouriteTable();
                         ),
                         // new FavoriteWidget(),
                         IconButton(
-                          autofocus: false,
-                          tooltip: "favourite",
+                            autofocus: false,
+                            tooltip: "favourite",
                             icon: (_isFavorited == true && _isfav == true
                                 ? Icon(Icons.star)
                                 : Icon(Icons.star_border)),
-                            color: (_isFavorited == true && _isfav == true ? Colors.red[500] : Colors.red),
+                            color: (_isFavorited == true && _isfav == true
+                                ? Colors.red[500]
+                                : Colors.red),
                             onPressed: () async {
-                              
                               var favTest = (index + 1);
                               // prefix0.print("favTest:  $favTest");
                               // await summa(favTest);
@@ -450,7 +457,6 @@ favouriteTable();
                                           // Navigator.of(context).pop();
 
                                           // Navigator.of(context, rootNavigator: true).pop();
-
                                         },
                                       )
                                     ],
@@ -557,7 +563,8 @@ favouriteTable();
                                         color: Colors.white, fontSize: 20),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context, rootNavigator: true).pop();
+                                    Navigator.of(context, rootNavigator: true)
+                                        .pop();
                                     // Navigator.pop(context);
                                     // Navigator.of(context)
                                     //     .pop(); // dismiss dialog
@@ -726,10 +733,10 @@ favouriteTable();
                       IconButton(
                         icon: const Icon(Icons.arrow_back_ios),
                         onPressed: () {
-                          summa(index-1);
+                          summa(index - 1);
                           summa(index);
                           _summa(index);
-                          _summa(index-1);
+                          _summa(index - 1);
                           controller.jumpToPage(index.floor() - 1);
                           prefix0.print("index: $index");
                           // print("searching");
@@ -746,10 +753,10 @@ favouriteTable();
                         icon: const Icon(Icons.arrow_forward_ios),
                         onPressed: () {
                           prefix0.print("index: $index");
-                          summa(index+1);
+                          summa(index + 1);
                           summa(index);
                           _summa(index);
-                          _summa(index+1);
+                          _summa(index + 1);
                           controller.jumpToPage(index.floor() + 1);
                           //print("searching");
                         },
