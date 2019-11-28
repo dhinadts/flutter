@@ -4,7 +4,6 @@ import 'package:dhina/Gsearch.dart';
 import 'package:dhina/cate2pgview.dart';
 import 'package:dhina/main_pages/favorite_Displays.dart';
 import 'package:dhina/newMainpage1.dart';
-import 'package:dhina/pages/home_page.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';

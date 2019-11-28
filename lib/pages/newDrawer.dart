@@ -1,18 +1,19 @@
+import 'dart:math';
+
 import 'package:dhina/Gsearch.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/db/sharedpref.dart';
 import 'package:dhina/dia_rating.dart';
 import 'package:dhina/feedback_ex.dart';
-import 'package:dhina/firstPage.dart';
 import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/fragments/privacy_link.dart';
-import 'package:dhina/fragments/second_fragment.dart';
+import 'package:dhina/localNotification.dart';
 import 'package:dhina/main_pages/favorite_Displays.dart';
-import 'package:dhina/pages/home_page.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 import 'package:launch_review/launch_review.dart';
 // import 'package:open_appstore/open_appstore.dart';
@@ -26,8 +27,12 @@ import '../newMainpage1.dart';
 
 var db = DatabaseHelper();
 var prefs = Shared_Preference();
+var payloadNo;
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
 // var newData;
 //List<Map<String, dynamic>> newData1;
+List<Map<String, dynamic>> pal2iyal, iyal2adhikaram;
 // ScreenUtil.instance = ScreenUtil.getInstance().init(context);
 TextEditingController _textFieldController = TextEditingController();
 
@@ -50,53 +55,129 @@ class _MyApp12345State extends State<MyApp12345> {
     //    await db.db_move();
 
     // }
-    dbmove() async {
-      await db.db_move();
-      //newData1 = await db.any_query("select * from complete1", "modi_kural_comp.db");
-      ResultFav = await db.any_query(
-          'SELECT * from complete', //1 where isfav=1',
-          //1 where isfav=1',
-          "modi_kural_comp.db");
-    }
+    // dbmove() async {
+    //   await db.db_move();
+    //   //newData1 = await db.any_query("select * from complete1", "modi_kural_comp.db");
+    //   ResultFav = await db.any_query(
+    //       'SELECT * from complete', //1 where isfav=1',
+    //       //1 where isfav=1',
+    //       "modi_kural_comp.db");
+    // }
+   
+                
 
     super.initState();
-    dbmove();
-    // dbhelp.db_move();
-    // _loadAStudentAsset();
+    // dbmove();
+    
+
+    // flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    // var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    // var iOS = new IOSInitializationSettings();
+    // var initSetttings = new InitializationSettings(android, iOS);
+    // flutterLocalNotificationsPlugin.initialize(initSetttings,
+    //     onSelectNotification: onSelectNotification);
+    //     _showDailyAtTime();
+
+  }
+
+// Future onSelectNotification(String payload) {
+//     debugPrint("payload : $payload");
+//     return Navigator.push(
+//                   context,
+//                   MaterialPageRoute(
+//                       builder: (context) => MyApp444(
+//                             value: payloadNo - 1,
+//                             currentPageValue: payloadNo - 1,
+//                             fontSize1: 0,
+//                           )),
+//                 );
+//  }
+// Future<void> _showDailyAtTime() async {
+//     final _random = new Random();
+//     var values = newData1.toList();
+//     var element = values[_random.nextInt(values.length)];
+//     payloadNo = element['kural_no'];
+//     // print("element: $element");
+//     print("Random Kural No: ${element['kural_no']}");
+//     var time = new Time(17, 45, 0);
+//     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+//         'repeatDailyAtTime channel id',
+//         'repeatDailyAtTime channel name',
+//         'repeatDailyAtTime description');
+//     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+//     var platformChannelSpecifics = new NotificationDetails(
+//         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+//     await flutterLocalNotificationsPlugin.showDailyAtTime(
+//         0,
+//         'தினம் ஒரு குறள்',
+//         'இன்றைய குறள்',
+//         time,
+//         platformChannelSpecifics, payload: element['kural_tamil1']);
+//   }
+
+
+  Future<bool> _inBackPressed() {
+    return showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text("Doyou want to quit this app"),
+        actions: <Widget>[
+          FlatButton(
+            child: Text("No"),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          FlatButton(
+            child: Text("Yes"),
+            onPressed: () {
+              Navigator.pop(context, true);
+            },
+          )
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // title: appTitle,
-      theme: new ThemeData(
-        primarySwatch: Colors.blueGrey,
-      ),
-      debugShowCheckedModeBanner: false,
+        // title: appTitle,
+        theme: new ThemeData(
+          primarySwatch: Colors.blueGrey,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: 
+        // WillPopScope(
+        //   //         onWillPop: () async {
+        //   //   if (Navigator.of(context).userGestureInProgress)
+        //   //     return false;
+        //   //   else
+        //   //     return true;
+        //   // },
+        //   onWillPop: null,// _inBackPressed,
+        //   child: 
+          Scaffold(
+            appBar: new AppBar(
+              title: new Text('திருக்குறள்'),
+              //   automaticallyImplyLeading: false, // this will hide Drawer hamburger icon
 
-      home: Scaffold(
-        appBar: new AppBar(
-          title: new Text('திருக்குறள்'),
-          //   automaticallyImplyLeading: false, // this will hide Drawer hamburger icon
-
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.share),
-              onPressed: () {
-                Share.share("Nithra Edu Solutions Thirukkural Appp Id: ");
-              },
-            ),
-            IconButton(
-              icon: const Icon(Icons.add_alert),
-              onPressed: () {
-                // openPage(context);
-                // return new MyApp2();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => MyApp2()),
-                );
-              },
-            ),
+              actions: <Widget>[
+                IconButton(
+                  icon: const Icon(Icons.share),
+                  onPressed: () {
+                    Share.share("Nithra Edu Solutions Thirukkural Appp Id: ");
+                  },
+                ),
+                IconButton(
+                  icon: const Icon(Icons.add_alert),
+                  onPressed: () {
+                    // openPage(context);
+                    // return new MyApp2();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => MyApp2()),
+                    );
+                  },
+                ),
 //           new GestureDetector(
 // onTap: () {
 //                     return Share.share("Text");
@@ -105,278 +186,292 @@ class _MyApp12345State extends State<MyApp12345> {
 //           ),
 
 //           Text("Noti")
-          ],
-          // title: new Text(widget.drawerItems[_selectedDrawerIndex].title),
-        ),
-        body: MyHomePage(),
-        drawer: Drawer(
-          // Add a ListView to the drawer. This ensures the user can scroll
-          // through the options in the drawer if there isn't enough vertical
-          // space to fit everything.
-          child: ListView(
-            // Important: Remove any padding from the ListView.
-            padding: EdgeInsets.zero,
+              ],
+              // title: new Text(widget.drawerItems[_selectedDrawerIndex].title),
+            ),
+            body: MyHomePage(),
+            drawer: Drawer(
+              // Add a ListView to the drawer. This ensures the user can scroll
+              // through the options in the drawer if there isn't enough vertical
+              // space to fit everything.
+              child: ListView(
+                // Important: Remove any padding from the ListView.
+                padding: EdgeInsets.zero,
 
-            children: ListTile.divideTiles(
-              context: context,
-              tiles: [
-                // <Widget>[
-                DrawerHeader(
-                  child: Column(
-                    children: <Widget>[
-                      Image.asset(
-                        "assets/thirukural_round.png",
-                        width: 100,
-                        height: 100,
-                      ),
-                      Text('திருக்குறள்'),
-                    ],
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.blueGrey,
-                  ),
-                ),
-
-                //       ListView(
-                // children: ListTile.divideTiles(
-                //   context: context,
-                //   tiles: [
-                // Card( child:
-                ListTile(
-                  // contentPadding: EdgeInsets.all(8.0),
-                  leading: Image.asset("home.png", height: 20, width: 20,),
-                  title: Text(
-                    'முகப்பு',
-                  ),
-                  onTap: () async {
-                    // Navigator.of(context).pop();
-                    // Navigator.of(context).maybePop();
-
-                    // Navigator.pop(context, true);
-                    a = await prefs.getDouble("fontSize1");
-                    newData1 = await db.any_query(
-                        "select * from complete1", "modi_kural_comp.db");
-
-                    await Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new MyApp12345();
-                    }));
-                    // await Navigator.of(context).push(
-                    //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                    //   return new MyApp4(fontSize1 : fontSize1);
-                    // }));
-                  },
-                  // )
-                ),
-
-                ListTile(
-                  leading: Image.asset("play1.png", width: 20, height: 20),
-                  title: Text('முழு பட்டியல்'),
-                  onTap: () async {
-                    // Navigator.of(context).pop();
-                    // Navigator.of(context).maybePop();
-                    // Navigator.pushReplacementNamed(context, '/');
-
-                    // Navigator.pop(context, true);
-                    a = await prefs.getDouble("fontSize1");
-                    newData1 = await db.any_query(
-                        "select * from complete1", "modi_kural_comp.db");
-                    await Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new MyApp444(
-                        value: 0,
-                        currentPageValue: 0,
-                        fontSize1: a,
-                      ); // fontSize11),);
-                    }));
-                    // await Navigator.of(context).push(
-                    //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                    //   return new MyApp4(fontSize1 : fontSize1);
-                    // }));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("skip.png", width: 20, height: 20),
-                  title: Text('தொடர்க'),
-                  onTap: () async {
-                    int v = await prefs.getInt("cursor");
-                    a = await prefs.getDouble("fontSize1");
-
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new MyApp444(
-                        value: v,
-                        currentPageValue: v,
-                        fontSize1: a,
-                      );
-                    }));
-
-                    // Navigator.of(context).push(
-                    //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                    //   return new MyApp44(value: v);
-                    // }));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("category.png", width: 20, height: 20),
-                  title: Text('வகைப்பட்டியல்'),
-                  onTap: () async {
-                    result = await db.any_query(
-                        'select DISTINCT pal_tamil from complete1',
-                        'modi_kural_comp.db');
-                    await _onSelectItem1(result[0]['pal_tamil']);
-                    await _onSelectItem2(result[1]['pal_tamil']);
-                    await _onSelectItem3(result[2]['pal_tamil']);
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new TabBarDemo();
-                    }));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("gotoSearch.png", width: 20, height: 20),
-                  title: Text('செல்'),
-                  onTap: () async {
-                    return showDialog(
-                      context: context,
-                      builder: (context) {
-                        var _value;
-                        return AlertDialog(
-                          title: Text('குறள் எண்ணை உள்ளிடவும்'),
-                          content: TextFormField(
-                            keyboardType: TextInputType
-                                .number, //numberWithOptions(decimal: true),
-                            controller: _textFieldController,
-                            decoration:
-                                InputDecoration(hintText: "குறள் எண்: "),
-                            onSaved: (input) => _value = int.tryParse(input),
-                            // textInputAction: controller.jumpTo(value),
+                children: ListTile.divideTiles(
+                  context: context,
+                  tiles: [
+                    // <Widget>[
+                    DrawerHeader(
+                      child: Column(
+                        children: <Widget>[
+                          Image.asset(
+                            "assets/thirukural_round.png",
+                            width: 100,
+                            height: 100,
                           ),
-                          actions: <Widget>[
-                            new FlatButton(
-                              child: new Text('இல்லை'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                // Navigator.of(context).pop();
-                              },
-                            ),
-                            new FlatButton(
-                              child: new Text('ஆம்'),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                print(
-                                    "text.controller:  ${_textFieldController.text}");
-                                var abcd =
-                                    (_textFieldController.text).toString();
-                                print("abcd " + abcd);
-                                var ff = int.parse(abcd) - 1;
-                                //               var route = new MaterialPageRoute(
-                                //   builder: (BuildContext context) =>
-                                //       new MyApp44(value: ff, ),
-                                // );
-                                // Navigator.of(context).push(route);
-                                // Navigator.of(context).push(route);
+                          Text('திருக்குறள்'),
+                        ],
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.blueGrey,
+                      ),
+                    ),
 
-                                Navigator.of(context).push(
-                                    MaterialPageRoute<Null>(
-                                        builder: (BuildContext context) {
-                                  return new MyApp444(value: ff);
-                                }));
+                    //       ListView(
+                    // children: ListTile.divideTiles(
+                    //   context: context,
+                    //   tiles: [
+                    // Card( child:
+                    ListTile(
+                      // contentPadding: EdgeInsets.all(8.0),
+                      leading: Image.asset(
+                        "home.png",
+                        height: 20,
+                        width: 20,
+                      ),
+                      title: Text(
+                        'முகப்பு',
+                      ),
+                      onTap: () async {
+                        // Navigator.of(context).pop();
+                        // Navigator.of(context).maybePop();
 
-                                //Navigator.of(context).pop();
+                        // Navigator.pop(context, true);
+                        a = await prefs.getDouble("fontSize1");
+                        newData1 = await db.any_query(
+                            "select * from complete1", "modi_kural_comp.db");
 
-                                // controller.jumpToPage(ff);
-                                // Navigator.of(context)
-                                //     .pop();
-                              },
-                            )
-                          ],
+                        await Navigator.of(context).push(
+                            MaterialPageRoute<Null>(
+                                builder: (BuildContext context) {
+                          return new MyApp12345();
+                        }));
+                        // await Navigator.of(context).push(
+                        //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                        //   return new MyApp4(fontSize1 : fontSize1);
+                        // }));
+                      },
+                      // )
+                    ),
+
+                    ListTile(
+                      leading: Image.asset("play1.png", width: 20, height: 20),
+                      title: Text('முழு பட்டியல்'),
+                      onTap: () async {
+                        // Navigator.of(context).pop();
+                        // Navigator.of(context).maybePop();
+                        // Navigator.pushReplacementNamed(context, '/');
+
+                        // Navigator.pop(context, true);
+                        a = await prefs.getDouble("fontSize1");
+                        newData1 = await db.any_query(
+                            "select * from complete1", "modi_kural_comp.db");
+                        await Navigator.of(context).push(
+                            MaterialPageRoute<Null>(
+                                builder: (BuildContext context) {
+                          return new MyApp444(
+                            value: 0,
+                            currentPageValue: 0,
+                            fontSize1: a,
+                          ); // fontSize11),);
+                        }));
+                        // await Navigator.of(context).push(
+                        //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                        //   return new MyApp4(fontSize1 : fontSize1);
+                        // }));
+                      },
+                    ),
+                    ListTile(
+                      leading: Image.asset("skip.png", width: 20, height: 20),
+                      title: Text('தொடர்க'),
+                      onTap: () async {
+                        int v = await prefs.getInt("cursor");
+                        a = await prefs.getDouble("fontSize1");
+
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            builder: (BuildContext context) {
+                          return new MyApp444(
+                            value: v,
+                            currentPageValue: v,
+                            fontSize1: a,
+                          );
+                        }));
+
+                        // Navigator.of(context).push(
+                        //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                        //   return new MyApp44(value: v);
+                        // }));
+                      },
+                    ),
+                    ListTile(
+                      leading:
+                          Image.asset("category.png", width: 20, height: 20),
+                      title: Text('வகைப்பட்டியல்'),
+                      onTap: () async {
+                        result = await db.any_query(
+                            'select DISTINCT pal_tamil from complete1',
+                            'modi_kural_comp.db');
+                        await _onSelectItem1(result[0]['pal_tamil']);
+                        await _onSelectItem2(result[1]['pal_tamil']);
+                        await _onSelectItem3(result[2]['pal_tamil']);
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            builder: (BuildContext context) {
+                          return new TabBarDemo();
+                        }));
+                      },
+                    ),
+                    ListTile(
+                      leading:
+                          Image.asset("gotoSearch.png", width: 20, height: 20),
+                      title: Text('செல்'),
+                      onTap: () async {
+                        return showDialog(
+                          context: context,
+                          builder: (context) {
+                            var _value;
+                            return AlertDialog(
+                              title: Text('குறள் எண்ணை உள்ளிடவும்'),
+                              content: TextFormField(
+                                keyboardType: TextInputType
+                                    .number, //numberWithOptions(decimal: true),
+                                controller: _textFieldController,
+                                decoration:
+                                    InputDecoration(hintText: "குறள் எண்: "),
+                                onSaved: (input) =>
+                                    _value = int.tryParse(input),
+                                // textInputAction: controller.jumpTo(value),
+                              ),
+                              actions: <Widget>[
+                                new FlatButton(
+                                  child: new Text('இல்லை'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    // Navigator.of(context).pop();
+                                  },
+                                ),
+                                new FlatButton(
+                                  child: new Text('ஆம்'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    print(
+                                        "text.controller:  ${_textFieldController.text}");
+                                    var abcd =
+                                        (_textFieldController.text).toString();
+                                    print("abcd " + abcd);
+                                    var ff = int.parse(abcd) - 1;
+                                    //               var route = new MaterialPageRoute(
+                                    //   builder: (BuildContext context) =>
+                                    //       new MyApp44(value: ff, ),
+                                    // );
+                                    // Navigator.of(context).push(route);
+                                    // Navigator.of(context).push(route);
+
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute<Null>(
+                                            builder: (BuildContext context) {
+                                      return new MyApp444(value: ff);
+                                    }));
+
+                                    //Navigator.of(context).pop();
+
+                                    // controller.jumpToPage(ff);
+                                    // Navigator.of(context)
+                                    //     .pop();
+                                  },
+                                )
+                              ],
+                            );
+                          },
                         );
                       },
-                    );
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("search.png", width: 20, height: 20),
-                  title: Text('தேடல்'),
-                  onTap: () async {
-                    var kuralNo = "ஆதி";
-                    var sql =
-                        "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
-                    // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
-                    var searchResult =
-                        await db.any_query(sql, "modi_kural_comp.db");
-                    print(searchResult);
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new GlobalSearch();
-                    }));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("star.png", width: 20, height: 20),
-                  title: Text('பிடித்தவைகள்'),
-                  onTap: () async {
-                    // BackupKurals = await db.any_query("SELECT kural_no ", dbName)
-                    ResultFav = await db.any_query(
-                        'SELECT * from complete1 where isfav=1',
-                        //1 where isfav=1',
-                        "modi_kural_comp.db");
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new Favorite11(); // HomePage1();
-                    }));
-                    // ResultFav = await db.any_query(
-                    //     'SELECT * from complete', //1 where isfav=1',
-                    //     //1 where isfav=1',
-                    //     "modi_kural_comp.db");
-                    // Navigator.of(context).push(
-                    //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                    //   return new Favorite11(); // HomePage1();
-                    // }));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("protection.png", width: 20, height: 20),
-                  title: Text('தனியுரிமைக் கொள்கை'),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new MyApp2(); // HomePage1();
-                    }));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("feedback.png", width: 20, height: 20),
-                  title: Text('கருத்து'),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new Feedback_ex(); // HomePage1();
-                    }));
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("share.png", width: 20, height: 20),
-                  title: Text('பகிரவும்'),
-                  onTap: () {
-                    return sharing3();
-                  },
-                ),
-                ListTile(
-                  leading: Image.asset("rate.png", width: 20, height: 20),
-                  title: Text('மதிப்பிடவும்'),
-                  onTap: () {
-                    return dia_rateUs();
-                  },
-                ),
-                // ],).toList(),)
-              ],
-            ).toList(),
+                    ),
+                    ListTile(
+                      leading: Image.asset("search.png", width: 20, height: 20),
+                      title: Text('தேடல்'),
+                      onTap: () async {
+                        // var kuralNo = "ஆதி";
+                        // var sql =
+                        //     "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
+                        // // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
+                        // var searchResult =
+                        //     await db.any_query(sql, "modi_kural_comp.db");
+                        // print(searchResult);
+                        result = await db.any_query(
+                            'select DISTINCT pal_tamil from complete1',
+                            'modi_kural_comp.db');
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            builder: (BuildContext context) {
+                          return new GlobalSearch();
+                        }));
+                      },
+                    ),
+                    ListTile(
+                      leading: Image.asset("star.png", width: 20, height: 20),
+                      title: Text('பிடித்தவைகள்'),
+                      onTap: () async {
+                        // BackupKurals = await db.any_query("SELECT kural_no ", dbName)
+                        ResultFav = await db.any_query(
+                            'SELECT * from complete1 where isfav=1',
+                            //1 where isfav=1',
+                            "modi_kural_comp.db");
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            builder: (BuildContext context) {
+                          return new Favorite11(); // HomePage1();
+                        }));
+                        // ResultFav = await db.any_query(
+                        //     'SELECT * from complete', //1 where isfav=1',
+                        //     //1 where isfav=1',
+                        //     "modi_kural_comp.db");
+                        // Navigator.of(context).push(
+                        //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                        //   return new Favorite11(); // HomePage1();
+                        // }));
+                      },
+                    ),
+                    ListTile(
+                      leading:
+                          Image.asset("protection.png", width: 20, height: 20),
+                      title: Text('தனியுரிமைக் கொள்கை'),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            builder: (BuildContext context) {
+                          return new MyApp2(); // HomePage1();
+                        }));
+                      },
+                    ),
+                    ListTile(
+                      leading:
+                          Image.asset("feedback.png", width: 20, height: 20),
+                      title: Text('கருத்து'),
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            builder: (BuildContext context) {
+                          return new Feedback_ex(); // HomePage1();
+                        }));
+                      },
+                    ),
+                    ListTile(
+                      leading: Image.asset("share.png", width: 20, height: 20),
+                      title: Text('பகிரவும்'),
+                      onTap: () {
+                        return sharing3();
+                      },
+                    ),
+                    ListTile(
+                      leading: Image.asset("rate.png", width: 20, height: 20),
+                      title: Text('மதிப்பிடவும்'),
+                      onTap: () {
+                        return dia_rateUs();
+                      },
+                    ),
+                    // ],).toList(),)
+                  ],
+                ).toList(),
+              ),
+            ),
           ),
-        ),
-      ),
-      // MyHomePage(title: appTitle),
+          // MyHomePage(title: appTitle),
 
 //       home: Scaffold(
 //         appBar: new AppBar(
@@ -419,8 +514,9 @@ class _MyApp12345State extends State<MyApp12345> {
 //         ),
 //       ),
 
-      // MyHomePage(title: appTitle),
-    );
+          // MyHomePage(title: appTitle),
+        //)
+        );
   }
 }
 
@@ -749,13 +845,20 @@ class MyHomePage extends StatelessWidget {
                           //)
                           ),
                       onPressed: () async {
-                        var kuralNo = "ஆதி";
-                        var sql =
-                            "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
-                        // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
-                        var searchResult =
-                            await db.any_query(sql, "modi_kural_comp.db");
-                        print(searchResult);
+                        // var kuralNo = "ஆதி";
+                        // var sql =
+                        //     "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
+                        // // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
+                        // var searchResult =
+                        //     await db.any_query(sql, "modi_kural_comp.db");
+                        // print(searchResult);
+                        result = await db.any_query(
+                            'select DISTINCT pal_tamil from complete1',
+                            'modi_kural_comp.db');
+                        //                       pal2iyal = await db.any_query(
+                        // 'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="அறத்துப்பால்"',
+                        // 'modi_kural_comp.db');
+                        // iyal2adhikaram = ;
                         Navigator.of(context).push(MaterialPageRoute<Null>(
                             builder: (BuildContext context) {
                           return new GlobalSearch();
@@ -825,14 +928,29 @@ class MyHomePage extends StatelessWidget {
                   },
                 ),
                 RaisedButton(
-                  child: Text("Rate App"),
-                  onPressed: () {
+                  child: Text("Local Notification "),
+                  onPressed: () async {
                     // print("Rate this object")
-                    LaunchReview.launch(
-                      androidAppId: "com.iyaffle.kural",
-                      iOSAppId: "585027354",
-                      writeReview: true,
-                    );
+                    // LaunchReview.launch(
+                    //   androidAppId: "com.iyaffle.kural",
+                    //   iOSAppId: "585027354",
+                    //   writeReview: true,
+                    // );
+                    newData1 = await db.any_query(
+                        "select * from complete1", "modi_kural_comp.db");
+                    final _random = new Random();
+                    var values = newData1.toList();
+                    var element = values[_random.nextInt(values.length)];
+                    print(element);
+                    print("${element['kural_no']}");
+
+                    Navigator.of(context).push(MaterialPageRoute<Null>(
+                        builder: (BuildContext context) {
+                      return new LocalNoti(
+                        payload: element['kural_tamil1'],
+                        payload_kural_no: element['kural_no'],
+                      ); // HomePage1();
+                    }));
                   },
                 ),
                 // RaisedButton(

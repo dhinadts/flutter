@@ -2,13 +2,10 @@ import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
-import 'package:dhina/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:like_button/like_button.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
-import 'package:dhina/pages/home_page.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:ui' as ui;
 import 'package:flutter/services.dart' show rootBundle;

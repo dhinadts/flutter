@@ -45,8 +45,12 @@ dependencies:
   esys_flutter_share: ^1.0.2
   seekbar: ^0.0.2
   splashscreen:
-  
-  
+  flutter_local_notifications: ^0.8.4+3
+  rxdart: ^0.22.6
+  dart_random_choice: ^0.0.2
+
+  # intl: ^0.16.0
+
   # launch_review: ^2.0.0
   
 

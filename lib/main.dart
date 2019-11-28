@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:dhina/cate2pgview.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/pages/home_page.dart';
+import 'package:dhina/newMainpage1.dart';
 import 'package:dhina/pages/newDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:ui';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -29,9 +32,10 @@ import 'package:splashscreen/splashscreen.dart';
 //   }
 
 // }
+
 List<Map<String, dynamic>> newData1;
 var newData;
-
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 class SplashScreenPage extends StatefulWidget {
   SplashScreenPage({Key key, this.title}) : super(key: key);
   final String title;
@@ -88,17 +92,22 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
 var dbhelp = DatabaseHelper();
 var db = DatabaseHelper();
+var payloadNo;
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 void main() => runApp(new HomePageMain());
 
 class HomePageMain extends StatefulWidget {
   HomePageMain({Key key}) : super(key: key);
 
+
   @override
   _HomePageMainState createState() => _HomePageMainState();
 }
 
 class _HomePageMainState extends State<HomePageMain> {
+  
+
   @override
   Widget build(BuildContext context) {
     return new MaterialApp(
@@ -122,6 +131,14 @@ class _HomePageMainState extends State<HomePageMain> {
       newData = await rootBundle.loadString('assets/complete1.json');
       // await db.db_move();
     }
+    // flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    // var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    // var iOS = new IOSInitializationSettings();
+    // var initSetttings = new InitializationSettings(android, iOS);
+    // flutterLocalNotificationsPlugin.initialize(initSetttings,
+    //     onSelectNotification: onSelectNotification);
+    //             _showDailyAtTime();
+
 
     dbmove() async {
       await db.db_move();
@@ -139,8 +156,45 @@ class _HomePageMainState extends State<HomePageMain> {
     // }
 
     super.initState();
+    
     dbmove();
     // dbhelp.db_move();
     _loadAStudentAsset();
+//              _showDailyAtTime();
+
   }
+  // Future onSelectNotification(String payload) {
+  //   debugPrint("payload : $payload");
+  //   return Navigator.push(
+  //                 context,
+  //                 MaterialPageRoute(
+  //                     builder: (context) => MyApp444(
+  //                           value: payloadNo - 1,
+  //                           currentPageValue: payloadNo - 1,
+  //                           fontSize1: 0,
+  //                         )),
+  //               );
+  // }
+  // Future<void> _showDailyAtTime() async {
+  //   final _random = new Random();
+  //   var values = newData1.toList();
+  //   var element = values[_random.nextInt(values.length)];
+  //   payloadNo = element['kural_no'];
+  //   // print("element: $element");
+  //   print("Random Kural No: ${element['kural_no']}");
+  //   var time = new Time(16, 40, 0);
+  //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+  //       'repeatDailyAtTime channel id',
+  //       'repeatDailyAtTime channel name',
+  //       'repeatDailyAtTime description');
+  //   var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+  //   var platformChannelSpecifics = new NotificationDetails(
+  //       androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+  //   await flutterLocalNotificationsPlugin.showDailyAtTime(
+  //       0,
+  //       'தினம் ஒரு குறள்',
+  //       'இன்றைய குறள்',
+  //       time,
+  //       platformChannelSpecifics, payload: "MainFunction"  );// element['kural_tamil1']);
+  // }
 }

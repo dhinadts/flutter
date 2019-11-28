@@ -1,13 +1,10 @@
-import 'package:dhina/pages/home_page.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/fragments/first_fragment.dart';
-import 'package:dhina/tapOption.dart';
 
 import '../controllers.dart';
 import '../searchingKural.dart';
-import 'Adhikaramkural.dart';
 
 // List<Map<String, dynamic>> result2;
 

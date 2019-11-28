@@ -41,8 +41,10 @@ List<Map<String, dynamic>> testR;
 List<Map<String, dynamic>> resFav;
 List<Map<String, dynamic>> favArray;
 List<Map<String, dynamic>> summaR;
+ List<Map<String, dynamic>> summaR1;
 var currentPageValue = 0;
 PageController controller = PageController();
+ScrollController _controller = ScrollController();
 
 class MyApp444 extends StatefulWidget {
   final int value;
@@ -71,6 +73,8 @@ class MyApp444State extends State<MyApp444> {
 
   double _fontSize11 = 0.0;
 
+  
+
   void _showFontSizePickerDialog() async {
     // <-- note the async keyword here
 
@@ -95,6 +99,7 @@ class MyApp444State extends State<MyApp444> {
       await prefs.setdouble("fontSize1", _fontSize11);
     }
   }
+  
 
   @override
   void initState() {
@@ -111,15 +116,18 @@ class MyApp444State extends State<MyApp444> {
     favouriteTable();
 
     controller.addListener(() {
+      // _scrollListener();
       // summa(controller.page as prefix0.int);
-      summaR = db.any_query(
-          "SELECT * from complete where kural_no = ($currentPageValue + 1)",
-          "modi_kural_comp.db");
+      // summaR = db.any_query(
+      //     "SELECT * from complete where kural_no = ($currentPageValue + 1)",
+      //     "modi_kural_comp.db");
+      
       setState(() {
         // print("page value ${controller.page}");
         currentPageValue = controller.page
             as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
-        if (summaR.isEmpty) {
+      summaR1 =  db.any_query("SELECT * from complete1 where isfav = 1 and kural_no = ($currentPageValue + 1)", "modi_kural_comp.db");
+        if ( summaR1.isEmpty) {  // summaR.isEmpty &&
           _isFavorited = false;
           _isfav = false;
         } else {
@@ -140,8 +148,26 @@ class MyApp444State extends State<MyApp444> {
         } catch (e) {} 
         */
       });
+     
+
+  
     });
   }
+  //  _scrollListener() {
+  //       summaR1 =  db.any_query("SELECT * from complete1 where isfav = 1 and kural_no = ($currentPageValue + 1)", "modi_kural_comp.db");
+  //       setState(() {
+  //       // print("page value ${controller.page}");
+  //       currentPageValue = controller.page
+  //           as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
+  //       if (summaR1.isEmpty) {
+  //         _isFavorited = false;
+  //         _isfav = false;
+  //       } else {
+  //         _isFavorited = true;
+  //         _isfav = true;
+  //       }
+  //       });
+  //     }
 
   @override
   void dispose() {
@@ -304,6 +330,7 @@ class MyApp444State extends State<MyApp444> {
             }
             summa1(index);
           },
+          
 
           itemBuilder: (BuildContext context, int index) {
 //             bool _isFavorited = false;
@@ -314,6 +341,8 @@ class MyApp444State extends State<MyApp444> {
             favKural = index + 1;
             prefix0.print(favKural);
             favouriteTable();
+
+
 // summaR = db.any_query("SELECT * from complete where kural_no = $favKural", "modi_kural_comp.db");
 // if(summaR.isEmpty){
 //   _isFavorited = false;
@@ -324,12 +353,12 @@ class MyApp444State extends State<MyApp444> {
 //   _isfav = true;
 // }
 // summaR = db.any_query(query, dbName);
-            // if (newData1[index]['isfav'] == 0) {
-            //   _isFavorited = false;
-            //   _isfav = false;
-            // } else {
+            // if (newData1[index]['isfav'] == 1) {
             //   _isFavorited = true;
             //   _isfav = true;
+            // } else {
+            //   _isFavorited = false;
+            //   _isfav = false;
             // }
             // _isFavorited = 0;
             // prefix0.print("${newData1[index]['kural_tamil1']}");

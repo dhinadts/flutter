@@ -2,9 +2,7 @@ import 'package:dhina/tapOption.dart';
 import 'package:dhina/tenkurals.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/fragments/first_fragment.dart';
 
-import 'Palkal_Class/Aram.dart';
 
 
 var adhikaramIndex;

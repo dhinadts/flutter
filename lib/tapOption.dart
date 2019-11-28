@@ -2,7 +2,6 @@ import 'package:dhina/Palkal_Class/Inpam.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/pages/home_page.dart';
 import 'Palkal_Class/Aram.dart';
 import 'Palkal_Class/Porul.dart';
 import 'Palkal_Class/Inpam.dart';

@@ -11,7 +11,6 @@ import 'package:package_info/package_info.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'dart:io';
-import 'package:dio/dio.dart';
 
 // import 'device.dart';
 

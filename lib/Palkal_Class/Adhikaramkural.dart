@@ -1,6 +1,4 @@
-import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
-import 'package:dhina/fragments/first_fragment.dart';
 
 import '../controllers.dart';
 

@@ -4,21 +4,13 @@ import 'dart:core' as prefix0;
 import 'package:dhina/cate2pgview.dart';
 import 'package:dhina/firstPage.dart';
 import 'package:dhina/main_pages/favorite_Displays.dart';
-import 'package:dhina/main_pages/starting3.dart';
-import 'package:dhina/main_pages/starting4.dart';
-import 'package:dhina/main_pages/writeJSON.dart';
 import 'package:dhina/newMainpage1.dart';
-import 'package:dhina/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
 
 import 'package:dhina/db/sharedpref.dart';
 import '../Gsearch.dart';
-import '../SimpleSlider.dart';
-import '../SimpleSlider1.dart';
-import '../canvas1.dart';
 import '../tapOption.dart';
-import 'package:dhina/newMainpage1.dart';
 
 import 'package:dhina/main.dart';
 

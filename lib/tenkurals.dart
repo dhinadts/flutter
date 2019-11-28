@@ -2,14 +2,8 @@
 
 import 'package:dhina/newMainpage1.dart';
 import 'package:dhina/tapOption.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/searchingKural.dart';
-import 'Palkal_Class/Aram.dart';
-import 'cate2pgview.dart';
-import 'main_pages/starting4.dart';
 import 'package:dhina/db/sharedpref.dart';
 
 var GlobalValueSet;

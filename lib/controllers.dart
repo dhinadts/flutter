@@ -2,7 +2,6 @@
 // db query + global declarations
 
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/fragments/first_fragment.dart';
 List<Map<String, dynamic>> iyal_S;
 List<Map<String, dynamic>> adhikaram_S;
 
