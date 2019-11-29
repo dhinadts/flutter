@@ -10,6 +10,8 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:ui';
 import 'package:splashscreen/splashscreen.dart';
 
+import 'localNotification.dart';
+
 // void main() => runApp(new MyApp());
 
 // class MyApp extends StatelessWidget {
@@ -35,7 +37,7 @@ import 'package:splashscreen/splashscreen.dart';
 
 List<Map<String, dynamic>> newData1;
 var newData;
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+// FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 class SplashScreenPage extends StatefulWidget {
   SplashScreenPage({Key key, this.title}) : super(key: key);
   final String title;
@@ -92,7 +94,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
 var dbhelp = DatabaseHelper();
 var db = DatabaseHelper();
-var payloadNo;
+var payloadNo=1;
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 void main() => runApp(new HomePageMain());
@@ -106,10 +108,13 @@ class HomePageMain extends StatefulWidget {
 }
 
 class _HomePageMainState extends State<HomePageMain> {
+  var payloadString;
+
   
 
   @override
   Widget build(BuildContext context) {
+// String noti = "LocalNoti(payload: payloadString, payload_kural_no: payloadNo,)";
     return new MaterialApp(
       title: 'Thirukkural',
       theme: new ThemeData(
@@ -119,6 +124,7 @@ class _HomePageMainState extends State<HomePageMain> {
       routes: {
         'Home': (context) => MyApp12345(),
       },
+      // initialRoute: noti,
       debugShowCheckedModeBanner: false,
     );
   }
@@ -158,6 +164,19 @@ class _HomePageMainState extends State<HomePageMain> {
     super.initState();
     
     dbmove();
+    // final _random = new Random();
+    // var values = newData1.toList();
+    // var element = values[_random.nextInt(values.length)];
+    // payloadNo = element['kural_no'];
+    // payloadString = element['kural_tamil1'];
+    //  flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+    // var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+    // var iOS = new IOSInitializationSettings();
+    // var initSetttings = new InitializationSettings(android, iOS);
+    // flutterLocalNotificationsPlugin.initialize(initSetttings,
+    //     onSelectNotification: onSelectNotification);
+    //     _showDailyAtTime();
+// showNotification();
     // dbhelp.db_move();
     _loadAStudentAsset();
 //              _showDailyAtTime();
@@ -182,7 +201,7 @@ class _HomePageMainState extends State<HomePageMain> {
   //   payloadNo = element['kural_no'];
   //   // print("element: $element");
   //   print("Random Kural No: ${element['kural_no']}");
-  //   var time = new Time(16, 40, 0);
+  //   var time = new Time(12, 00, 0);
   //   var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
   //       'repeatDailyAtTime channel id',
   //       'repeatDailyAtTime channel name',

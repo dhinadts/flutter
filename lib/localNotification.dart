@@ -6,7 +6,13 @@ import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:intent/extra.dart';
+import 'package:intent/intent.dart' as android_intent;
+import 'package:intent/action.dart' as android_action;
+import 'package:intent/extra.dart' as android_extra;
+import 'package:intent/category.dart' as android_category;
+import 'package:intent/flag.dart' as android_flag;
+
 
 import 'main.dart';
 
@@ -15,6 +21,8 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 bool _value1 = true;
 var abcd = MyApp444();
 var payloadNo;
+int hh = 06, mm = 30, ss =00;
+
 class LocalNoti extends StatefulWidget {
   final String payload;
   final int payload_kural_no;
@@ -24,7 +32,9 @@ class LocalNoti extends StatefulWidget {
 }
 
 class _LocalNotiState extends State<LocalNoti> {
-  
+  TextEditingController _hhController = TextEditingController();
+  TextEditingController _mmController = TextEditingController();
+  TextEditingController _ssController = TextEditingController();
 
   double _fontSize11 = 0.0;
 
@@ -56,7 +66,7 @@ class _LocalNotiState extends State<LocalNoti> {
   @override
   void initState() {
     super.initState();
-
+    
 
     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
     var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
@@ -64,62 +74,62 @@ class _LocalNotiState extends State<LocalNoti> {
     var initSetttings = new InitializationSettings(android, iOS);
     flutterLocalNotificationsPlugin.initialize(initSetttings,
         onSelectNotification: onSelectNotification);
-        _showDailyAtTime();
-showNotification();
+    _showDailyAtTime();
+    showNotification();
   }
-  
 
   Future onSelectNotification(String payload) {
     debugPrint("payload : $payload");
-    return Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => MyApp444(
-                            value: payloadNo - 1,
-                            currentPageValue: payloadNo - 1,
-                            fontSize1: 0,
-                          )),
-                );
-    // showDialog(  
-    //   context: context,
-    //   builder: (_) => new AlertDialog(
-    //     title: new Text('Notification'),
-    //     content: new Text('${widget.payload}'),
-    //     actions: <Widget>[
-    //       FlatButton(
-    //           child: Text("Yes"),
-    //           onPressed: () {
-    //             Navigator.of(context).pop();
+    return
+        Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyApp444(
+                                value: payloadNo - 1,
+                                currentPageValue: payloadNo - 1,
+                                fontSize1: 0,
+                              )),
+                    );
+      //   showDialog(
+      // context: context,
+      // builder: (_) => new AlertDialog(
+      //   title: new Text('Notification'),
+      //   content: new Text('${widget.payload}'),
+      //   actions: <Widget>[
+      //     FlatButton(
+      //         child: Text("Yes"),
+      //         onPressed: () {
+      //           Navigator.of(context).pop();
 
-    //             Navigator.push(
-    //               context,
-    //               MaterialPageRoute(
-    //                   builder: (context) => MyApp444(
-    //                         value: (widget.payload_kural_no) - 1,
-    //                         currentPageValue: (widget.payload_kural_no) - 1,
-    //                         fontSize1: 0,
-    //                       )),
-    //             ); // fontSize11),);
-    //           }),
-    //       FlatButton(
-    //           child: Text("No"),
-    //           onPressed: () {
-    //             // Navigator.of(context, rootNavigator: false).pop();
-    //             Navigator.pop(context);
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //                 builder: (context) => MyApp444(
+      //                       value: (widget.payload_kural_no) - 1,
+      //                       currentPageValue: (widget.payload_kural_no) - 1,
+      //                       fontSize1: 0,
+      //                     )),
+      //           ); // fontSize11),);
+      //         }),
+      //     FlatButton(
+      //         child: Text("No"),
+      //         onPressed: () {
+      //           // Navigator.of(context, rootNavigator: false).pop();
+      //           Navigator.pop(context);
 
-    //             Navigator.push(
-    //               context,
-    //               MaterialPageRoute(
-    //                   builder: (context) => MyApp444(
-    //                         value: (widget.payload_kural_no) - 1,
-    //                         currentPageValue: (widget.payload_kural_no) - 1,
-    //                         fontSize1: 0,
-    //                       )),
-    //             ); // fontSize11),);
-    //             // Navigator.of(context).pop();
-    //           }),
-    //     ],
-    //   ),
+      //           Navigator.push(
+      //             context,
+      //             MaterialPageRoute(
+      //                 builder: (context) => MyApp444(
+      //                       value: (widget.payload_kural_no) - 1,
+      //                       currentPageValue: (widget.payload_kural_no) - 1,
+      //                       fontSize1: 0,
+      //                     )),
+      //           ); // fontSize11),);
+      //           // Navigator.of(context).pop();
+      //         }),
+      //   ],
+      // ),
     // );
   }
 
@@ -146,13 +156,166 @@ showNotification();
         ),
         RaisedButton(
           child: Text("setting time manually"),
-          onPressed: setingTime,
+          onPressed: null, //setingTime
+        ),
+        Row(children: <Widget>[
+          new Flexible(
+              child: TextField(
+            controller: _hhController,
+            decoration: InputDecoration(
+              hintText: "hour",
+              //border: new OutlineInputBorder(borderRadius: new BorderRadius.circular(25.0),  ),
+            ),
+          )),
+          new Text(" : "),
+          new Flexible(
+              child: TextField(
+            controller: _mmController,
+            decoration: InputDecoration(
+              hintText: "minutes",
+              //border: new OutlineInputBorder(borderRadius: new BorderRadius.circular(25.0),  ),
+            ),
+          )),
+          new Text(" : "),
+          new Flexible(
+              child: TextField(
+            controller: _ssController,
+            decoration: InputDecoration(
+              hintText: "seconds",
+              //border: new OutlineInputBorder(borderRadius: new BorderRadius.circular(25.0),  ),
+            ),
+          )),
+          RaisedButton(
+            child: Text("OK"),
+            onPressed: () async {
+              var abcd = (_hhController.text).toString();
+
+              hh = int.parse(abcd);
+              abcd = (_mmController.text).toString();
+              mm = int.parse(abcd);
+              abcd = (_ssController.text).toString();
+              ss = int.parse(abcd);
+              setingTime();
+            },
+          ),
+        ]),
+        Row(children: <Widget>[
+        DropdownButton<int>(
+          value: hh,
+          // icon: Icon(Icons.arrow_downward),
+          hint: Text("hh:"),
+          iconSize: 50,
+          elevation: 16,
+          style: TextStyle(color: Colors.deepPurple),
+          underline: Container(
+            height: 2,
+            color: Colors.deepPurpleAccent,
+          ),
+          onChanged: (int newValue) {
+            setState(() {
+              hh = newValue;
+            });
+          },
+          items: <int>[00, 01, 02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
+              .map<DropdownMenuItem<int>>((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text("$value"),
+            );
+          }).toList(),
+        ),
+        DropdownButton<int>(
+          value: mm,
+          // icon: Icon(Icons.arrow_downward),
+          hint: Text("mm:"),
+          iconSize: 50,
+          elevation: 16,
+          style: TextStyle(color: Colors.deepPurple),
+          underline: Container(
+            height: 2,
+            color: Colors.deepPurpleAccent,
+          ),
+          onChanged: (int newValue) {
+            setState(() {
+              mm = newValue;
+            });
+          },
+          items: <int>[00, 01, 02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
+              .map<DropdownMenuItem<int>>((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text("$value"),
+            );
+          }).toList(),
+        ),
+        DropdownButton<int>(
+          value: ss,
+          // icon: Icon(Icons.arrow_downward),
+          hint: Text("ss:"),
+          iconSize: 50,
+          elevation: 16,
+          style: TextStyle(color: Colors.deepPurple),
+          underline: Container(
+            height: 2,
+            color: Colors.deepPurpleAccent,
+          ),
+          onChanged: (int newValue) {
+            setState(() {
+              ss = newValue;
+            });
+          },
+          items: <int>[00, 01, 02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59]
+              .map<DropdownMenuItem<int>>((int value) {
+            return DropdownMenuItem<int>(
+              value: value,
+              child: Text("$value"),
+            );
+          }).toList(),
+        ),
+        RaisedButton(
+          child: Text("DropIt"),
+          onPressed: () async {
+            
+            await setingTime();
+          },
+        ),
+        ]
+      ),
+        RaisedButton(
+          child: Text("Use Intent"),
+          onPressed: () {
+            
+        android_intent.Intent()
+                  ..setAction(android_action.Action.ACTION_SEND)
+                  ..startActivityForResult().then(
+                        (payload) => Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyApp444(
+                                value: payloadNo - 1,
+                                currentPageValue: payloadNo - 1,
+                                fontSize1: 0,
+                              )),
+                    ),
+                    onError: (e) =>
+                        print(e.toString()));
+                  
+        
+        
+        //      android_intent.Intent()
+        //  ..setAction(android_action.Action.ACTION_SHOW_APP_INFO)
+        // ..putExtra(Extra.EXTRA_PACKAGE_NAME, "com.whatsapp")
+        // ..startActivity().catchError((e) => print(e));
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => DropDown1()),
+            // );
+          },
         ),
         RaisedButton(
           child: Text("Font Size Vary"),
           onPressed: _showFontSizePickerDialog,
         ),
-        
         IconButton(
           icon: const Icon(Icons.text_format),
           onPressed: () {
@@ -204,11 +367,8 @@ showNotification();
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
-        0,
-        'தினம் ஒரு குறள்',
-        'இன்றைய குறள்',
-        time,
-        platformChannelSpecifics, payload: element['kural_tamil1']);
+        0, 'தினம் ஒரு குறள்', 'இன்றைய குறள்', time, platformChannelSpecifics,
+        payload: element['kural_tamil1']);
   }
 
   void _value1Changed(bool value) {
@@ -225,7 +385,12 @@ showNotification();
   }
 
   Future setingTime() async {
-    var time = new Time(18, 0, 0);
+    final _random = new Random();
+    var values = newData1.toList();
+    var element = values[_random.nextInt(values.length)];
+    payloadNo = element['kural_no'];
+    // print("element: $element");
+    var time = new Time(hh, mm, ss);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
         'repeatDailyAtTime channel name',
@@ -238,7 +403,8 @@ showNotification();
         'show daily title',
         'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
         time,
-        platformChannelSpecifics);
+        platformChannelSpecifics,
+        payload: element['kural_tamil1']);
   }
 
   void randomKural() {
@@ -250,26 +416,22 @@ showNotification();
   }
 }
 
-
 Future<void> _showDailyAtTime() async {
-    final _random = new Random();
-    var values = newData1.toList();
-    var element = values[_random.nextInt(values.length)];
-    payloadNo = element['kural_no'];
-    // print("element: $element");
-    print("Random Kural No: ${element['kural_no']}");
-    var time = new Time(15, 45, 0);
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        'repeatDailyAtTime channel id',
-        'repeatDailyAtTime channel name',
-        'repeatDailyAtTime description');
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var platformChannelSpecifics = new NotificationDetails(
-        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-    await flutterLocalNotificationsPlugin.showDailyAtTime(
-        0,
-        'தினம் ஒரு குறள்',
-        'இன்றைய குறள்',
-        time,
-        platformChannelSpecifics, payload: element['kural_tamil1']);
-  }
+  final _random = new Random();
+  var values = newData1.toList();
+  var element = values[_random.nextInt(values.length)];
+  payloadNo = element['kural_no'];
+  // print("element: $element");
+  print("Random Kural No: ${element['kural_no']}");
+  var time = new Time(15, 45, 0);
+  var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+      'repeatDailyAtTime channel id',
+      'repeatDailyAtTime channel name',
+      'repeatDailyAtTime description');
+  var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+  var platformChannelSpecifics = new NotificationDetails(
+      androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+  await flutterLocalNotificationsPlugin.showDailyAtTime(
+      0, 'தினம் ஒரு குறள்', 'இன்றைய குறள்', time, platformChannelSpecifics,
+      payload: element['kural_tamil1']);
+}
