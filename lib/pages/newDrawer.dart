@@ -573,9 +573,9 @@ class MyHomePage extends StatelessWidget {
                             Image.asset(
                               'assets/play1.png',
                             ),
-                            SizedBox(
-                              //flex: 1,
-                              height: 60,
+                            Expanded(
+                              flex: 1,
+                              // height: 60,
                               // child: SingleChildScrollView(
                               child: Column(
                                 // height: 60,
@@ -758,21 +758,21 @@ class MyHomePage extends StatelessWidget {
                       //     height: 60,
                       child: Container(
                           alignment: Alignment.center,
-                          height: 80.0,
+                          height:60.0,
                           margin: EdgeInsets.all(8.0),
                           child: Row(children: <Widget>[
                             Image.asset(
                               'assets/gobutton.png',
                             ),
-                            SizedBox(
-                                height:80,
+                            Expanded(
+                                flex:1,
                                 // child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   // mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
-                                    Text("hi"),
+                                    // Text("hi"),
                                     
                                     Text(
                                         "         செல்         "),
