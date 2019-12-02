@@ -69,51 +69,51 @@ class _MyApp12345State extends State<MyApp12345> {
     super.initState();
     // dbmove();
     
-
-    // flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-    // var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
-    // var iOS = new IOSInitializationSettings();
-    // var initSetttings = new InitializationSettings(android, iOS);
-    // flutterLocalNotificationsPlugin.initialize(initSetttings,
-    //     onSelectNotification: onSelectNotification);
-    //     _showDailyAtTime();
+// _showDailyAtTime();
+//     flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
+//     var android = new AndroidInitializationSettings('@mipmap/ic_launcher');
+//     var iOS = new IOSInitializationSettings();
+//     var initSetttings = new InitializationSettings(android, iOS);
+//     flutterLocalNotificationsPlugin.initialize(initSetttings,
+//         onSelectNotification: onSelectNotification);
+//         _showDailyAtTime();
 
   }
 
-// Future onSelectNotification(String payload) {
-//     debugPrint("payload : $payload");
-//     return Navigator.push(
-//                   context,
-//                   MaterialPageRoute(
-//                       builder: (context) => MyApp444(
-//                             value: payloadNo - 1,
-//                             currentPageValue: payloadNo - 1,
-//                             fontSize1: 0,
-//                           )),
-//                 );
-//  }
-// Future<void> _showDailyAtTime() async {
-//     final _random = new Random();
-//     var values = newData1.toList();
-//     var element = values[_random.nextInt(values.length)];
-//     payloadNo = element['kural_no'];
-//     // print("element: $element");
-//     print("Random Kural No: ${element['kural_no']}");
-//     var time = new Time(17, 45, 0);
-//     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-//         'repeatDailyAtTime channel id',
-//         'repeatDailyAtTime channel name',
-//         'repeatDailyAtTime description');
-//     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-//     var platformChannelSpecifics = new NotificationDetails(
-//         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
-//     await flutterLocalNotificationsPlugin.showDailyAtTime(
-//         0,
-//         'தினம் ஒரு குறள்',
-//         'இன்றைய குறள்',
-//         time,
-//         platformChannelSpecifics, payload: element['kural_tamil1']);
-//   }
+Future onSelectNotification(String payload) {
+    debugPrint("payload : $payload");
+    return Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => MyApp444(
+                            value: payloadNo - 1,
+                            currentPageValue: payloadNo - 1,
+                            fontSize1: 0,
+                          )),
+                );
+ }
+Future<void> _showDailyAtTime() async {
+    final _random = new Random();
+    var values = newData1.toList();
+    var element = values[_random.nextInt(values.length)];
+    payloadNo = element['kural_no'];
+    // print("element: $element");
+    print("Random Kural No: ${element['kural_no']}");
+    var time = new Time(14, 20, 0);
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        'repeatDailyAtTime channel id',
+        'repeatDailyAtTime channel name',
+        'repeatDailyAtTime description');
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.showDailyAtTime(
+        0,
+        'தினம் ஒரு குறள்',
+        'இன்றைய குறள்',
+        time,
+        platformChannelSpecifics, payload: element['kural_tamil1']);
+  }
 
 
   Future<bool> _inBackPressed() {

@@ -285,20 +285,26 @@ class _LocalNotiState extends State<LocalNoti> {
           child: Text("Use Intent"),
           onPressed: () {
             
-        android_intent.Intent()
-                  ..setAction(android_action.Action.ACTION_SEND)
-                  ..startActivityForResult().then(
-                        (payload) => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => MyApp444(
-                                value: payloadNo - 1,
-                                currentPageValue: payloadNo - 1,
-                                fontSize1: 0,
-                              )),
-                    ),
-                    onError: (e) =>
-                        print(e.toString()));
+        //     var aaaa = NotificationAppLaunchDetails( true, widget.payload
+
+        //     );
+        //     print(aaaa.didNotificationLaunchApp);
+            
+        // android_intent.Intent()
+        //           ..setAction(android_action.Action.ACTION_ATTACH_DATA)
+        //           // ..setData(payloadNo-1)
+        //           ..startActivityForResult().then(
+        //                 (payload) => Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                   builder: (context) => MyApp444(
+        //                         value: payloadNo - 1,
+        //                         currentPageValue: payloadNo - 1,
+        //                         fontSize1: 0,
+        //                       )),
+        //             ),
+        //             onError: (e) =>
+        //                 print(e.toString()));
                   
         
         
