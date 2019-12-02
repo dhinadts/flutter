@@ -14,7 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-
+import 'package:dhina/localNotification.dart';
 import 'package:launch_review/launch_review.dart';
 // import 'package:open_appstore/open_appstore.dart';
 
@@ -28,6 +28,7 @@ import '../newMainpage1.dart';
 var db = DatabaseHelper();
 var prefs = Shared_Preference();
 var payloadNo;
+
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 // var newData;
@@ -97,7 +98,7 @@ class _MyApp12345State extends State<MyApp12345> {
     payloadNo = element['kural_no'];
     // print("element: $element");
     print("Random Kural No: ${element['kural_no']}");
-    var time = new Time(14, 20, 0);
+    var time = new Time(9, 0, 0);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
         'repeatDailyAtTime channel name',
@@ -422,6 +423,17 @@ class _MyApp12345State extends State<MyApp12345> {
                 ),
                 ListTile(
                   leading: Image.asset("protection.png", width: 20, height: 20),
+                  title: Text('அமைப்புகள்'),
+                  onTap: () {
+                    //_value1 = true;
+                    Navigator.of(context).push(MaterialPageRoute<Null>(
+                        builder: (BuildContext context) {
+                      return new LocalNoti(); // HomePage1();
+                    }));
+                  },
+                ),
+                ListTile(
+                  leading: Image.asset("protection.png", width: 20, height: 20),
                   title: Text('தனியுரிமைக் கொள்கை'),
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute<Null>(
@@ -561,23 +573,29 @@ class MyHomePage extends StatelessWidget {
                             Image.asset(
                               'assets/play1.png',
                             ),
-                            Expanded(
-                              flex: 1,
-                              child: SingleChildScrollView(
+                            SizedBox(
+                              //flex: 1,
+                              height: 60,
+                              // child: SingleChildScrollView(
                               child: Column(
+                                // height: 60,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 // mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Text(
-                                      "                 ஆரம்பிக்க               ", softWrap:true),
+                                      "      ஆரம்பிக்க       ",
+                                      softWrap: true),
                                   Text(
-                                      "  --------------------------------------", softWrap:true),
+                                      "----------------------",
+                                      softWrap: true),
                                   Text(
-                                      "                   Start                ", softWrap:true),
+                                      "        Start         ",
+                                      softWrap: true),
                                 ],
                               ),
-                            ))
+                            )
+                            //)
                           ]))
                       // )
                       ,
@@ -616,20 +634,19 @@ class MyHomePage extends StatelessWidget {
                           ),
                           Expanded(
                               flex: 1,
-                              child: SingleChildScrollView(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 // mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
                                   Text(
-                                      "                  தொடர்க               "),
+                                      "        தொடர்க       "),
                                   Text(
-                                      "  --------------------------------------"),
+                                      "----------------------"),
                                   Text(
-                                      "                 Continue               "),
+                                      "        Continue      "),
                                 ],
-                              )))
+                              ))
                         ])
                         //)
                         //  )
@@ -695,22 +712,23 @@ class MyHomePage extends StatelessWidget {
                             Image.asset(
                               'assets/category.png',
                             ),
-                           Expanded(
-                              flex: 1,
-                              child: SingleChildScrollView(
-                              child: Column(
+                            Expanded(
+                                flex: 1,
+                                // child: SingleChildScrollView(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   // mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
                                     Text(
-                                        "               வகைப்பட்டியல்             "),
+                                        "     வகைப்பட்டியல்     "),
                                     Text(
-                                        "  --------------------------------------"),
+                                        "----------------------"),
                                     Text(
-                                        "                 Category               "),
+                                        "       Category       "),
                                   ],
-                                )))
+                                  // )
+                                ))
                           ]))
                       // )
                       // )
@@ -740,29 +758,32 @@ class MyHomePage extends StatelessWidget {
                       //     height: 60,
                       child: Container(
                           alignment: Alignment.center,
-                          height: 60.0,
+                          height: 80.0,
                           margin: EdgeInsets.all(8.0),
                           child: Row(children: <Widget>[
                             Image.asset(
                               'assets/gobutton.png',
                             ),
-                           Expanded(
-                              flex: 1,
-                              child: SingleChildScrollView(
-                              child: Column(
+                            SizedBox(
+                                height:80,
+                                // child: SingleChildScrollView(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   // mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
-                                    // Text("hi"),
+                                    Text("hi"),
+                                    
                                     Text(
-                                        "                  செல்                  "),
+                                        "         செல்         "),
                                     Text(
-                                        "  --------------------------------------"),
+                                        "----------------------"),
                                     Text(
-                                        "                  Goto                  "),
+                                        "          Goto        "),
                                   ],
-                                )))
+                                )
+                                // )
+                                )
                           ]))
                       // )
                       // )
@@ -846,22 +867,23 @@ class MyHomePage extends StatelessWidget {
                             Image.asset(
                               'assets/search.png',
                             ),
-                          Expanded(
-                              flex: 1,
-                              child: SingleChildScrollView(
-                              child: Column(
+                            Expanded(
+                                flex: 1,
+                                // child: SingleChildScrollView(
+                                child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   // mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
                                     Text(
-                                        "                  தேடல்                 "),
+                                        "        தேடல்         "),
                                     Text(
-                                        "  --------------------------------------"),
+                                        "----------------------"),
                                     Text(
-                                        "                  Search                "),
+                                        "        Search        "),
                                   ],
-                                )))
+                                ))
+                            // )
                           ])
                           //)
                           //)
@@ -903,22 +925,33 @@ class MyHomePage extends StatelessWidget {
                               Image.asset(
                                 'assets/tamil_calendar.webp',
                               ),
-                             Expanded(
-                              flex: 1,
-                              child: SingleChildScrollView(
-                              child: Column(
+                              //  ListView(
+                              //    shrinkWrap: true,
+                              //  children: <Widget>[
+                              Expanded(
+                                  flex: 1,
+                                  // child: SingleChildScrollView(
+                                  child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     // mainAxisAlignment: MainAxisAlignment.center,
                                     // mainAxisSize: MainAxisSize.max,
                                     children: <Widget>[
-                                      Text(
-                                          "       நித்ரா தமிழ் நாட்காட்டி           "),
-                                      Text(
-                                          "  -------------------------------------"),
-                                      Text(
-                                          "         Nithra Tamil Calendar        "),
+                                      Expanded(
+                                        child: Text(
+                                           "  நித்ரா தமிழ் நாட்காட்டி  "),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                           "----------------------"),
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                            "Nithra Tamil Calendar"),
+                                      ),
                                     ],
-                                  )))
+                                  ))
+                              // )
+                              // )
                             ])
                             //)
                             //)

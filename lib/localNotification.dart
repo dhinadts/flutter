@@ -17,12 +17,12 @@ import 'package:intent/flag.dart' as android_flag;
 import 'main.dart';
 
 //  void main() => runApp(new MaterialApp(home: new MyApp()));
-FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
 bool _value1 = true;
 var abcd = MyApp444();
 var payloadNo;
 int hh = 06, mm = 30, ss =00;
-
+FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 class LocalNoti extends StatefulWidget {
   final String payload;
   final int payload_kural_no;
@@ -76,6 +76,8 @@ class _LocalNotiState extends State<LocalNoti> {
         onSelectNotification: onSelectNotification);
     _showDailyAtTime();
     showNotification();
+    
+    
   }
 
   Future onSelectNotification(String payload) {
@@ -137,12 +139,12 @@ class _LocalNotiState extends State<LocalNoti> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: new AppBar(
-        title: new Text('Flutter Local Notification'),
+        title: new Text('அமைப்புகள்'),
       ),
       body: Column(children: <Widget>[
         Row(children: <Widget>[
           new RaisedButton(
-            onPressed: showNotification,
+            onPressed: _showDailyAtTime, //  _showDailyAtTime,
             child: new Text(
               'தினம் ஒரு குறள்',
               style: Theme.of(context).textTheme.headline,
@@ -150,6 +152,8 @@ class _LocalNotiState extends State<LocalNoti> {
           ),
           new Checkbox(value: _value1, onChanged: _value1Changed),
         ]),
+        /*
+        
         RaisedButton(
           child: Text("Notification at 9.00 AM daily"),
           onPressed: _showDailyAtTime,
@@ -199,6 +203,7 @@ class _LocalNotiState extends State<LocalNoti> {
             },
           ),
         ]),
+        */
         Row(children: <Widget>[
         DropdownButton<int>(
           value: hh,
@@ -273,7 +278,7 @@ class _LocalNotiState extends State<LocalNoti> {
           }).toList(),
         ),
         RaisedButton(
-          child: Text("DropIt"),
+          child: Text("Set It"),
           onPressed: () async {
             
             await setingTime();
@@ -281,10 +286,11 @@ class _LocalNotiState extends State<LocalNoti> {
         ),
         ]
       ),
+       /*
         RaisedButton(
           child: Text("Use Intent"),
           onPressed: () {
-            
+
         //     var aaaa = NotificationAppLaunchDetails( true, widget.payload
 
         //     );
@@ -317,21 +323,25 @@ class _LocalNotiState extends State<LocalNoti> {
             //   MaterialPageRoute(builder: (context) => DropDown1()),
             // );
           },
-        ),
+        ),   
+        
         RaisedButton(
           child: Text("Font Size Vary"),
           onPressed: _showFontSizePickerDialog,
         ),
+        */
         IconButton(
           icon: const Icon(Icons.text_format),
           onPressed: () {
             _showFontSizePickerDialog();
           },
         ),
+        /*
         RaisedButton(
           child: Text("Random Kural"),
           onPressed: randomKural,
         ),
+        */
       ]),
     );
   }
@@ -364,7 +374,7 @@ class _LocalNotiState extends State<LocalNoti> {
     payloadNo = element['kural_no'];
     // print("element: $element");
     print("Random Kural No: ${element['kural_no']}");
-    var time = new Time(17, 55, 0);
+    var time = new Time(15, 45, 0);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         'repeatDailyAtTime channel id',
         'repeatDailyAtTime channel name',
@@ -373,7 +383,11 @@ class _LocalNotiState extends State<LocalNoti> {
     var platformChannelSpecifics = new NotificationDetails(
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
-        0, 'தினம் ஒரு குறள்', 'இன்றைய குறள்', time, platformChannelSpecifics,
+        0,
+        'தினம் ஒரு குறள்',
+        'இன்றைய குறள்',
+        time,
+        platformChannelSpecifics,
         payload: element['kural_tamil1']);
   }
 
@@ -406,8 +420,8 @@ class _LocalNotiState extends State<LocalNoti> {
         androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
     await flutterLocalNotificationsPlugin.showDailyAtTime(
         0,
-        'show daily title',
-        'Daily notification shown at approximately ${_toTwoDigitString(time.hour)}:${_toTwoDigitString(time.minute)}:${_toTwoDigitString(time.second)}',
+        'தினம் ஒரு குறள்',
+        'இன்றைய குறள்',
         time,
         platformChannelSpecifics,
         payload: element['kural_tamil1']);

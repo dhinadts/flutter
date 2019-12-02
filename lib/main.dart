@@ -9,8 +9,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:ui';
 import 'package:splashscreen/splashscreen.dart';
+import 'package:dhina/localNotification.dart';
 
-import 'localNotification.dart';
 
 // void main() => runApp(new MyApp());
 
@@ -95,6 +95,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 var dbhelp = DatabaseHelper();
 var db = DatabaseHelper();
 var payloadNo=1;
+
 // FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 void main() => runApp(new HomePageMain());
@@ -109,6 +110,8 @@ class HomePageMain extends StatefulWidget {
 
 class _HomePageMainState extends State<HomePageMain> {
   var payloadString;
+
+  
 
   
 
@@ -163,7 +166,9 @@ class _HomePageMainState extends State<HomePageMain> {
 
     super.initState();
     
+
     dbmove();
+    
     // final _random = new Random();
     // var values = newData1.toList();
     // var element = values[_random.nextInt(values.length)];

@@ -366,7 +366,7 @@ class MyApp444State extends State<MyApp444> {
             return Card(
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   new SizedBox(
                     height: 80,
@@ -376,10 +376,12 @@ class MyApp444State extends State<MyApp444> {
                         height: double.infinity,
                         // color: Colors.grey,
                         child: SingleChildScrollView(
-                            child: Row(
+                            child: Row(   // Wrap(
+                                    // alignment: WrapAlignment.spaceAround,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            new Text(
+                             // Spacer(), 
+                            Text(
                               "குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
                               style: TextStyle(fontSize: 18),
                             ),
@@ -582,6 +584,7 @@ class MyApp444State extends State<MyApp444> {
                                 //     });
                                 Alert(
                                   context: context,
+                                  style: AlertStyle( isCloseButton: false,),
                                   title: "உதவி",
                                   desc:
                                       "பால்: ${newData1[index]['pal_tamil']}   இயல்: ${newData1[index]['iyal_tamil']}  அதிகாரம்: ${newData1[index]['adhikarm_tamil']}",
