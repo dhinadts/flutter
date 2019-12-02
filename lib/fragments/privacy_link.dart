@@ -15,8 +15,8 @@ class MyApp2 extends StatelessWidget {
         routes: {
           // '/widget': (_) => new WebviewScaffold(
             '/': (_) => new WebviewScaffold(
-            // url: "https://www.nithra.mobi/privacy.php",
-            url:  "file:///android_asset/flutter_assets/assets/PrivacyPolicy.html",
+            url: "https://www.nithra.mobi/privacy.php",
+            // url:  "file:///android_asset/flutter_assets/assets/PrivacyPolicy.html",
             // appBar: new AppBar(
             //   title: const Text('Widget Webview'),
             // ),

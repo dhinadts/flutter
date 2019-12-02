@@ -41,7 +41,7 @@ List<Map<String, dynamic>> testR;
 List<Map<String, dynamic>> resFav;
 List<Map<String, dynamic>> favArray;
 List<Map<String, dynamic>> summaR;
- List<Map<String, dynamic>> summaR1;
+List<Map<String, dynamic>> summaR1;
 var currentPageValue = 0;
 PageController controller = PageController();
 ScrollController _controller = ScrollController();
@@ -73,8 +73,6 @@ class MyApp444State extends State<MyApp444> {
 
   double _fontSize11 = 0.0;
 
-  
-
   void _showFontSizePickerDialog() async {
     // <-- note the async keyword here
 
@@ -99,7 +97,6 @@ class MyApp444State extends State<MyApp444> {
       await prefs.setdouble("fontSize1", _fontSize11);
     }
   }
-  
 
   @override
   void initState() {
@@ -121,13 +118,16 @@ class MyApp444State extends State<MyApp444> {
       // summaR = db.any_query(
       //     "SELECT * from complete where kural_no = ($currentPageValue + 1)",
       //     "modi_kural_comp.db");
-      
+
       setState(() {
         // print("page value ${controller.page}");
         currentPageValue = controller.page
             as int; // as prefix0.int; // widget.value as prefix0.double; //  as prefix0.int; // .toInt() as double;
-      summaR1 =  db.any_query("SELECT * from complete1 where isfav = 1 and kural_no = ($currentPageValue + 1)", "modi_kural_comp.db");
-        if ( summaR1.isEmpty) {  // summaR.isEmpty &&
+        summaR1 = db.any_query(
+            "SELECT * from complete1 where isfav = 1 and kural_no = ($currentPageValue + 1)",
+            "modi_kural_comp.db");
+        if (summaR1.isEmpty) {
+          // summaR.isEmpty &&
           _isFavorited = false;
           _isfav = false;
         } else {
@@ -148,9 +148,6 @@ class MyApp444State extends State<MyApp444> {
         } catch (e) {} 
         */
       });
-     
-
-  
     });
   }
   //  _scrollListener() {
@@ -330,7 +327,6 @@ class MyApp444State extends State<MyApp444> {
             }
             summa1(index);
           },
-          
 
           itemBuilder: (BuildContext context, int index) {
 //             bool _isFavorited = false;
@@ -341,7 +337,6 @@ class MyApp444State extends State<MyApp444> {
             favKural = index + 1;
             prefix0.print(favKural);
             favouriteTable();
-
 
 // summaR = db.any_query("SELECT * from complete where kural_no = $favKural", "modi_kural_comp.db");
 // if(summaR.isEmpty){
@@ -375,238 +370,246 @@ class MyApp444State extends State<MyApp444> {
                 children: <Widget>[
                   new SizedBox(
                     height: 80,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        new Text(
-                          "குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        // new FavoriteWidget(),
-                        IconButton(
-                            autofocus: false,
-                            tooltip: "favourite",
-                            icon: (_isFavorited == true && _isfav == true
-                                ? Icon(Icons.star)
-                                : Icon(Icons.star_border)),
-                            color: (_isFavorited == true && _isfav == true
-                                ? Colors.red[500]
-                                : Colors.red),
-                            onPressed: () async {
-                              var favTest = (index + 1);
-                              // prefix0.print("favTest:  $favTest");
-                              // await summa(favTest);
-                              testR = await db.any_query(
-                                  // "SELECT * from complete1 where isfav = 0 and kural_no =$favTest",
-                                  // "SELECT * from complete1 where kural_no = $favTest and isfav = 0",
-                                  "SELECT * from complete where kural_no = $favTest",
-                                  "modi_kural_comp.db");
-                              prefix0.print("testR: $testR");
-                              if (testR.isEmpty) {
-                                //testR.contains((index+1)) ) {
-                                setState(() {
-                                  _isFavorited = true;
-                                  _isfav = true;
-                                  db.any_query(
-                                      "UPDATE complete1 SET isfav=1 WHERE kural_no = ($index+1)",
-                                      // "insert into complete select * from complete1 where kural_no = ($index+1)",
+                    child: Container(
+                        alignment: Alignment.center,
+                        width: double.infinity,
+                        height: double.infinity,
+                        // color: Colors.grey,
+                        child: SingleChildScrollView(
+                            child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            new Text(
+                              "குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
+                              style: TextStyle(fontSize: 18),
+                            ),
+                            // new FavoriteWidget(),
+                            IconButton(
+                                autofocus: false,
+                                tooltip: "favourite",
+                                icon: (_isFavorited == true && _isfav == true
+                                    ? Icon(Icons.star)
+                                    : Icon(Icons.star_border)),
+                                color: (_isFavorited == true && _isfav == true
+                                    ? Colors.red[500]
+                                    : Colors.red),
+                                onPressed: () async {
+                                  var favTest = (index + 1);
+                                  // prefix0.print("favTest:  $favTest");
+                                  // await summa(favTest);
+                                  testR = await db.any_query(
+                                      // "SELECT * from complete1 where isfav = 0 and kural_no =$favTest",
+                                      // "SELECT * from complete1 where kural_no = $favTest and isfav = 0",
+                                      "SELECT * from complete where kural_no = $favTest",
                                       "modi_kural_comp.db");
-                                  db.any_query(
-                                      //"UPDATE complete1 SET isfav=0 WHERE kural_no = $favKural",
-                                      "insert into complete select * from complete1 where kural_no = ($index+1)",
-                                      "modi_kural_comp.db");
-                                  prefix0
-                                      .print("_isFavorited00 : $_isFavorited");
-                                });
-                              } else {
-                                setState(() {
-                                  _isFavorited = false;
-                                  _isfav = false;
-                                  db.any_query(
-                                      "UPDATE complete1 SET isfav=0 WHERE kural_no = ($index+1)",
-                                      //     // "delete from complete where kural_no = $favTest",
-                                      "modi_kural_comp.db");
-                                  db.any_query(
-                                      // "UPDATE complete1 SET isfav=1 WHERE kural_no = $favKural",
-                                      "delete from complete where kural_no = $favTest",
-                                      "modi_kural_comp.db");
-                                  prefix0.print(
-                                      "_isFavorited 000 : $_isFavorited");
-                                });
-                              }
-                              favouriteTable();
-                            }),
-                        new IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () {
-                            // openPage(context);
-                            // return new MyApp2();
-                            // print("searching");
-                            // currentPageValue=100;
-                            // controller.jumpTo(100.0);
-                            // var a = 1330;
-                            // controller.jumpToPage(a);
-                            return showDialog(
-                                context: context,
-                                builder: (context) {
-                                  prefix0.num _value;
-                                  return AlertDialog(
-                                    title: Text('குறள் எண்ணை உள்ளிடவும்'),
-                                    content: TextFormField(
-                                      keyboardType: TextInputType
-                                          .number, //numberWithOptions(decimal: true),
-                                      controller: _textFieldController,
-                                      decoration: InputDecoration(
-                                          hintText: "குறள் எண்: "),
-                                      // onSaved: (input) =>
-                                      //     _value = int.tryParse(input),
-                                      // textInputAction: controller.jumpTo(_value),
+                                  prefix0.print("testR: $testR");
+                                  if (testR.isEmpty) {
+                                    //testR.contains((index+1)) ) {
+                                    setState(() {
+                                      _isFavorited = true;
+                                      _isfav = true;
+                                      db.any_query(
+                                          "UPDATE complete1 SET isfav=1 WHERE kural_no = ($index+1)",
+                                          // "insert into complete select * from complete1 where kural_no = ($index+1)",
+                                          "modi_kural_comp.db");
+                                      db.any_query(
+                                          //"UPDATE complete1 SET isfav=0 WHERE kural_no = $favKural",
+                                          "insert into complete select * from complete1 where kural_no = ($index+1)",
+                                          "modi_kural_comp.db");
+                                      prefix0.print(
+                                          "_isFavorited00 : $_isFavorited");
+                                    });
+                                  } else {
+                                    setState(() {
+                                      _isFavorited = false;
+                                      _isfav = false;
+                                      db.any_query(
+                                          "UPDATE complete1 SET isfav=0 WHERE kural_no = ($index+1)",
+                                          //     // "delete from complete where kural_no = $favTest",
+                                          "modi_kural_comp.db");
+                                      db.any_query(
+                                          // "UPDATE complete1 SET isfav=1 WHERE kural_no = $favKural",
+                                          "delete from complete where kural_no = $favTest",
+                                          "modi_kural_comp.db");
+                                      prefix0.print(
+                                          "_isFavorited 000 : $_isFavorited");
+                                    });
+                                  }
+                                  favouriteTable();
+                                }),
+                            new IconButton(
+                              icon: const Icon(Icons.search),
+                              onPressed: () {
+                                // openPage(context);
+                                // return new MyApp2();
+                                // print("searching");
+                                // currentPageValue=100;
+                                // controller.jumpTo(100.0);
+                                // var a = 1330;
+                                // controller.jumpToPage(a);
+                                return showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      prefix0.num _value;
+                                      return AlertDialog(
+                                        title: Text('குறள் எண்ணை உள்ளிடவும்'),
+                                        content: TextFormField(
+                                          keyboardType: TextInputType
+                                              .number, //numberWithOptions(decimal: true),
+                                          controller: _textFieldController,
+                                          decoration: InputDecoration(
+                                              hintText: "குறள் எண்: "),
+                                          // onSaved: (input) =>
+                                          //     _value = int.tryParse(input),
+                                          // textInputAction: controller.jumpTo(_value),
+                                        ),
+                                        actions: <Widget>[
+                                          new FlatButton(
+                                            child: new Text('இல்லை'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          new FlatButton(
+                                            child: new Text('ஆம்'),
+                                            onPressed: () {
+                                              print(
+                                                  "text.controller:  ${_textFieldController.text}");
+                                              var abcd =
+                                                  (_textFieldController.text)
+                                                      .toString();
+                                              print("abcd " + abcd);
+                                              var ff = int.parse(abcd) - 1;
+                                              // controller.jumpTo(ff.toDouble());
+                                              Navigator.of(context).pop();
+                                              controller.jumpToPage(ff);
+                                              // Navigator.of(context).pop();
+                                              // Navigator.pop(context);
+                                              // Navigator.of(context).pop();
+
+                                              // Navigator.of(context, rootNavigator: true).pop();
+                                            },
+                                          )
+                                        ],
+                                      );
+                                    });
+                                // _displayDialog(context);
+                                // return index=100;
+                              },
+                            ),
+                            new IconButton(
+                              icon: const Icon(Icons.content_copy),
+                              onPressed: () {
+                                // openPage(context);
+                                // return new MyApp2();
+                                print("Copied to Clipboard");
+                                ClipboardManager.copyToClipBoard(
+                                        //  "குறள் எண்: ")
+                                        "குறள்: ${newData1[index]['kural_tamil1']} விளக்கம்: ${newData1[index]['kuralvilakam_tamil']} கலைஞர் உரை: ${newData1[index]['desc1']} சாலமன் பாப்பைய்யா: ${newData1[index]['desc2']}")
+                                    .then((result) {
+                                  final snackBar = SnackBar(
+                                    content: Text('Copied to Clipboard'),
+                                    action: SnackBarAction(
+                                      label: '',
+                                      onPressed: () {
+                                        print("Copied");
+                                      },
                                     ),
-                                    actions: <Widget>[
-                                      new FlatButton(
-                                        child: new Text('இல்லை'),
-                                        onPressed: () {
-                                          Navigator.of(context).pop();
-                                        },
-                                      ),
-                                      new FlatButton(
-                                        child: new Text('ஆம்'),
-                                        onPressed: () {
-                                          print(
-                                              "text.controller:  ${_textFieldController.text}");
-                                          var abcd = (_textFieldController.text)
-                                              .toString();
-                                          print("abcd " + abcd);
-                                          var ff = int.parse(abcd) - 1;
-                                          // controller.jumpTo(ff.toDouble());
-                                          Navigator.of(context).pop();
-                                          controller.jumpToPage(ff);
-                                          // Navigator.of(context).pop();
-                                          // Navigator.pop(context);
-                                          // Navigator.of(context).pop();
-
-                                          // Navigator.of(context, rootNavigator: true).pop();
-                                        },
-                                      )
-                                    ],
                                   );
+                                  Scaffold.of(context).showSnackBar(snackBar);
                                 });
-                            // _displayDialog(context);
-                            // return index=100;
-                          },
-                        ),
-                        new IconButton(
-                          icon: const Icon(Icons.content_copy),
-                          onPressed: () {
-                            // openPage(context);
-                            // return new MyApp2();
-                            print("Copied to Clipboard");
-                            ClipboardManager.copyToClipBoard(
-                                    //  "குறள் எண்: ")
-                                    "குறள்: ${newData1[index]['kural_tamil1']} விளக்கம்: ${newData1[index]['kuralvilakam_tamil']} கலைஞர் உரை: ${newData1[index]['desc1']} சாலமன் பாப்பைய்யா: ${newData1[index]['desc2']}")
-                                .then((result) {
-                              final snackBar = SnackBar(
-                                content: Text('Copied to Clipboard'),
-                                action: SnackBarAction(
-                                  label: '',
-                                  onPressed: () {
-                                    print("Copied");
-                                  },
-                                ),
-                              );
-                              Scaffold.of(context).showSnackBar(snackBar);
-                            });
-                          },
-                        ),
-                        new IconButton(
-                          icon: const Icon(Icons.share),
-                          onPressed: () async {
-                            // String BASE64_IMAGE =
-                            //     "data:assets/png;base64, ...";
-                            // AdvancedShare.generic(
-                            //         msg: "Base64 file share",
-                            //         subject: "Flutter",
-                            //         title: "Share Image",
-                            //         url: BASE64_IMAGE)
-                            //     .then((response) {
-                            //   print(response);
-                            // });
-                            // Share.text('my text title', 'This is my text to share with other applications.', 'text/plain');
-                            final ByteData bytes =
-                                await rootBundle.load('assets/valluvar.png');
-                            await Share.file('esys image', 'esys.png',
-                                bytes.buffer.asUint8List(), 'image/png',
-                                text:
-                                    'குறள் ${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']} ');
-                            // var abcd = ImageEditor(image: image);
-                            // if (this.isImageloaded) {
-                            //       return new CustomPaint(
-                            //         child: Text("${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']}"),
-                            //           painter: new ImageEditor(image: image),
-                            //         );
-                            //     } else {
-                            //       return new Center(child: new Text('loading'));
-                            //     }
+                              },
+                            ),
+                            new IconButton(
+                              icon: const Icon(Icons.share),
+                              onPressed: () async {
+                                // String BASE64_IMAGE =
+                                //     "data:assets/png;base64, ...";
+                                // AdvancedShare.generic(
+                                //         msg: "Base64 file share",
+                                //         subject: "Flutter",
+                                //         title: "Share Image",
+                                //         url: BASE64_IMAGE)
+                                //     .then((response) {
+                                //   print(response);
+                                // });
+                                // Share.text('my text title', 'This is my text to share with other applications.', 'text/plain');
+                                final ByteData bytes = await rootBundle
+                                    .load('assets/valluvar.png');
+                                await Share.file('esys image', 'esys.png',
+                                    bytes.buffer.asUint8List(), 'image/png',
+                                    text:
+                                        'குறள் ${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']} ');
+                                // var abcd = ImageEditor(image: image);
+                                // if (this.isImageloaded) {
+                                //       return new CustomPaint(
+                                //         child: Text("${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']}"),
+                                //           painter: new ImageEditor(image: image),
+                                //         );
+                                //     } else {
+                                //       return new Center(child: new Text('loading'));
+                                //     }
 
-                            //ui.PictureRecorder recorder = ui.PictureRecorder();
+                                //ui.PictureRecorder recorder = ui.PictureRecorder();
 
-                            // await Share.file('esys image', 'esys.png', bytes.buffer.asUint8List(), 'image/png', text: 'குறள் ${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']} ');
+                                // await Share.file('esys image', 'esys.png', bytes.buffer.asUint8List(), 'image/png', text: 'குறள் ${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']} ');
 
-                            // Share.share(
-                            //     'App Link... www.nithra.mobi');
-                            // print("searching");
-                          },
-                        ),
-                        new IconButton(
-                          icon: const Icon(Icons.help),
-                          onPressed: () {
-                            // openPage(context);
-                            // return new MyApp2();
-                            // showDialog(
-                            //     context: context,
-                            //     builder: (context) {
-                            //       new AlertDialog(
-                            //           title: Text("Help"),
-                            //           // actions: <Widget>[
-                            //           //   ListTile(
-                            //           //     title: Text(
-                            //           //         "${newData1[index]['iyal_tamil']}"),
-                            //           //     subtitle: Text(
-                            //           //         "${newData1[index]['iyal_tamil']}"),
-                            //           //   )
-                            //           // ]
-                            //           );
-                            //       print("searching");
-                            //     });
-                            Alert(
-                              context: context,
-                              title: "உதவி",
-                              desc:
-                                  "பால்: ${newData1[index]['pal_tamil']}   இயல்: ${newData1[index]['iyal_tamil']}  அதிகாரம்: ${newData1[index]['adhikarm_tamil']}",
-                              // image: Image.asset("assets/valluvar.png"),
-                              buttons: [
-                                DialogButton(
-                                  child: Text(
-                                    "சரி",
-                                    style: TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context, rootNavigator: true)
-                                        .pop();
-                                    // Navigator.pop(context);
-                                    // Navigator.of(context)
-                                    //     .pop(); // dismiss dialog
-                                  },
-                                  color: Color.fromRGBO(0, 179, 134, 1.0),
-                                  radius: BorderRadius.circular(0.0),
-                                ),
-                              ],
-                            ).show();
-                          },
-                        ),
-                      ],
-                    ),
+                                // Share.share(
+                                //     'App Link... www.nithra.mobi');
+                                // print("searching");
+                              },
+                            ),
+                            new IconButton(
+                              icon: const Icon(Icons.help),
+                              onPressed: () {
+                                // openPage(context);
+                                // return new MyApp2();
+                                // showDialog(
+                                //     context: context,
+                                //     builder: (context) {
+                                //       new AlertDialog(
+                                //           title: Text("Help"),
+                                //           // actions: <Widget>[
+                                //           //   ListTile(
+                                //           //     title: Text(
+                                //           //         "${newData1[index]['iyal_tamil']}"),
+                                //           //     subtitle: Text(
+                                //           //         "${newData1[index]['iyal_tamil']}"),
+                                //           //   )
+                                //           // ]
+                                //           );
+                                //       print("searching");
+                                //     });
+                                Alert(
+                                  context: context,
+                                  title: "உதவி",
+                                  desc:
+                                      "பால்: ${newData1[index]['pal_tamil']}   இயல்: ${newData1[index]['iyal_tamil']}  அதிகாரம்: ${newData1[index]['adhikarm_tamil']}",
+                                  // image: Image.asset("assets/valluvar.png"),
+                                  buttons: [
+                                    DialogButton(
+                                      child: Text(
+                                        "சரி",
+                                        style: TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                      onPressed: () {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .pop();
+                                        // Navigator.pop(context);
+                                        // Navigator.of(context)
+                                        //     .pop(); // dismiss dialog
+                                      },
+                                      color: Color.fromRGBO(0, 179, 134, 1.0),
+                                      radius: BorderRadius.circular(0.0),
+                                    ),
+                                  ],
+                                ).show();
+                              },
+                            ),
+                          ],
+                        ))),
                   ),
                   // new Container( child: CustomScrollView( slivers: //<Widget>[
                   new Expanded(
