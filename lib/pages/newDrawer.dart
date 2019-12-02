@@ -529,13 +529,28 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       // appBar: AppBar(title: Text(title)),
-      body: Container(
+      body: 
+    //   Container(
+    // alignment: Alignment.center,
+    // width: double.infinity,
+    // height: double.infinity,
+    // color: viewModel.color,
+    // child: SingleChildScrollView(child:"Your widgets"));
+      
+      
+      
+      Container(
+        alignment: Alignment.center,
+        width: double.infinity,
+        height: double.infinity,
           color: Colors.grey,
+          child: SingleChildScrollView(child:
           // padding: EdgeInsets.all(10.0),
-          child: Center(
+          // child: 
+          Center(
               child: new SizedBox(
-            width: 300.0,
-            height: 500.0,
+            // width: 300.0,
+            // height: 500.0,
             child: SingleChildScrollView(
                 child: new Column(
               // new SizedBox(
@@ -559,7 +574,8 @@ class MyHomePage extends StatelessWidget {
                             Image.asset(
                               'assets/play1.png',
                             ),
-                            Column(
+                            Expanded(
+                            child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               // mainAxisAlignment: MainAxisAlignment.center,
                               mainAxisSize: MainAxisSize.max,
@@ -571,7 +587,7 @@ class MyHomePage extends StatelessWidget {
                                 Text(
                                     "                   Start                "),
                               ],
-                            )
+                            ), )
                           ]))
                       // )
                       ,
@@ -607,7 +623,8 @@ class MyHomePage extends StatelessWidget {
                           Image.asset(
                             'assets/skip.png',
                           ),
-                          Column(
+                          Expanded(
+                            child: Column(
                             mainAxisAlignment: MainAxisAlignment.start,
                             // mainAxisAlignment: MainAxisAlignment.center,
                             mainAxisSize: MainAxisSize.max,
@@ -616,7 +633,7 @@ class MyHomePage extends StatelessWidget {
                               Text("  --------------------------------------"),
                               Text("                 Continue               "),
                             ],
-                          )
+                          ))
                         ])
                         //)
                         //  )
@@ -1173,7 +1190,7 @@ class MyHomePage extends StatelessWidget {
       //     ],
       //   ),
       // ),
-    );
+    ));
   }
 }
 
