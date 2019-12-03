@@ -363,29 +363,44 @@ class MyApp444State extends State<MyApp444> {
             summa1(index);
             summa1(index - 1);
 
-            return Card(
+            return SizedBox(
+              // Card(
+
+              // color: Colors.grey,
+
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                  Text(""),
                   new SizedBox(
-                    height: 80,
+                    height: 50,
                     child: Container(
                         alignment: Alignment.center,
                         width: double.infinity,
                         height: double.infinity,
                         // color: Colors.grey,
-                        child: SingleChildScrollView(
-                            child: Row(   // Wrap(
-                                    // alignment: WrapAlignment.spaceAround,
+                        padding: new EdgeInsets.only(bottom: 16.0),
+                        
+                        // child: SingleChildScrollView(
+
+                        child: Row(
+                          // Wrap(
+                          // alignment: WrapAlignment.spaceAround,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          // textBaseline: TextBaseline.ideographic,
+
                           children: <Widget>[
-                             // Spacer(), 
+                            
                             Text(
                               "குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
-                              style: TextStyle(fontSize: 18),
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                             // new FavoriteWidget(),
+                            /*
                             IconButton(
                                 autofocus: false,
                                 tooltip: "favourite",
@@ -439,6 +454,8 @@ class MyApp444State extends State<MyApp444> {
                                   }
                                   favouriteTable();
                                 }),
+
+                                */
                             new IconButton(
                               icon: const Icon(Icons.search),
                               onPressed: () {
@@ -507,7 +524,7 @@ class MyApp444State extends State<MyApp444> {
                                 print("Copied to Clipboard");
                                 ClipboardManager.copyToClipBoard(
                                         //  "குறள் எண்: ")
-                                        "குறள்: ${newData1[index]['kural_tamil1']} விளக்கம்: ${newData1[index]['kuralvilakam_tamil']} கலைஞர் உரை: ${newData1[index]['desc1']} சாலமன் பாப்பைய்யா: ${newData1[index]['desc2']}")
+                                        "குறள்: ${newData1[index]['kural_tamil1']}\n\nமு.வ உரை: \n ${newData1[index]['kuralvilakam_tamil']}\n\nகலைஞர் உரை: \n ${newData1[index]['desc1']}\n\nசாலமன் பாப்பைய்யா: \n ${newData1[index]['desc2']}")
                                     .then((result) {
                                   final snackBar = SnackBar(
                                     content: Text('Copied to Clipboard'),
@@ -541,7 +558,7 @@ class MyApp444State extends State<MyApp444> {
                                 await Share.file('esys image', 'esys.png',
                                     bytes.buffer.asUint8List(), 'image/png',
                                     text:
-                                        'குறள் ${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']} ');
+                                        'குறள் ${newData1[index]['kural_no']}:\n ${newData1[index]['kural_tamil1']} ');
                                 // var abcd = ImageEditor(image: image);
                                 // if (this.isImageloaded) {
                                 //       return new CustomPaint(
@@ -566,33 +583,38 @@ class MyApp444State extends State<MyApp444> {
                               onPressed: () {
                                 // openPage(context);
                                 // return new MyApp2();
-                                // showDialog(
+                                // return showDialog(
                                 //     context: context,
                                 //     builder: (context) {
                                 //       new AlertDialog(
                                 //           title: Text("Help"),
-                                //           // actions: <Widget>[
-                                //           //   ListTile(
-                                //           //     title: Text(
-                                //           //         "${newData1[index]['iyal_tamil']}"),
-                                //           //     subtitle: Text(
-                                //           //         "${newData1[index]['iyal_tamil']}"),
-                                //           //   )
-                                //           // ]
+                                //           actions: <Widget>[
+                                //             ListTile(
+                                //               title: Text(
+                                //                   "${newData1[index]['iyal_tamil']}"),
+                                //               subtitle: Text(
+                                //                   "${newData1[index]['iyal_tamil']}"),
+                                //             )
+                                //           ]
                                 //           );
-                                //       print("searching");
+                                //       // print("searching");
                                 //     });
                                 Alert(
                                   context: context,
-                                  style: AlertStyle( isCloseButton: false,),
-                                  title: "உதவி",
+                                  // type: AlertType.info,
+                                  style: AlertStyle(
+                                    isCloseButton: false,
+                                    isOverlayTapDismiss: true,
+                                    
+                                  ),
+                                  title: "",
                                   desc:
-                                      "பால்: ${newData1[index]['pal_tamil']}   இயல்: ${newData1[index]['iyal_tamil']}  அதிகாரம்: ${newData1[index]['adhikarm_tamil']}",
+                                      "பால்: ${newData1[index]['pal_tamil']}\nஇயல்: ${newData1[index]['iyal_tamil']}\nஅதிகாரம்: ${newData1[index]['adhikarm_tamil']}",
                                   // image: Image.asset("assets/valluvar.png"),
                                   buttons: [
                                     DialogButton(
                                       child: Text(
-                                        "சரி",
+                                        " ",
                                         style: TextStyle(
                                             color: Colors.white, fontSize: 20),
                                       ),
@@ -604,17 +626,29 @@ class MyApp444State extends State<MyApp444> {
                                         // Navigator.of(context)
                                         //     .pop(); // dismiss dialog
                                       },
-                                      color: Color.fromRGBO(0, 179, 134, 1.0),
+                                      color: Colors.white, //fromRGBO(0, 179, 134, 1.0),
                                       radius: BorderRadius.circular(0.0),
                                     ),
                                   ],
                                 ).show();
+                                
                               },
                             ),
                           ],
-                        ))),
+                          //)
+                        )),
                   ),
                   // new Container( child: CustomScrollView( slivers: //<Widget>[
+                  Row(children: <Widget>[
+                    Expanded(
+                        child: Divider(thickness: 2.0, color: Colors.blueGrey)),
+
+                    // Text("OR"),
+
+                    // Expanded(
+                    //     child: Divider(thickness: 2.0,color: Colors.blue)
+                    // ),
+                  ]),
                   new Expanded(
                       flex: 1,
                       child: SingleChildScrollView(
@@ -630,33 +664,35 @@ class MyApp444State extends State<MyApp444> {
                                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                   // mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
-                                    Text(
-                                      "குறள்:",
-                                      style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.black,
-                                        //   decoration: TextDecoration.underline,
-                                        //   // decorationColor: Colors.red,
-                                        //   // decorationStyle: TextDecorationStyle.wavy,
-                                        //   fontWeight: FontWeight.bold,
-                                      ),
-                                    ),
-                                    Text(
+                                    // Text(
+                                    //   "குறள்:",
+                                    //   style: TextStyle(
+                                    //     fontSize: 15 + 5 + a,
+                                    //     color: Colors.black,
+                                    //     //   decoration: TextDecoration.underline,
+                                    //     //   // decorationColor: Colors.red,
+                                    //     //   // decorationStyle: TextDecorationStyle.wavy,
+                                    //     //   fontWeight: FontWeight.bold,
+                                    //   ),
+                                    // ),
+                                    Center(
+                                      
+                                        child: Text(
                                       newData1[index]['kural_tamil1'],
                                       style: TextStyle(
-                                        fontSize: 15 + a,
+                                        fontSize: 13 +  a,
                                         color: Colors
                                             .deepPurpleAccent, //purple[300],
                                         // decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
                                         // decorationStyle: TextDecorationStyle.wavy,
-                                        // fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                    ),
+                                    )),
                                     Text(
-                                      "விளக்கம்:",
+                                      "மு.வ உரை:",
                                       style: TextStyle(
-                                        fontSize: 20 + a,
+                                        fontSize: 15 + 5 + a,
                                         color: Colors.black,
                                         decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -667,7 +703,7 @@ class MyApp444State extends State<MyApp444> {
                                     Text(
                                       newData1[index]['kuralvilakam_tamil'],
                                       style: TextStyle(
-                                        fontSize: 15 + a,
+                                        fontSize: 10 + 5 + a,
                                         color: Colors.purple,
                                         // decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -678,7 +714,7 @@ class MyApp444State extends State<MyApp444> {
                                     Text(
                                       "கலைஞர் உரை:",
                                       style: TextStyle(
-                                        fontSize: 20 + a,
+                                        fontSize: 15 + 5 + a,
                                         color: Colors.black,
                                         decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -689,7 +725,7 @@ class MyApp444State extends State<MyApp444> {
                                     Text(
                                       newData1[index]['desc1'],
                                       style: TextStyle(
-                                        fontSize: 15 + a,
+                                        fontSize: 10 + 5 + a,
                                         color: Colors.purple,
                                         // decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -700,7 +736,7 @@ class MyApp444State extends State<MyApp444> {
                                     Text(
                                       "சாலமன் பாப்பைய்யா:",
                                       style: TextStyle(
-                                        fontSize: 20 + a,
+                                        fontSize: 15 + 5 + a,
                                         color: Colors.black,
                                         decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -711,7 +747,7 @@ class MyApp444State extends State<MyApp444> {
                                     Text(
                                       newData1[index]['desc2'],
                                       style: TextStyle(
-                                        fontSize: 15 + a,
+                                        fontSize: 10 + 5 + a,
                                         color: Colors.purple,
                                         // decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -722,7 +758,7 @@ class MyApp444State extends State<MyApp444> {
                                     Text(
                                       "Kural: ${newData1[index]['kural_no']}",
                                       style: TextStyle(
-                                        fontSize: 20 + a,
+                                        fontSize: 15 + 5 + a,
                                         color: Colors.black,
                                         decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -732,18 +768,18 @@ class MyApp444State extends State<MyApp444> {
                                     ),
                                     Text(newData1[index]['kural_thanglish1'],
                                         style: TextStyle(
-                                          fontSize: 15 + a,
+                                          fontSize: 10 + 5 + a,
                                           color: Colors.purple,
                                         )),
                                     Text(newData1[index]['kural_thanglish2'],
                                         style: TextStyle(
-                                          fontSize: 15 + a,
+                                          fontSize: 10 + 5 + a,
                                           color: Colors.purple,
                                         )),
                                     Text(
                                       "Explanation: ",
                                       style: TextStyle(
-                                        fontSize: 20 + a,
+                                        fontSize: 15 + 5 + a,
                                         color: Colors.black,
                                         decoration: TextDecoration.underline,
                                         // decorationColor: Colors.red,
@@ -754,7 +790,7 @@ class MyApp444State extends State<MyApp444> {
                                     Text(
                                       newData1[index]['kuralvilakam_english'],
                                       style: TextStyle(
-                                        fontSize: 15 + a,
+                                        fontSize: 10 + 5 + a,
                                         color: Colors.purple,
                                       ),
                                     ),

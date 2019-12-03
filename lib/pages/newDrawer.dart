@@ -28,7 +28,7 @@ import '../newMainpage1.dart';
 var db = DatabaseHelper();
 var prefs = Shared_Preference();
 var payloadNo;
-
+var searchResult1;
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
 // var newData;
@@ -36,6 +36,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 List<Map<String, dynamic>> pal2iyal, iyal2adhikaram;
 // ScreenUtil.instance = ScreenUtil.getInstance().init(context);
 TextEditingController _textFieldController = TextEditingController();
+TextEditingController inputControler = new TextEditingController();
 
 // void main() => runApp(MyApp12345());
 
@@ -379,25 +380,96 @@ class _MyApp12345State extends State<MyApp12345> {
                   },
                 ),
                 ListTile(
-                  leading: Image.asset("search.png", width: 20, height: 20),
-                  title: Text('தேடல்'),
-                  onTap: () async {
-                    // var kuralNo = "ஆதி";
-                    // var sql =
-                    //     "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
-                    // // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
-                    // var searchResult =
-                    //     await db.any_query(sql, "modi_kural_comp.db");
-                    // print(searchResult);
-                    result = await db.any_query(
-                        'select DISTINCT pal_tamil from complete1',
-                        'modi_kural_comp.db');
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new GlobalSearch();
-                    }));
-                  },
-                ),
+                    leading: Image.asset("search.png", width: 20, height: 20),
+                    title: Text('தேடல்'),
+                    onTap: () async {
+                      return showDialog(
+                        context: context,
+                        builder: (context) {
+                          var _value;
+
+                          return AlertDialog(
+                            title: Text('எழுத்து மூலம் தேட '),
+                            content: TextField(
+                              controller: inputControler,
+                              decoration: InputDecoration(
+                                  border: new OutlineInputBorder(
+                                    // borderRadius: new BorderRadius.circular(25.0),
+                                    borderSide: new BorderSide(),
+                                  ),
+                                  //fillColor: Colors.green
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 20.0),
+                                  hintText: " Text search/உரைத்தேடல் ",
+                                  labelText: ' search/தேடல்: '),
+                              onChanged: (input) => _value = input,
+                            ),
+                            actions: <Widget>[
+                              new FlatButton(
+                                child: new Text('இல்லை'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  // Navigator.of(context).pop();
+                                },
+                              ),
+                              new FlatButton(
+                                child: new Text('ஆம்'),
+                                onPressed: () async {
+                                  Navigator.of(context).pop();
+                                  print(
+                                      "text.controller:  ${inputControler.text}");
+                                  var abcd = (inputControler.text);
+
+                                  var kuralWord = (inputControler.text);
+                                  print(kuralWord);
+                                  var sql =
+                                      'SELECT * FROM complete1 WHERE kural_tamil1 like "%$kuralWord%" or kural_thanglish1 like "%$kuralWord%" or kural_thanglish2 like "%$kuralWord%" ';
+                                  searchResult1 = await db.any_query(
+                                      sql, "modi_kural_comp.db");
+
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            GlobalSearchingKural()),
+                                  );
+                                },
+                              ),
+                            ],
+                          );
+
+                          /*
+                        result = await db.any_query(
+                            'select DISTINCT pal_tamil from complete1',
+                            'modi_kural_comp.db');
+                        
+                        Navigator.of(context).push(MaterialPageRoute<Null>(
+                            builder: (BuildContext context) {
+                          return new GlobalSearch();
+                        }));
+                        */
+                        },
+                      );
+                    }
+
+                    // async {
+                    //   // var kuralNo = "ஆதி";
+                    //   // var sql =
+                    //   //     "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
+                    //   // // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
+                    //   // var searchResult =
+                    //   //     await db.any_query(sql, "modi_kural_comp.db");
+                    //   // print(searchResult);
+                    //   result = await db.any_query(
+                    //       'select DISTINCT pal_tamil from complete1',
+                    //       'modi_kural_comp.db');
+                    //   Navigator.of(context).push(MaterialPageRoute<Null>(
+                    //       builder: (BuildContext context) {
+                    //     return new GlobalSearch();
+                    //   }));
+                    // },
+                    ),
+                /*
                 ListTile(
                   leading: Image.asset("star.png", width: 20, height: 20),
                   title: Text('பிடித்தவைகள்'),
@@ -421,6 +493,8 @@ class _MyApp12345State extends State<MyApp12345> {
                     // }));
                   },
                 ),
+
+                
                 ListTile(
                   leading: Image.asset("protection.png", width: 20, height: 20),
                   title: Text('அமைப்புகள்'),
@@ -432,6 +506,8 @@ class _MyApp12345State extends State<MyApp12345> {
                     }));
                   },
                 ),
+
+                */
                 ListTile(
                   leading: Image.asset("protection.png", width: 20, height: 20),
                   title: Text('தனியுரிமைக் கொள்கை'),
@@ -459,17 +535,17 @@ class _MyApp12345State extends State<MyApp12345> {
                     return sharing3();
                   },
                 ),
-                ListTile(
-                  leading: Image.asset("rate.png", width: 20, height: 20),
-                  title: Text('மதிப்பிடவும்'),
-                  onTap: () {
-                    // return dia_rateUs();
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new dia_rateUs(); // HomePage1();
-                    }));
-                  },
-                ),
+                // ListTile(
+                //   leading: Image.asset("rate.png", width: 20, height: 20),
+                //   title: Text('மதிப்பிடவும்'),
+                //   onTap: () {
+                //     // return dia_rateUs();
+                //     Navigator.of(context).push(MaterialPageRoute<Null>(
+                //         builder: (BuildContext context) {
+                //       return new dia_rateUs(); // HomePage1();
+                //     }));
+                //   },
+                // ),
                 // ],).toList(),)
               ],
             ).toList(),
@@ -566,7 +642,7 @@ class MyHomePage extends StatelessWidget {
                       //     height: 60,
                       child: Container(
                           alignment: Alignment.center,
-                          height: 60.0,
+                          height: 65.5,
                           margin: EdgeInsets.all(8.0),
                           // height: 60, // MediaQuery.of(context).size.height,
                           child: Row(children: <Widget>[
@@ -583,14 +659,11 @@ class MyHomePage extends StatelessWidget {
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 // mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  Text(
-                                      "      ஆரம்பிக்க       ",
+                                  Text("      ஆரம்பிக்க       ",
                                       softWrap: true),
-                                  Text(
-                                      "----------------------",
+                                  Text("----------------------",
                                       softWrap: true),
-                                  Text(
-                                      "        Start         ",
+                                  Text("        Start         ",
                                       softWrap: true),
                                 ],
                               ),
@@ -626,7 +699,7 @@ class MyHomePage extends StatelessWidget {
                     //  height: 60,
                     child: Container(
                         alignment: Alignment.center,
-                        height: 60.0,
+                        height: 65.5,
                         margin: EdgeInsets.all(8.0),
                         child: Row(children: <Widget>[
                           Image.asset(
@@ -639,12 +712,9 @@ class MyHomePage extends StatelessWidget {
                                 // mainAxisAlignment: MainAxisAlignment.center,
                                 // mainAxisSize: MainAxisSize.max,
                                 children: <Widget>[
-                                  Text(
-                                      "        தொடர்க       "),
-                                  Text(
-                                      "----------------------"),
-                                  Text(
-                                      "        Continue      "),
+                                  Text("        தொடர்க       "),
+                                  Text("----------------------"),
+                                  Text("        Continue      "),
                                 ],
                               ))
                         ])
@@ -706,7 +776,7 @@ class MyHomePage extends StatelessWidget {
                       //     height: 60,
                       child: Container(
                           alignment: Alignment.center,
-                          height: 60.0,
+                          height: 65.5,
                           margin: EdgeInsets.all(8.0),
                           child: Row(children: <Widget>[
                             Image.asset(
@@ -720,12 +790,9 @@ class MyHomePage extends StatelessWidget {
                                   // mainAxisAlignment: MainAxisAlignment.center,
                                   // mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
-                                    Text(
-                                        "     வகைப்பட்டியல்     "),
-                                    Text(
-                                        "----------------------"),
-                                    Text(
-                                        "       Category       "),
+                                    Text("     வகைப்பட்டியல்     "),
+                                    Text("----------------------"),
+                                    Text("       Category       "),
                                   ],
                                   // )
                                 ))
@@ -758,14 +825,14 @@ class MyHomePage extends StatelessWidget {
                       //     height: 60,
                       child: Container(
                           alignment: Alignment.center,
-                          height:60.0,
+                          height: 65.5,
                           margin: EdgeInsets.all(8.0),
                           child: Row(children: <Widget>[
                             Image.asset(
                               'assets/gobutton.png',
                             ),
                             Expanded(
-                                flex:1,
+                                flex: 1,
                                 // child: SingleChildScrollView(
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -773,13 +840,10 @@ class MyHomePage extends StatelessWidget {
                                   // mainAxisSize: MainAxisSize.max,
                                   children: <Widget>[
                                     // Text("hi"),
-                                    
-                                    Text(
-                                        "         செல்         "),
-                                    Text(
-                                        "----------------------"),
-                                    Text(
-                                        "          Goto        "),
+
+                                    Text("         செல்         "),
+                                    Text("----------------------"),
+                                    Text("          Goto        "),
                                   ],
                                 )
                                 // )
@@ -856,59 +920,106 @@ class MyHomePage extends StatelessWidget {
                 Card(
                     color: Colors.grey,
                     child: RaisedButton(
-                      color: Colors.white,
-                      // child: SizedBox(
-                      //     height: 60,
-                      child: Container(
-                          alignment: Alignment.center,
-                          height: 60.0,
-                          margin: EdgeInsets.all(8.0),
-                          child: Row(children: <Widget>[
-                            Image.asset(
-                              'assets/search.png',
+                        color: Colors.white,
+                        // child: SizedBox(
+                        //     height: 60,
+                        child: Container(
+                            alignment: Alignment.center,
+                            height: 65.5,
+                            margin: EdgeInsets.all(8.0),
+                            child: Row(children: <Widget>[
+                              Image.asset(
+                                'assets/search.png',
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  // child: SingleChildScrollView(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    // mainAxisAlignment: MainAxisAlignment.center,
+                                    // mainAxisSize: MainAxisSize.max,
+                                    children: <Widget>[
+                                      Text("        தேடல்         "),
+                                      Text("----------------------"),
+                                      Text("        Search        "),
+                                    ],
+                                  ))
+                              // )
+                            ])
+                            //)
+                            //)
                             ),
-                            Expanded(
-                                flex: 1,
-                                // child: SingleChildScrollView(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  // mainAxisAlignment: MainAxisAlignment.center,
-                                  // mainAxisSize: MainAxisSize.max,
-                                  children: <Widget>[
-                                    Text(
-                                        "        தேடல்         "),
-                                    Text(
-                                        "----------------------"),
-                                    Text(
-                                        "        Search        "),
-                                  ],
-                                ))
-                            // )
-                          ])
-                          //)
-                          //)
-                          ),
-                      onPressed: () async {
-                        // var kuralNo = "ஆதி";
-                        // var sql =
-                        //     "SELECT * FROM complete1 WHERE kural_tamil1 like '%$kuralNo%'";
-                        // // var sql1 = "SELECT * FROM kural where kural_no = $kuralNo";
-                        // var searchResult =
-                        //     await db.any_query(sql, "modi_kural_comp.db");
-                        // print(searchResult);
+                        onPressed: () async {
+                          return showDialog(
+                            context: context,
+                            builder: (context) {
+                              var _value;
+
+                              return AlertDialog(
+                                title: Text('எழுத்து மூலம் தேட '),
+                                content: TextField(
+                                  controller: inputControler,
+                                  decoration: InputDecoration(
+                                      border: new OutlineInputBorder(
+                                        // borderRadius: new BorderRadius.circular(25.0),
+                                        borderSide: new BorderSide(),
+                                      ),
+                                      //fillColor: Colors.green
+                                      contentPadding:
+                                          const EdgeInsets.symmetric(
+                                              vertical: 20.0),
+                                      hintText: " Text search/உரைத்தேடல் ",
+                                      labelText: ' search/தேடல்: '),
+                                  onChanged: (input) => _value = input,
+                                ),
+                                actions: <Widget>[
+                                  new FlatButton(
+                                    child: new Text('இல்லை'),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                      // Navigator.of(context).pop();
+                                    },
+                                  ),
+                                  new FlatButton(
+                                    child: new Text('ஆம்'),
+                                    onPressed: () async {
+                                      Navigator.of(context).pop();
+                                      print(
+                                          "text.controller:  ${inputControler.text}");
+                                      var abcd = (inputControler.text);
+
+                                      var kuralWord = (inputControler.text);
+                                      print(kuralWord);
+                                      var sql =
+                                          'SELECT * FROM complete1 WHERE kural_tamil1 like "%$kuralWord%" or kural_thanglish1 like "%$kuralWord%" or kural_thanglish2 like "%$kuralWord%" ';
+                                      searchResult1 = await db.any_query(
+                                          sql, "modi_kural_comp.db");
+
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                GlobalSearchingKural()),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              );
+
+                              /*
                         result = await db.any_query(
                             'select DISTINCT pal_tamil from complete1',
                             'modi_kural_comp.db');
-                        //                       pal2iyal = await db.any_query(
-                        // 'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="அறத்துப்பால்"',
-                        // 'modi_kural_comp.db');
-                        // iyal2adhikaram = ;
+                        
                         Navigator.of(context).push(MaterialPageRoute<Null>(
                             builder: (BuildContext context) {
                           return new GlobalSearch();
                         }));
-                      },
-                    )),
+                        */
+                            },
+                          );
+                        })),
+                // )),
                 // ]),
 
                 Card(
@@ -919,40 +1030,49 @@ class MyHomePage extends StatelessWidget {
                         //     height: 60,
                         child: Container(
                             alignment: Alignment.center,
-                            height: 60.0,
+                            height: 65.5,
                             margin: EdgeInsets.all(8.0),
-                            child: Row(children: <Widget>[
-                              Image.asset(
-                                'assets/tamil_calendar.webp',
-                              ),
-                              //  ListView(
-                              //    shrinkWrap: true,
-                              //  children: <Widget>[
-                              Expanded(
-                                  flex: 1,
-                                  // child: SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    // mainAxisAlignment: MainAxisAlignment.center,
-                                    // mainAxisSize: MainAxisSize.max,
-                                    children: <Widget>[
-                                      Expanded(
-                                        child: Text(
-                                           "  நித்ரா தமிழ் நாட்காட்டி  "),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                           "----------------------"),
-                                      ),
-                                      Expanded(
-                                        child: Text(
-                                            "Nithra Tamil Calendar"),
-                                      ),
-                                    ],
-                                  ))
-                              // )
-                              // )
-                            ])
+                            child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/tamil_calendar.webp',
+                                  ),
+                                  //  ListView(
+                                  //    shrinkWrap: true,
+                                  //  children: <Widget>[
+                                  Expanded(
+                                      flex: 1,
+                                      // child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        // mainAxisAlignment: MainAxisAlignment.center,
+                                        // mainAxisSize: MainAxisSize.max,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Text(
+                                                "  நித்ரா தமிழ் நாட்காட்டி  "),
+                                          ),
+                                          Expanded(
+                                            child:
+                                                Text("----------------------"),
+                                          ),
+                                          Expanded(
+                                            child:
+                                                Text("Nithra Tamil Calendar"),
+                                          ),
+                                        ],
+                                      )),
+                                  Text("   "),
+                                  Image.asset(
+                                    'assets/ads_icon.png', // alignment: Alignment.topRight, // fit: BoxFit.scaleDown ,
+                                  ),
+
+                                  // )
+                                  // )
+                                ])
                             //)
                             //)
                             ),
@@ -970,7 +1090,7 @@ class MyHomePage extends StatelessWidget {
                               androidAppId: "nithra.tamil.quiz",
                               iOSAppId: "id1484332988");
                         })),
-
+/*
                 RaisedButton(
                   color: Color(1100),
                   child: Text('Favourites using "isfav'),
@@ -1011,6 +1131,9 @@ class MyHomePage extends StatelessWidget {
                     }));
                   },
                 ),
+
+
+                */
                 // RaisedButton(
                 //   child: Text('Favourites using complete table'),
                 //   color: Color(5400),

@@ -2,11 +2,12 @@ import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
+import 'package:dhina/pages/newDrawer.dart';
 
 import 'package:dhina/db/dbhelper.dart';
 
 var db = DatabaseHelper();
-var searchResult1;
+// var searchResult1;
 String dropdownValue = result[0]['pal_tamil'];
 List<Map<String, dynamic>> pal2iyal, iyal2adhikaram;
 String dropdownValue1;
@@ -23,14 +24,88 @@ class _GlobalSearchState extends State<GlobalSearch> {
   TextEditingController inputControler = new TextEditingController();
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
-    
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    
+    showDialog(
+        context: context,
+        builder: (context) {
+          var _value;
+
+          return AlertDialog(
+            title: Text('எழுத்து மூலம் தேட '),
+            content: TextField(
+              controller: inputControler,
+              decoration: InputDecoration(
+                  border: new OutlineInputBorder(
+                    // borderRadius: new BorderRadius.circular(25.0),
+                    borderSide: new BorderSide(),
+                  ),
+                  //fillColor: Colors.green
+                  contentPadding: const EdgeInsets.symmetric(vertical: 20.0),
+                  hintText: " Text search/உரைத்தேடல் ",
+                  labelText: ' search/தேடல்: '),
+                  onChanged: (input) =>
+                                    _value = input,
+            ),
+            actions: <Widget>[
+                                new FlatButton(
+                                  child: new Text('இல்லை'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    // Navigator.of(context).pop();
+                                  },
+                                ),
+                                new FlatButton(
+                                  child: new Text('ஆம்'),
+                                  onPressed: () async {
+                                    Navigator.of(context).pop();
+                                    print(
+                                        "text.controller:  ${inputControler.text}");
+                                    var abcd =
+                                        (inputControler.text);
+                                    
+                    var kuralWord = (inputControler.text);
+                    print(kuralWord);
+                    var sql =
+                        'SELECT * FROM complete1 WHERE kural_tamil1 like "%$kuralWord%" or kural_thanglish1 like "%$kuralWord%" or kural_thanglish2 like "%$kuralWord%" ';
+                    searchResult1 =
+                        await db.any_query(sql, "modi_kural_comp.db");
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => GlobalSearchingKural()),
+                    );
+                    // print($iNF1);
+                  
+
+                                    // Navigator.of(context).push(
+                                    //     MaterialPageRoute<Null>(
+                                    //         builder: (BuildContext context) {
+                                    //   return new MyApp444(
+                                    //     value: ff,
+                                    //     fontSize1: a,
+                                    //   );
+                                    // }));
+
+                                    //Navigator.of(context).pop();
+
+                                    // controller.jumpToPage(ff);
+                                    // Navigator.of(context)
+                                    //     .pop();
+                                  },
+                                )
+                              ],
+          );
+        }
+
+        /*
+    MaterialApp(
       // title: "WEB SERVICE",
       theme: ThemeData(
         primaryColor: Colors.blueGrey,
@@ -71,9 +146,18 @@ class _GlobalSearchState extends State<GlobalSearch> {
           //   ),
             
           // ),
-          body: new Container(
+          body: 
+          
+          
+/*          new Container(
             margin: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: new Column(
+
+
+            child: 
+            
+
+
+            new Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 new Text('     '),
@@ -128,85 +212,21 @@ class _GlobalSearchState extends State<GlobalSearch> {
                         }));
                     },
                   ),
-                
-// DropdownButton<String>(
-//           value: dropdownValue,
-//           icon: Icon(Icons.arrow_downward),
-//           iconSize: 24,
-//           elevation: 16,
-//           style: TextStyle(color: Colors.deepPurple),
-//           underline: Container(
-//             height: 2,
-//             color: Colors.deepPurpleAccent,
-//           ),
-//           onChanged: (String newValue) {
-//             setState(() {
-//               dropdownValue = newValue;
-//               dropdownValue1 = db.any_query("SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil=$dropdownValue", 
-//               "modi_kural_comp.db");
-              
-//             });
-//           },
-//           items: <String>[result[0]['pal_tamil'], result[1]['pal_tamil'], result[2]['pal_tamil']]
-//               .map<DropdownMenuItem<String>>((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: Text(value),
-//             );
-//           }).toList(),),
-//           DropdownButton<String>(
-//           value: dropdownValue1,
-//           icon: Icon(Icons.arrow_downward),
-//           iconSize: 24,
-//           elevation: 16,
-//           style: TextStyle(color: Colors.deepPurple),
-//           underline: Container(
-//             height: 2,
-//             color: Colors.deepPurpleAccent,
-//           ),
-//           onChanged: (String newValue) {
-//             setState(() {
-//               dropdownValue1 = newValue;
-//               dropdownValue2 = db.any_query("SELECT DISTINCT adhikarm_tamil from complete1 WHERE iyal_tamil=$dropdownValue1", 
-//               "modi_kural_comp.db");
-//             });
-//           },
-//           items: [dropdownValue1.toString()]
-//               .map<DropdownMenuItem<String>>((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: Text(value),
-//             );
-//           }).toList(),),
-//           DropdownButton<String>(
-//           value: dropdownValue2,
-//           icon: Icon(Icons.arrow_downward),
-//           iconSize: 24,
-//           elevation: 16,
-//           style: TextStyle(color: Colors.deepPurple),
-//           underline: Container(
-//             height: 2,
-//             color: Colors.deepPurpleAccent,
-//           ),
-//           onChanged: (String newValue) {
-//             setState(() {
-//               dropdownValue2 = newValue;
-//             });
-//           },
-//           items: [result2.toString()]
-//               .map<DropdownMenuItem<String>>((String value) {
-//             return DropdownMenuItem<String>(
-//               value: value,
-//               child: Text(value),
-//             );
-//           }).toList(),),
               ],
             ),
-          )),
-      debugShowCheckedModeBanner: false,
-    );
+
+                      */
+
+          )
+
+          ),
+
+          */
+        // debugShowCheckedModeBanner: false,
+        );
   }
 }
+
 _onSelectItem1(String s) async {
   var db = DatabaseHelper();
 
@@ -262,7 +282,6 @@ _onSelectItem3(String s) async {
   // print(I.pal_tamil[0]);
 }
 
-
 class GlobalSearchingKural extends StatelessWidget {
   const GlobalSearchingKural({Key key}) : super(key: key);
 
@@ -294,44 +313,46 @@ class GlobalSearchingKural extends StatelessWidget {
           title: Text('குறள்கள்:'),
         ),
         body: ListView.builder(
-            itemCount: searchResult1.length,
-            itemBuilder: (BuildContext context, int index) {
-              return new GestureDetector(
-                  onTap: () async {
-                    await Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MyApp444(
-                                value:
-                                    (searchResult1[index]['kural_no']) -1 )));
-                    //GlobalSearchingNavigation() ));
-                    // SearchingKural())); // null = AdhikaramKural()
-                  },
-                  child: Card(
-                  child: ListTile(
-                    leading: Text("${searchResult1[index]['kural_no']}"),
-                    trailing: Icon(Icons.keyboard_arrow_right),
-                    title: new Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    mainAxisSize: MainAxisSize.max,
-                    children: <Widget>[
-                      // new SingleChildScrollView(
-                      //scrollDirection: Axis.vertical,
-                      // primary: true,
-                      Expanded(
-                         child: Text(
-                          '${searchResult1[index]['kural_tamil1']}',
-                          textScaleFactor: 1.0,
-                          softWrap: true,
-                          textAlign: TextAlign.start,
-                          style: new TextStyle(
-                            fontSize: 13,
-                            // fontWeight:
-                            //     FontWeight.bold
-                          ), // textScaleFactor: 1.0,
-                        ),
-                      )
-                    ]),)));},));
+          itemCount: searchResult1.length,
+          itemBuilder: (BuildContext context, int index) {
+            return new GestureDetector(
+                onTap: () async {
+                  await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => MyApp444(
+                              value: (searchResult1[index]['kural_no']) - 1)));
+                  //GlobalSearchingNavigation() ));
+                  // SearchingKural())); // null = AdhikaramKural()
+                },
+                child: Card(
+                    child: ListTile(
+                  leading: Text("${searchResult1[index]['kural_no']}"),
+                  trailing: Icon(Icons.keyboard_arrow_right),
+                  title: new Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        // new SingleChildScrollView(
+                        //scrollDirection: Axis.vertical,
+                        // primary: true,
+                        Expanded(
+                          child: Text(
+                            '${searchResult1[index]['kural_tamil1']}',
+                            textScaleFactor: 1.0,
+                            softWrap: true,
+                            textAlign: TextAlign.start,
+                            style: new TextStyle(
+                              fontSize: 13,
+                              // fontWeight:
+                              //     FontWeight.bold
+                            ), // textScaleFactor: 1.0,
+                          ),
+                        )
+                      ]),
+                )));
+          },
+        ));
 
     /*          Card(
                                        child: Text("${searchResult1[index]['kural_tamil1']}",  style: TextStyle(
