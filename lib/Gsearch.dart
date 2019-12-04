@@ -30,8 +30,8 @@ class _GlobalSearchState extends State<GlobalSearch> {
 
   @override
   Widget build(BuildContext context) {
-    
-    showDialog(
+    return 
+ /*   showDialog(
         context: context,
         builder: (context) {
           var _value;
@@ -103,14 +103,15 @@ class _GlobalSearchState extends State<GlobalSearch> {
                               ],
           );
         }
-
-        /*
-    MaterialApp(
-      // title: "WEB SERVICE",
-      theme: ThemeData(
-        primaryColor: Colors.blueGrey,
-      ),
-      home: Scaffold(
+*/
+ 
+    // MaterialApp(
+    //   // title: "WEB SERVICE",
+    //   theme: ThemeData(
+    //     primaryColor: Colors.blueGrey,
+    //   ),
+    //   home: 
+      Scaffold(
           resizeToAvoidBottomPadding: false,
           // primary: true,
          appBar: AppBar(
@@ -120,7 +121,11 @@ class _GlobalSearchState extends State<GlobalSearch> {
           //     return IconButton(
           //       icon: const Icon(Icons.arrow_back),
           //       onPressed: () {
-          //         Navigator.pop(context);
+          //         // Navigator.pop(context);
+          //         Navigator.of(context).pop();
+          //         Navigator.of(context,
+          //                                         rootNavigator: true)
+          //                                     .pop(); 
           //       },
           //     );
           //   },
@@ -149,7 +154,7 @@ class _GlobalSearchState extends State<GlobalSearch> {
           body: 
           
           
-/*          new Container(
+          new Container(
             margin: const EdgeInsets.only(left: 8.0, right: 8.0),
 
 
@@ -196,33 +201,33 @@ class _GlobalSearchState extends State<GlobalSearch> {
                   },
                   child: const Text("தேடுக..", ),
                 ),
-                new Text('அல்லது'),
-                new RaisedButton(
-                    child: Text("வகைவாரியாக தேட"),
-                    onPressed: () async {
-                       result = await db.any_query(
-                            'select DISTINCT pal_tamil from complete1',
-                            'modi_kural_comp.db');
-                        await _onSelectItem1(result[0]['pal_tamil']);
-                        await _onSelectItem2(result[1]['pal_tamil']);
-                        await _onSelectItem3(result[2]['pal_tamil']);
-                     Navigator.of(context).push(MaterialPageRoute<Null>(
-                            builder: (BuildContext context) {
-                          return new TabBarDemo();
-                        }));
-                    },
-                  ),
+                // new Text('அல்லது'),
+                // new RaisedButton(
+                //     child: Text("வகைவாரியாக தேட"),
+                //     onPressed: () async {
+                //        result = await db.any_query(
+                //             'select DISTINCT pal_tamil from complete1',
+                //             'modi_kural_comp.db');
+                //         await _onSelectItem1(result[0]['pal_tamil']);
+                //         await _onSelectItem2(result[1]['pal_tamil']);
+                //         await _onSelectItem3(result[2]['pal_tamil']);
+                //      Navigator.of(context).push(MaterialPageRoute<Null>(
+                //             builder: (BuildContext context) {
+                //           return new TabBarDemo();
+                //         }));
+                //     },
+                //   ),
               ],
             ),
 
-                      */
+                      
 
           )
 
-          ),
+        //  ),
 
-          */
-        // debugShowCheckedModeBanner: false,
+          
+         //debugShowCheckedModeBanner: false,
         );
   }
 }
@@ -350,7 +355,8 @@ class GlobalSearchingKural extends StatelessWidget {
                           ),
                         )
                       ]),
-                )));
+                )
+                ));
           },
         ));
 

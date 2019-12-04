@@ -1,3 +1,5 @@
+import 'package:dhina/main.dart';
+import 'package:dhina/main_pages/starting4.dart';
 import 'package:flutter/material.dart';
 
 // void main() => runApp(App());
@@ -70,9 +72,11 @@ import 'package:flutter/material.dart';
 // move the dialog into it's own stateful widget.
 // It's completely independent from your page
 // this is good practice
+// double dummy = 15.0;
 class FontSizePickerDialog extends StatefulWidget {
   /// initial selection for the slider
   final double initialFontSize;
+  
 
   const FontSizePickerDialog({Key key, @required this.initialFontSize}) : super(key: key);
 
@@ -84,10 +88,17 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
   /// current selection of the slider
   double _fontSize12 = 0.0;
 
+  
+
   @override
-  void initState() {
+  Future initState()  {
     super.initState();
     _fontSize12 = widget.initialFontSize;
+    getFontSize();
+    
+  }
+  getFontSize() async {
+    dummy = await prefs.getDouble("FontSizeDummy"); 
   }
 
   @override
@@ -102,15 +113,21 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
           min: 0,
           max: 20,
           divisions: 10,
-          onChanged: (value) {
+          onChanged: (value) async {
             setState(() {
               _fontSize12 = value;
+              dummy = 15 + value;
               
             });
+            await prefs.setdouble("FontSizeDummy", dummy );
+            
           },
         ),
       ),
       actions: <Widget>[
+        
+        Text("Font Size: $dummy " ),
+
         FlatButton(
           onPressed: () {
             // Use the second argument of Navigator.pop(...) to pass

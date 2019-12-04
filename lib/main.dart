@@ -1,16 +1,15 @@
-import 'dart:math';
 
+import 'package:dhina/SimpleSlider1.dart';
 import 'package:dhina/cate2pgview.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/newMainpage1.dart';
 import 'package:dhina/pages/newDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:ui';
 import 'package:splashscreen/splashscreen.dart';
-import 'package:dhina/localNotification.dart';
 
+
+double dummy = 15.0;
 
 // void main() => runApp(new MyApp());
 
@@ -147,7 +146,9 @@ class _HomePageMainState extends State<HomePageMain> {
     // flutterLocalNotificationsPlugin.initialize(initSetttings,
     //     onSelectNotification: onSelectNotification);
     //             _showDailyAtTime();
-
+getFontSize() async {
+    dummy = await prefs.getDouble("FontSizeDummy"); 
+  }
 
     dbmove() async {
       await db.db_move();
@@ -168,6 +169,7 @@ class _HomePageMainState extends State<HomePageMain> {
     
 
     dbmove();
+    getFontSize();
     
     // final _random = new Random();
     // var values = newData1.toList();

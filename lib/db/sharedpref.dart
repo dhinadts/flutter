@@ -25,7 +25,7 @@ class Shared_Preference {
     return prefs.getString(key);
   }
 
-  Future getInt(String key) async {
+  Future getInt(String key, [double dummy]) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool CheckValue = prefs.containsKey(key);
     if (CheckValue == false) {

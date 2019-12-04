@@ -122,6 +122,8 @@ flutter:
     - gotoSearch.png
     - thirukural_round.png
     - front.png
+    - advertising.png
+    - ads.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

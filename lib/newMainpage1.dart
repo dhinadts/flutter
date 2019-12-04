@@ -1,9 +1,7 @@
-import 'dart:convert';
 import 'dart:core' as prefix0;
 import 'dart:core';
 
 import 'package:dhina/SimpleSlider1.dart';
-import 'package:dhina/pages/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -78,6 +76,7 @@ class MyApp444State extends State<MyApp444> {
 
     // this will contain the result from Navigator.pop(context, result)
     _fontSize11 = await prefs.getDouble("fontSize1");
+    dummy = 15.0 + _fontSize11;
 
     final selectedFontSize = await showDialog<double>(
       context: context,
@@ -337,27 +336,6 @@ class MyApp444State extends State<MyApp444> {
             favKural = index + 1;
             prefix0.print(favKural);
             favouriteTable();
-
-// summaR = db.any_query("SELECT * from complete where kural_no = $favKural", "modi_kural_comp.db");
-// if(summaR.isEmpty){
-//   _isFavorited = false;
-//   _isfav = false;
-// }
-// else{
-//   _isFavorited = true;
-//   _isfav = true;
-// }
-// summaR = db.any_query(query, dbName);
-            // if (newData1[index]['isfav'] == 1) {
-            //   _isFavorited = true;
-            //   _isfav = true;
-            // } else {
-            //   _isFavorited = false;
-            //   _isfav = false;
-            // }
-            // _isFavorited = 0;
-            // prefix0.print("${newData1[index]['kural_tamil1']}");
-            // summa(index.round() + 2);
             prefix0.print("rounded Index: ${index.round()}");
             prefix0.print("_isFavorited:: $_isFavorited");
             summa1(index);
@@ -381,7 +359,7 @@ class MyApp444State extends State<MyApp444> {
                         height: double.infinity,
                         // color: Colors.grey,
                         padding: new EdgeInsets.only(bottom: 16.0),
-                        
+
                         // child: SingleChildScrollView(
 
                         child: Row(
@@ -391,7 +369,6 @@ class MyApp444State extends State<MyApp444> {
                           // textBaseline: TextBaseline.ideographic,
 
                           children: <Widget>[
-                            
                             Text(
                               "குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
                               style: TextStyle(
@@ -468,20 +445,33 @@ class MyApp444State extends State<MyApp444> {
                                 // controller.jumpToPage(a);
                                 return showDialog(
                                     context: context,
+                                    barrierDismissible: true,
                                     builder: (context) {
                                       prefix0.num _value;
                                       return AlertDialog(
-                                        title: Text('குறள் எண்ணை உள்ளிடவும்'),
-                                        content: TextFormField(
-                                          keyboardType: TextInputType
-                                              .number, //numberWithOptions(decimal: true),
-                                          controller: _textFieldController,
-                                          decoration: InputDecoration(
-                                              hintText: "குறள் எண்: "),
-                                          // onSaved: (input) =>
-                                          //     _value = int.tryParse(input),
-                                          // textInputAction: controller.jumpTo(_value),
+                                        titlePadding: EdgeInsets.all(0.0),
+                                        title: IconButton(
+                                          icon: Icon(Icons.close),
+                                          alignment: Alignment.topRight,
+                                          onPressed: () =>
+                                              Navigator.of(context).pop(),
                                         ),
+                                        content: SingleChildScrollView(
+                                            child: ListBody(children: <Widget>[
+                                          Text(
+                                            'குறள் எண்ணை உள்ளிடவும்',
+                                          ),
+                                          TextFormField(
+                                            keyboardType: TextInputType
+                                                .number, //numberWithOptions(decimal: true),
+                                            controller: _textFieldController,
+                                            decoration: InputDecoration(
+                                                hintText: "குறள் எண்: "),
+                                            // onSaved: (input) =>
+                                            //     _value = int.tryParse(input),
+                                            // textInputAction: controller.jumpTo(_value),
+                                          ),
+                                        ])),
                                         actions: <Widget>[
                                           new FlatButton(
                                             child: new Text('இல்லை'),
@@ -497,6 +487,8 @@ class MyApp444State extends State<MyApp444> {
                                               var abcd =
                                                   (_textFieldController.text)
                                                       .toString();
+                                              // if(abcd.isEmpty){
+                                              // }
                                               print("abcd " + abcd);
                                               var ff = int.parse(abcd) - 1;
                                               // controller.jumpTo(ff.toDouble());
@@ -524,7 +516,7 @@ class MyApp444State extends State<MyApp444> {
                                 print("Copied to Clipboard");
                                 ClipboardManager.copyToClipBoard(
                                         //  "குறள் எண்: ")
-                                        "குறள்: ${newData1[index]['kural_tamil1']}\n\nமு.வ உரை: \n ${newData1[index]['kuralvilakam_tamil']}\n\nகலைஞர் உரை: \n ${newData1[index]['desc1']}\n\nசாலமன் பாப்பைய்யா: \n ${newData1[index]['desc2']}")
+                                        "குறள்: \n ${newData1[index]['kural_tamil1']}\n\nமு.வ உரை: \n ${newData1[index]['kuralvilakam_tamil']}\n\nகலைஞர் உரை: \n ${newData1[index]['desc1']}\n\nசாலமன் பாப்பைய்யா: \n ${newData1[index]['desc2']}")
                                     .then((result) {
                                   final snackBar = SnackBar(
                                     content: Text('Copied to Clipboard'),
@@ -558,7 +550,7 @@ class MyApp444State extends State<MyApp444> {
                                 await Share.file('esys image', 'esys.png',
                                     bytes.buffer.asUint8List(), 'image/png',
                                     text:
-                                        'குறள் ${newData1[index]['kural_no']}:\n ${newData1[index]['kural_tamil1']} ');
+                                        'குறள் எண்: ${newData1[index]['kural_no']}\n\n ${newData1[index]['kural_tamil1']} ');
                                 // var abcd = ImageEditor(image: image);
                                 // if (this.isImageloaded) {
                                 //       return new CustomPaint(
@@ -581,31 +573,52 @@ class MyApp444State extends State<MyApp444> {
                             new IconButton(
                               icon: const Icon(Icons.help),
                               onPressed: () {
-                                // openPage(context);
-                                // return new MyApp2();
-                                // return showDialog(
-                                //     context: context,
-                                //     builder: (context) {
-                                //       new AlertDialog(
-                                //           title: Text("Help"),
-                                //           actions: <Widget>[
-                                //             ListTile(
-                                //               title: Text(
-                                //                   "${newData1[index]['iyal_tamil']}"),
-                                //               subtitle: Text(
-                                //                   "${newData1[index]['iyal_tamil']}"),
-                                //             )
-                                //           ]
-                                //           );
-                                //       // print("searching");
-                                //     });
+                                return showDialog<void>(
+                                  context: context,
+                                  barrierDismissible: true,
+                                  builder: (BuildContext context) {
+                                    return AlertDialog(
+                                      titlePadding: EdgeInsets.all(0.0),
+                                      title: IconButton(
+                                        icon: Icon(Icons.close),
+                                        alignment: Alignment.topRight,
+                                        onPressed: () =>
+                                            Navigator.of(context).pop(),
+                                      ),
+                                      content: SingleChildScrollView(
+                                        child: ListBody(
+                                          children: <Widget>[
+                                            Text(
+                                                'பால்: ${newData1[index]['pal_tamil']}\n\nஇயல்: ${newData1[index]['iyal_tamil']}\n\nஅதிகாரம்: ${newData1[index]['adhikarm_tamil']}'),
+                                          ],
+                                        ),
+                                      ),
+                                      actions: <Widget>[
+                                        // FlatButton(
+                                        //   child: Text('Regret'),
+                                        //   onPressed: () {
+                                        //     Navigator.of(context).pop();
+                                        //   },
+                                        // ),
+                                      ],
+                                    );
+                                  },
+                                );
+
+                                /*
                                 Alert(
                                   context: context,
+                                  closeFunction: () => // Navigator.pop(context),
+                                  Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .pop(), 
+                                    // Navigator.pop(context);
+                                    //  Navigator.of(context).pop(),
+                                  // },
                                   // type: AlertType.info,
                                   style: AlertStyle(
-                                    isCloseButton: false,
+                                    isCloseButton: true,
                                     isOverlayTapDismiss: true,
-                                    
                                   ),
                                   title: "",
                                   desc:
@@ -626,12 +639,13 @@ class MyApp444State extends State<MyApp444> {
                                         // Navigator.of(context)
                                         //     .pop(); // dismiss dialog
                                       },
-                                      color: Colors.white, //fromRGBO(0, 179, 134, 1.0),
+                                      color: Colors
+                                          .white, //fromRGBO(0, 179, 134, 1.0),
                                       radius: BorderRadius.circular(0.0),
                                     ),
                                   ],
                                 ).show();
-                                
+                                */
                               },
                             ),
                           ],
@@ -661,7 +675,8 @@ class MyApp444State extends State<MyApp444> {
                               child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   // mainAxisSize: MainAxisSize.min,
-                                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   // mainAxisSize: MainAxisSize.min,
                                   children: <Widget>[
                                     // Text(
@@ -675,12 +690,12 @@ class MyApp444State extends State<MyApp444> {
                                     //     //   fontWeight: FontWeight.bold,
                                     //   ),
                                     // ),
+                                    Text(" "),
                                     Center(
-                                      
                                         child: Text(
                                       newData1[index]['kural_tamil1'],
                                       style: TextStyle(
-                                        fontSize: 13 +  a,
+                                        fontSize: 15 + a,
                                         color: Colors
                                             .deepPurpleAccent, //purple[300],
                                         // decoration: TextDecoration.underline,
@@ -689,6 +704,7 @@ class MyApp444State extends State<MyApp444> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     )),
+                                    Text(" "),
                                     Text(
                                       "மு.வ உரை:",
                                       style: TextStyle(
@@ -700,6 +716,7 @@ class MyApp444State extends State<MyApp444> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+
                                     Text(
                                       newData1[index]['kuralvilakam_tamil'],
                                       style: TextStyle(
@@ -711,6 +728,7 @@ class MyApp444State extends State<MyApp444> {
                                         // fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                    Text(" "),
                                     Text(
                                       "கலைஞர் உரை:",
                                       style: TextStyle(
@@ -733,6 +751,7 @@ class MyApp444State extends State<MyApp444> {
                                         // fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                    Text(" "),
                                     Text(
                                       "சாலமன் பாப்பைய்யா:",
                                       style: TextStyle(
@@ -755,6 +774,7 @@ class MyApp444State extends State<MyApp444> {
                                         // fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                    Text(" "),
                                     Text(
                                       "Kural: ${newData1[index]['kural_no']}",
                                       style: TextStyle(
@@ -776,6 +796,7 @@ class MyApp444State extends State<MyApp444> {
                                           fontSize: 10 + 5 + a,
                                           color: Colors.purple,
                                         )),
+                                    Text(" "),
                                     Text(
                                       "Explanation: ",
                                       style: TextStyle(
@@ -794,6 +815,7 @@ class MyApp444State extends State<MyApp444> {
                                         color: Colors.purple,
                                       ),
                                     ),
+                                    Text(" "),
                                     // Text("kural_no: " + newData1[index]['kural_no']),
                                   ])))),
                   // Text("adhikarm_no " + newData1[index]['adhikarm_no']),

@@ -1,4 +1,7 @@
 import 'package:dhina/Palkal_Class/Inpam.dart';
+import 'package:dhina/db/sharedpref.dart';
+import 'package:dhina/main.dart';
+import 'package:dhina/pages/newDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/db/dbhelper.dart';
@@ -14,9 +17,10 @@ var db = DatabaseHelper();
 var indexKey;
 var indexResult;
 var iyalIndex;
-// String $aaaa;
-class TabBarDemo extends StatefulWidget { 
+var prefs = Shared_Preference();
 
+// String $aaaa;
+class TabBarDemo extends StatefulWidget {
   @override
   TabState createState() {
     return new TabState();
@@ -24,19 +28,17 @@ class TabBarDemo extends StatefulWidget {
 }
 
 class TabState extends State<TabBarDemo> {
-
- @override
+  @override
   void initState() {
     super.initState();
-  //  _onSelectItem1(result[0]['pal_tamil']);
-  //  _onSelectItem2(result[1]['pal_tamil']);
-  //  _onSelectItem3(result[2]['pal_tamil']);
-   // print("${result1.length}");
+    //  _onSelectItem1(result[0]['pal_tamil']);
+    //  _onSelectItem2(result[1]['pal_tamil']);
+    //  _onSelectItem3(result[2]['pal_tamil']);
+    // print("${result1.length}");
 
-   
-     // _onSelectItem1(result1[0]['pal_tamil']);
-    }
-    
+    // _onSelectItem1(result1[0]['pal_tamil']);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,20 +46,40 @@ class TabState extends State<TabBarDemo> {
       theme: new ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
+          resizeToAvoidBottomPadding: false,
           appBar: AppBar(
+            primary: true,
+            // automaticallyImplyLeading: true,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed: () async {
+// a = await prefs.getDouble("fontSize1");
+//                     newData1 = await db.any_query(
+//                         "select * from complete1", "modi_kural_comp.db");
+
+//                     await Navigator.of(context).push(MaterialPageRoute<Null>(
+//                         builder: (BuildContext context) {
+//                       return new MyApp12345();
+//                     }));
+                                      Navigator.pop(context);
+
+              }, 
+            ),
+            actions: <Widget>[],
             bottom: TabBar(
               tabs: [
                 Tab(
                   text: "அறம்",
-                 // icon: Icon(Icons.directions_car),
+                  // icon: Icon(Icons.directions_car),
                 ),
-                Tab(text: "பொருள்", // icon: Icon(Icons.directions_transit)
+                Tab(
+                  text: "பொருள்", // icon: Icon(Icons.directions_transit)
                 ),
-                Tab(text: "இன்பம்", // icon: Icon(Icons.directions_bike)
+                Tab(
+                  text: "இன்பம்", // icon: Icon(Icons.directions_bike)
                 ),
               ],
             ),
@@ -95,8 +117,6 @@ class TabState extends State<TabBarDemo> {
       ),
     );
   }
-
-  
 }
 
 class ListedViewEx1 extends StatelessWidget {
@@ -128,7 +148,7 @@ class ListedViewEx1 extends StatelessWidget {
 
 _onSelectItem1(String s) async {
   var db = DatabaseHelper();
-  
+
   result1 = await db.any_query(
       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="அறத்துப்பால்"',
       'modi_kural_comp.db');
@@ -144,6 +164,7 @@ _onSelectItem1(String s) async {
   // I = result as Items;
   // print(I.pal_tamil[0]);
 }
+
 _onSelectItem2(String s) async {
   var db = DatabaseHelper();
   result2 = await db.any_query(
@@ -164,7 +185,7 @@ _onSelectItem2(String s) async {
 
 _onSelectItem3(String s) async {
   var db = DatabaseHelper();
-   result3 = await db.any_query(
+  result3 = await db.any_query(
       'SELECT DISTINCT iyal_tamil from complete1 WHERE pal_tamil="$s"',
       'modi_kural_comp.db');
   // List.generate(result3.length, (i) {
@@ -179,10 +200,6 @@ _onSelectItem3(String s) async {
   // I = result as Items;
   // print(I.pal_tamil[0]);
 }
-
-
-
-
 
 // class iyal {
 

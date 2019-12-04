@@ -28,7 +28,7 @@ var db = DatabaseHelper();
 var prefs = Shared_Preference();
 double a = 0.0, b = 0.0;
 
-var fontSize1 = 0; 
+var fontSize1 = 0.0; 
 // double _fontSize11 =0.0;
 class FirstFragment extends StatefulWidget {
   @override
