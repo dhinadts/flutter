@@ -1,6 +1,6 @@
 # dhina
 
-A new Flutter project.
+A new Flutter project of thirukkural.
 
 ## Getting Started
 
