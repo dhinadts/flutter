@@ -1,6 +1,6 @@
 # திருக்குறள்
 
-A new Flutter project of thirukkural.
+A new Flutter thirukkural project.
 
 ## Getting Started
 
