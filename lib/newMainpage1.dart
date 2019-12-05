@@ -516,7 +516,7 @@ class MyApp444State extends State<MyApp444> {
                                 print("Copied to Clipboard");
                                 ClipboardManager.copyToClipBoard(
                                         //  "குறள் எண்: ")
-                                        "குறள்: \n ${newData1[index]['kural_tamil1']}\n\nமு.வ உரை: \n ${newData1[index]['kuralvilakam_tamil']}\n\nகலைஞர் உரை: \n ${newData1[index]['desc1']}\n\nசாலமன் பாப்பைய்யா: \n ${newData1[index]['desc2']}")
+                                        "குறள்: \n ${newData1[index]['kural_tamil1']}\n\nமு.வ உரை: \n ${newData1[index]['kuralvilakam_tamil']}\n\nகலைஞர் உரை: \n ${newData1[index]['desc1']}\n\nசாலமன் பாப்பைய்யா உரை: \n ${newData1[index]['desc2']}")
                                     .then((result) {
                                   final snackBar = SnackBar(
                                     content: Text('Copied to Clipboard'),
@@ -691,11 +691,14 @@ class MyApp444State extends State<MyApp444> {
                                     //   ),
                                     // ),
                                     Text(" "),
-                                    Center(
+                                    Container(
+                                      padding: EdgeInsets.all(5.0),
+                                      margin: EdgeInsets.symmetric(horizontal: 25.0),
+                                      alignment: Alignment.center,
                                         child: Text(
                                       newData1[index]['kural_tamil1'],
                                       style: TextStyle(
-                                        fontSize: 15 + a,
+                                        fontSize: 13 +  a,
                                         color: Colors
                                             .deepPurpleAccent, //purple[300],
                                         // decoration: TextDecoration.underline,
@@ -753,7 +756,7 @@ class MyApp444State extends State<MyApp444> {
                                     ),
                                     Text(" "),
                                     Text(
-                                      "சாலமன் பாப்பைய்யா:",
+                                      "சாலமன் பாப்பைய்யா  உரை:",
                                       style: TextStyle(
                                         fontSize: 15 + 5 + a,
                                         color: Colors.black,

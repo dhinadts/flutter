@@ -64,9 +64,8 @@ class TabState extends State<TabBarDemo> {
 //                         builder: (BuildContext context) {
 //                       return new MyApp12345();
 //                     }));
-                                      Navigator.pop(context);
-
-              }, 
+                Navigator.pop(context);
+              },
             ),
             actions: <Widget>[],
             bottom: TabBar(

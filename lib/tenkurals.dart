@@ -1,5 +1,6 @@
 // tenkurals from adhikaram
 
+import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
@@ -82,7 +83,7 @@ class _TenSearchingKuralState extends State<TenSearchingKural> {
                   prefs.setint("cursor", ff);
                   var route = new MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        new MyApp444(value: ff, currentPageValue: ff),
+                        new MyApp444(value: ff, currentPageValue: ff, fontSize1: a,),
                   );
                   Navigator.of(context).push(route);
 
