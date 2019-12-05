@@ -4,7 +4,6 @@ import 'dart:core';
 import 'package:dhina/SimpleSlider1.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:clipboard_manager/clipboard_manager.dart';
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'dart:ui' as ui;

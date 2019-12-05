@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:dhina/searchingKural.dart';
 import 'package:dhina/db/sharedpref.dart';
 
-var GlobalValueSet;
+
 
 class TenSearchingKural extends StatefulWidget {
   TenSearchingKural({Key key}) : super(key: key);

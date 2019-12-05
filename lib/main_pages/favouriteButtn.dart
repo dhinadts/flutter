@@ -12,7 +12,7 @@ class _FavoriteWidgetState extends State<FavoriteWidget> {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
+    
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [

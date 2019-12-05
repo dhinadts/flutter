@@ -1,14 +1,11 @@
 
 
 import 'package:dhina/newMainpage1.dart';
-import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/db/dbhelper.dart';
-import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/cate2pgview.dart';
 
 import '../cate2pgview.dart';
-import '../searchingKural.dart';
 
 
 // List<Map<String, dynamic>> result2;

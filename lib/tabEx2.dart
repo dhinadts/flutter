@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'db/dbhelper.dart';
 
 List<Map<String, dynamic>> pal;
 
@@ -24,17 +23,17 @@ class _MyTabbedPageState extends State<MyTabbedPage>
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: myTabs.length);
-    void _tabC() async {
-      var db = DatabaseHelper();
+    // void _tabC() async {
+    //   var db = DatabaseHelper();
 
-      pal = await db.any_query(
-          'select DISTINCT pal_tamil from complete1', 'modi_kural_comp.db');
-      // List.generate([pal].length, (i) {
-      //   Pal(
-      //     pal_tamil: result[i]['pal_tamil'],
-      //   );
-      // });
-    }
+    //   pal = await db.any_query(
+    //       'select DISTINCT pal_tamil from complete1', 'modi_kural_comp.db');
+    //   // List.generate([pal].length, (i) {
+    //   //   Pal(
+    //   //     pal_tamil: result[i]['pal_tamil'],
+    //   //   );
+    //   // });
+    // }
   }
 
   @override

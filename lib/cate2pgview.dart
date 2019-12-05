@@ -54,7 +54,7 @@ class MyApp44State extends State<MyApp44> {
   // var currentPageValue = 0;
   // =0.0;
   TextEditingController _textFieldController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+  // final _formKey = GlobalKey<FormState>();
   ui.Image image;
   bool isImageloaded = false;
 
@@ -906,7 +906,7 @@ summa(favKural);
   summa(int value) async {
     List<Map<String, dynamic>> result10; // = null;
     List<Map<String, dynamic>> result09; // = null;
-    var result9;
+    // var result9;
     List<Map<String, dynamic>> result11; // = null;
     // int temp = await prefs.getInt("cursor");
     try {

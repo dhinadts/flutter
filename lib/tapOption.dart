@@ -1,7 +1,5 @@
 import 'package:dhina/Palkal_Class/Inpam.dart';
 import 'package:dhina/db/sharedpref.dart';
-import 'package:dhina/main.dart';
-import 'package:dhina/pages/newDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/db/dbhelper.dart';
@@ -56,14 +54,6 @@ class TabState extends State<TabBarDemo> {
             leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed: () async {
-// a = await prefs.getDouble("fontSize1");
-//                     newData1 = await db.any_query(
-//                         "select * from complete1", "modi_kural_comp.db");
-
-//                     await Navigator.of(context).push(MaterialPageRoute<Null>(
-//                         builder: (BuildContext context) {
-//                       return new MyApp12345();
-//                     }));
                 Navigator.pop(context);
               },
             ),
@@ -87,29 +77,9 @@ class TabState extends State<TabBarDemo> {
           body: TabBarView(
             children: <Widget>[
               new Aram(),
-              // Navigator.push(context, new MaterialPageRoute(builder: (context) => new SecondScreenWithData(person: new Person("Priyank","28"))));
               new Porul(),
               new Inpam(),
-              // new GestureDetector(
-              //     child: Text("${result[1]['pal_tamil']}"),
-              //     onTap: () async => {
-              //           await _onSelectItem1(result[1]['pal_tamil']),
-              //           await Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => ListedViewEx1()),
-              //           )
-              //         }),
-              // new GestureDetector(
-              //     child: Text("${result[2]['pal_tamil']}"),
-              //     onTap: () async => {
-              //           await _onSelectItem1(result[2]['pal_tamil']),
-              //           await Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => ListedViewEx1()),
-              //           )
-              //         })
+
             ],
           ),
         ),
@@ -145,6 +115,8 @@ class ListedViewEx1 extends StatelessWidget {
   }
 }
 
+
+/*
 _onSelectItem1(String s) async {
   var db = DatabaseHelper();
 
@@ -173,13 +145,11 @@ _onSelectItem2(String s) async {
   //   Iyal(
   //     iyal_tamil: result2[i]['iyal_tamil'],
   //   );
-  // });
+
   print(result2.length);
   print(result2);
 
-  // Items I = new Items();
-  // I = result as Items;
-  // print(I.pal_tamil[0]);
+
 }
 
 _onSelectItem3(String s) async {
@@ -191,56 +161,11 @@ _onSelectItem3(String s) async {
   //   Iyal(
   //     iyal_tamil: result3[i]['iyal_tamil'],
   //   );
-  // });
+
   print(result3.length);
   print(result3);
 
-  // Items I = new Items();
-  // I = result as Items;
-  // print(I.pal_tamil[0]);
+
 }
+*/
 
-// class iyal {
-
-//   String iyal_tamil;
-//   Pal({this.iyal_tamil});
-
-//   Pal.map(dynamic obj) {
-//     this.iyal_tamil = obj['iyal_tamil'];
-//   }
-// // String get pal_tamil => pal_tamil;
-//   // String get pal_tamil => pal_tamil;
-
-//   Map<String, dynamic> toMap() {
-//     var map = new Map<String, dynamic>();
-//     map['pal_tamil'] = iyal_tamil;
-//     return map;
-//   }
-
-//   Pal.fromMap(Map<String, dynamic> json) {
-//     this.pal_tamil = json['pal_tamil'];
-//   }
-// }
-
-// class Items {
-//   String pal_tamil;
-//   Items({this.pal_tamil});
-
-//   Items.map(dynamic obj) {
-//     this.pal_tamil = obj['pal_tamil'];
-//   }
-
-//   // String get pal_tamil => pal_tamil;
-
-//   Map<String, dynamic> toMap() {
-//     var map = new Map<String, dynamic>();
-//     map['pal_tamil'] = pal_tamil;
-//     return map;
-//   }
-
-//   Items.fromMap(Map<String, dynamic> json) {
-//     this.pal_tamil = json['pal_tamil'];
-//   }
-//   //bool isSelected;
-// }
-// }

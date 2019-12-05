@@ -1,6 +1,5 @@
 import 'package:dhina/fragments/first_fragment.dart';
 import 'package:dhina/newMainpage1.dart';
-import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/pages/newDrawer.dart';
 

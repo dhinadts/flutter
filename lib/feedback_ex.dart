@@ -64,7 +64,7 @@ versions() async {
 // String iNF1 = androidInfo.manufacturer + " " + androidInfo.model;
 
 class Post {
-  final String type = "tamil_quiz";
+  final String type = "thirukkural";
   final String vcode; // = "1.0.0";
   final String email;
   final String feedback;
@@ -131,30 +131,49 @@ class Feedback_ex extends StatelessWidget {
           resizeToAvoidBottomPadding: false,
           appBar: AppBar(
             title: Text(
-              'FeedBack Form',
+              'உங்கள் கருத்து',
               textAlign: TextAlign.center,
             ),
           ),
           body: new Container(
+  //           decoration: BoxDecoration(
+  //   gradient: RadialGradient(
+  //     center: const Alignment(-0.5, -0.6),
+  //     radius: 0.15,
+  //     colors: <Color>[
+  //       const Color(0xFFEEEEEE),
+  //       const Color(0xFF111133),
+  //     ],
+  //     stops: <double>[0.9, 1.0],
+  //   ),
+  // ),
+constraints: BoxConstraints.expand(),
             margin: const EdgeInsets.only(left: 8.0, right: 8.0),
-            child: new Column(
+            child: 
+            // new Card(
+              // height: 500.0,
+              // width: 300,
+              // child: 
+            new Column(
               mainAxisSize: MainAxisSize.max,
               children: <Widget>[
                 new TextField(
                   controller: titleControler,
                   decoration: InputDecoration(
-                      contentPadding:
-                          const EdgeInsets.symmetric(vertical: 20.0),
-                      hintText: "email....",
-                      labelText: 'email'),
+                    icon: const Icon(Icons.email),
+                      // contentPadding:
+                      //     const EdgeInsets.symmetric(vertical: 20.0),
+                      hintText: "மின்னஞ்சல்....",
+                      labelText: 'மின்னஞ்சல்'),
                 ),
                 new TextField(
                   controller: bodyControler,
                   decoration: InputDecoration(
+                    icon: const Icon(Icons.feedback),
                       contentPadding:
                           const EdgeInsets.symmetric(vertical: 50.0),
-                      hintText: "feedback....",
-                      labelText: 'feedback'),
+                      hintText: "கருத்து....",
+                      labelText: 'கருத்துக்களை பதியவும்'),
                 ),
                 new Text('     '),
                 new GestureDetector(
@@ -164,7 +183,7 @@ class Feedback_ex extends StatelessWidget {
                       MaterialPageRoute(builder: (context) => MyApp2()),
                     );
                   },
-                  child: Text("* Private policy"),
+                  child: Text("* தனியுரிமைக் கொள்கை"),
                 ),
                 new Text('     '),
                 new RaisedButton(
@@ -269,7 +288,7 @@ class Feedback_ex extends StatelessWidget {
                     else {
                       // no connectivity and check your netwrk connection
                       Fluttertoast.showToast(
-                          msg: "Check your internet connectivity",
+                          msg: "உங்கள் இணைய இணைப்பைச் சரிபார்க்கவும்",
                           toastLength: Toast.LENGTH_SHORT,
                           gravity: ToastGravity.CENTER,
                           timeInSecForIos: 1,
@@ -280,11 +299,12 @@ class Feedback_ex extends StatelessWidget {
                     }
                     // String exs = versions();
                   },
-                  child: const Text("Submit"),
+                  child: const Text("அனுப்பு"),
                 )
               ],
-            ),
-          )),
+           ) ),
+          // )
+          ),
       debugShowCheckedModeBanner: false,
     );
   }
