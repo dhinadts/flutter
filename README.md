@@ -1,4 +1,4 @@
-# dhina
+# திருக்குறள்
 
 A new Flutter project of thirukkural.
 

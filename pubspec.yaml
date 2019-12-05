@@ -124,6 +124,9 @@ flutter:
     - front.png
     - ads_icon.png
     - ads.png
+    - ad.png
+    - ad1.png
+    - advertisement.png
   #  - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -158,7 +158,7 @@ class _MyApp12345State extends State<MyApp12345> {
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () {
-                Share.share("Nithra Edu Solutions Thirukkural Appp Id: ");
+                Share.share("உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr");
               },
             ),
             IconButton(
@@ -326,6 +326,7 @@ class _MyApp12345State extends State<MyApp12345> {
                           titlePadding: EdgeInsets.all(0.0),
                           title: IconButton(
                             icon: Icon(Icons.close),
+                            color: Colors.red,
                             alignment: Alignment.topRight,
                             onPressed: () => Navigator.of(context).pop(),
                           ),
@@ -406,6 +407,7 @@ class _MyApp12345State extends State<MyApp12345> {
                           titlePadding: EdgeInsets.all(0.0),
                           title: IconButton(
                             icon: Icon(Icons.close),
+                            color: Colors.red,
                             alignment: Alignment.topRight,
                             onPressed: () => Navigator.of(context).pop(),
                           ),
@@ -569,7 +571,7 @@ class _MyApp12345State extends State<MyApp12345> {
 //             IconButton(
 //               icon: const Icon(Icons.share),
 //               onPressed: () {
-//                 Share.share("Nithra Edu Solutions Thirukkural Appp Id: ");
+//                 Share.share("Nithra Edu Solutions dhina Appp Id: ");
 //               },
 //             ),
 //             IconButton(
@@ -639,144 +641,140 @@ class MyHomePage extends StatelessWidget {
 
               children: <Widget>[
                 RaisedButton(
+                    color: Colors.grey,
+                    child: Card(
+                        color: Colors.white,
+                        // child: SizedBox(
+                        //     height: 60,
+                        child: Container(
+                            alignment: Alignment.center,
+                            height: 65.5,
+                            margin: EdgeInsets.all(8.0),
+                            // height: 60, // MediaQuery.of(context).size.height,
+                            child: Row(children: <Widget>[
+                              Image.asset(
+                                'assets/play1.png',
+                              ),
+                              Expanded(
+                                flex: 1,
+                                // height: 60,
+                                // child: SingleChildScrollView(
+                                child: Column(
+                                  // height: 60,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  // mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Text("      ஆரம்பிக்க       ",
+                                        softWrap: true),
+                                    Text("----------------------",
+                                        softWrap: true),
+                                    Text("        Start         ",
+                                        softWrap: true),
+                                  ],
+                                ),
+                              )
+                              //)
+                            ])))
+                    // )
+                    ,
+                    onPressed: () async {
+                      a = await prefs.getDouble("fontSize1");
+                      newData1 = await db.any_query(
+                          "select * from complete1", "modi_kural_comp.db");
+                      await Navigator.of(context).push(MaterialPageRoute<Null>(
+                          builder: (BuildContext context) {
+                        return new MyApp444(
+                          value: 0,
+                          currentPageValue: 0,
+                          fontSize1: a,
+                        ); // fontSize11),);
+                      }));
+                      // await Navigator.of(context).push(
+                      //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                      //   return new MyApp4(fontSize1 : fontSize1);
+                      // }));
+                    }
+                    // ),
+                    ),
+                RaisedButton(
                   color: Colors.grey,
                   child: Card(
                       color: Colors.white,
                       // child: SizedBox(
-                      //     height: 60,
+                      //  height: 60,
                       child: Container(
                           alignment: Alignment.center,
                           height: 65.5,
                           margin: EdgeInsets.all(8.0),
-                          // height: 60, // MediaQuery.of(context).size.height,
                           child: Row(children: <Widget>[
                             Image.asset(
-                              'assets/play1.png',
+                              'assets/skip.png',
                             ),
                             Expanded(
-                              flex: 1,
-                              // height: 60,
-                              // child: SingleChildScrollView(
-                              child: Column(
-                                // height: 60,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                // mainAxisAlignment: MainAxisAlignment.center,
-                                // mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Text("      ஆரம்பிக்க       ",
-                                      softWrap: true),
-                                  Text("----------------------",
-                                      softWrap: true),
-                                  Text("        Start         ",
-                                      softWrap: true),
-                                ],
-                              ),
-                            )
-                            //)
-                          ]
-                  )))
-                      // )
-                      ,
-                      onPressed: () async {
-                        a = await prefs.getDouble("fontSize1");
-                        newData1 = await db.any_query(
-                            "select * from complete1", "modi_kural_comp.db");
-                        await Navigator.of(context).push(
-                            MaterialPageRoute<Null>(
-                                builder: (BuildContext context) {
-                          return new MyApp444(
-                            value: 0,
-                            currentPageValue: 0,
-                            fontSize1: a,
-                          ); // fontSize11),);
-                        }));
-                        // await Navigator.of(context).push(
-                        //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                        //   return new MyApp4(fontSize1 : fontSize1);
-                        // }));
-                      }
-                      // ),
+                                flex: 1,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  // mainAxisSize: MainAxisSize.max,
+                                  children: <Widget>[
+                                    Text("        தொடர்க       "),
+                                    Text("----------------------"),
+                                    Text("        Continue      "),
+                                  ],
+                                ))
+                          ])
+                          //)
+                          )),
+                  onPressed: () async {
+                    //   int v = await prefs.getInt("cursor");
+                    //   double ab = await prefs.getDouble("fontSize1");
+                    //   if (v == 0) {
+                    //     Navigator.of(context).push(
+                    //         MaterialPageRoute<Null>(builder: (BuildContext context) {
+                    //       return new MyApp44(value: 0, fontSize1: ab,);
+                    //     }));
+                    //   } else {
+                    //     Navigator.of(context).push(
+                    //         MaterialPageRoute<Null>(builder: (BuildContext context) {
+                    //       return new MyApp44(value: v, currentPageValue: v, fontSize1: a,);
+                    //     }));
+                    //   }
+                    //   // Navigator.of(context).push(
+                    //   //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                    //   //   return new MyApp44(value: v);
+                    //   // }));
+                    // },
+                    int v = await prefs.getInt("cursor");
+                    a = await prefs.getDouble("fontSize1");
+                    if (v == 0) {
+                      Navigator.of(context).push(MaterialPageRoute<Null>(
+                          builder: (BuildContext context) {
+                        return new MyApp444(
+                          value: 0,
+                          currentPageValue: 0,
+                          fontSize1: a,
+                        );
+                      }));
+                    } else {
+                      Navigator.of(context).push(MaterialPageRoute<Null>(
+                          builder: (BuildContext context) {
+                        return new MyApp444(
+                          value: v,
+                          currentPageValue: v,
+                          fontSize1: a,
+                        );
+                      }));
+                    }
+                    // Navigator.of(context).push(
+                    //     MaterialPageRoute<Null>(builder: (BuildContext context) {
+                    //   return new MyApp44(value: v);
+                    // }));
+                  },
                 ),
                 RaisedButton(
                   color: Colors.grey,
                   child: Card(
-                    color: Colors.white,
-                    // child: SizedBox(
-                    //  height: 60,
-                    child: Container(
-                        alignment: Alignment.center,
-                        height: 65.5,
-                        margin: EdgeInsets.all(8.0),
-                        child: Row(children: <Widget>[
-                          Image.asset(
-                            'assets/skip.png',
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                // mainAxisAlignment: MainAxisAlignment.center,
-                                // mainAxisSize: MainAxisSize.max,
-                                children: <Widget>[
-                                  Text("        தொடர்க       "),
-                                  Text("----------------------"),
-                                  Text("        Continue      "),
-                                ],
-                              ))
-                        ])
-                        //)
-                         )
-                        ),
-                    onPressed: () async {
-                      //   int v = await prefs.getInt("cursor");
-                      //   double ab = await prefs.getDouble("fontSize1");
-                      //   if (v == 0) {
-                      //     Navigator.of(context).push(
-                      //         MaterialPageRoute<Null>(builder: (BuildContext context) {
-                      //       return new MyApp44(value: 0, fontSize1: ab,);
-                      //     }));
-                      //   } else {
-                      //     Navigator.of(context).push(
-                      //         MaterialPageRoute<Null>(builder: (BuildContext context) {
-                      //       return new MyApp44(value: v, currentPageValue: v, fontSize1: a,);
-                      //     }));
-                      //   }
-                      //   // Navigator.of(context).push(
-                      //   //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                      //   //   return new MyApp44(value: v);
-                      //   // }));
-                      // },
-                      int v = await prefs.getInt("cursor");
-                      a = await prefs.getDouble("fontSize1");
-                      if (v == 0) {
-                        Navigator.of(context).push(MaterialPageRoute<Null>(
-                            builder: (BuildContext context) {
-                          return new MyApp444(
-                            value: 0,
-                            currentPageValue: 0,
-                            fontSize1: a,
-                          );
-                        }));
-                      } else {
-                        Navigator.of(context).push(MaterialPageRoute<Null>(
-                            builder: (BuildContext context) {
-                          return new MyApp444(
-                            value: v,
-                            currentPageValue: v,
-                            fontSize1: a,
-                          );
-                        }));
-                      }
-                      // Navigator.of(context).push(
-                      //     MaterialPageRoute<Null>(builder: (BuildContext context) {
-                      //   return new MyApp44(value: v);
-                      // }));
-                    },
-                  
-                ),
-                RaisedButton(
-                    color: Colors.grey,
-                    child: Card(
                       color: Colors.white,
                       // child: SizedBox(
                       //     height: 60,
@@ -802,30 +800,29 @@ class MyHomePage extends StatelessWidget {
                                   ],
                                   // )
                                 ))
-                          ]))
-                      )
-                      // )
-                      ,
-                      onPressed: () async {
-                        result = await db.any_query(
-                            'select DISTINCT pal_tamil from complete1',
-                            'modi_kural_comp.db');
-                        await _onSelectItem1(result[0]['pal_tamil']);
-                        await _onSelectItem2(result[1]['pal_tamil']);
-                        await _onSelectItem3(result[2]['pal_tamil']);
-                        Navigator.of(context).push(MaterialPageRoute<Null>(
-                            builder: (BuildContext context) {
-                          return new TabBarDemo();
-                        }));
-                      },
-                    ),
+                          ])))
+                  // )
+                  ,
+                  onPressed: () async {
+                    result = await db.any_query(
+                        'select DISTINCT pal_tamil from complete1',
+                        'modi_kural_comp.db');
+                    await _onSelectItem1(result[0]['pal_tamil']);
+                    await _onSelectItem2(result[1]['pal_tamil']);
+                    await _onSelectItem3(result[2]['pal_tamil']);
+                    Navigator.of(context).push(MaterialPageRoute<Null>(
+                        builder: (BuildContext context) {
+                      return new TabBarDemo();
+                    }));
+                  },
+                ),
                 //  Row(
                 //      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 //      mainAxisSize: MainAxisSize.max,
                 //      children: <Widget>[
                 RaisedButton(
-                    color: Colors.grey,
-                    child: Card(
+                  color: Colors.grey,
+                  child: Card(
                       color: Colors.white,
                       // child: SizedBox(
                       //     height: 60,
@@ -854,85 +851,85 @@ class MyHomePage extends StatelessWidget {
                                 )
                                 // )
                                 )
-                          ])
-                    )),
-                      onPressed: () async {
-                        a = await prefs.getDouble("fontSize1");
-                        return showDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (context) {
-                            var _value;
-                            return AlertDialog(
-                              titlePadding: EdgeInsets.all(0.0),
-                              title: IconButton(
-                                icon: Icon(Icons.close),
-                                alignment: Alignment.topRight,
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              content: SingleChildScrollView(
-                                  child: ListBody(children: <Widget>[
-                                Text(
-                                  'குறள் எண்ணை உள்ளிடவும்',
-                                ),
-                                TextFormField(
-                                  keyboardType: TextInputType
-                                      .number, //numberWithOptions(decimal: true),
-                                  controller: _textFieldController,
-                                  decoration:
-                                      InputDecoration(hintText: "குறள் எண்: "),
-                                  // onSaved: (input) =>
-                                  //     _value = int.tryParse(input),
-                                  // textInputAction: controller.jumpTo(_value),
-                                ),
-                              ])),
-                              actions: <Widget>[
-                                new FlatButton(
-                                  child: new Text('இல்லை'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                ),
-                                new FlatButton(
-                                  child: new Text('ஆம்'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                    print(
-                                        "text.controller:  ${_textFieldController.text}");
-                                    var abcd =
-                                        (_textFieldController.text).toString();
-                                    print("abcd " + abcd);
-                                    var ff = int.parse(abcd) - 1;
-                                    //               var route = new MaterialPageRoute(
-                                    //   builder: (BuildContext context) =>
-                                    //       new MyApp44(value: ff, ),
-                                    // );
-                                    // Navigator.of(context).push(route);
-                                    // Navigator.of(context).push(route);
+                          ]))),
+                  onPressed: () async {
+                    a = await prefs.getDouble("fontSize1");
+                    return showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) {
+                        var _value;
+                        return AlertDialog(
+                          titlePadding: EdgeInsets.all(0.0),
+                          title: IconButton(
+                            icon: Icon(Icons.close),
+                            color: Colors.red,
+                            alignment: Alignment.topRight,
+                            onPressed: () => Navigator.of(context).pop(),
+                          ),
+                          content: SingleChildScrollView(
+                              child: ListBody(children: <Widget>[
+                            Text(
+                              'குறள் எண்ணை உள்ளிடவும்',
+                            ),
+                            TextFormField(
+                              keyboardType: TextInputType
+                                  .number, //numberWithOptions(decimal: true),
+                              controller: _textFieldController,
+                              decoration:
+                                  InputDecoration(hintText: "குறள் எண்: "),
+                              // onSaved: (input) =>
+                              //     _value = int.tryParse(input),
+                              // textInputAction: controller.jumpTo(_value),
+                            ),
+                          ])),
+                          actions: <Widget>[
+                            new FlatButton(
+                              child: new Text('இல்லை'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            new FlatButton(
+                              child: new Text('ஆம்'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                print(
+                                    "text.controller:  ${_textFieldController.text}");
+                                var abcd =
+                                    (_textFieldController.text).toString();
+                                print("abcd " + abcd);
+                                var ff = int.parse(abcd) - 1;
+                                //               var route = new MaterialPageRoute(
+                                //   builder: (BuildContext context) =>
+                                //       new MyApp44(value: ff, ),
+                                // );
+                                // Navigator.of(context).push(route);
+                                // Navigator.of(context).push(route);
 
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute<Null>(
-                                            builder: (BuildContext context) {
-                                      return new MyApp444(
-                                        value: ff,
-                                        fontSize1: a,
-                                      );
-                                    }));
+                                Navigator.of(context).push(
+                                    MaterialPageRoute<Null>(
+                                        builder: (BuildContext context) {
+                                  return new MyApp444(
+                                    value: ff,
+                                    fontSize1: a,
+                                  );
+                                }));
 
-                                    //Navigator.of(context).pop();
+                                //Navigator.of(context).pop();
 
-                                    // controller.jumpToPage(ff);
-                                    // Navigator.of(context)
-                                    //     .pop();
-                                  },
-                                )
-                              ],
-                            );
-                          },
+                                // controller.jumpToPage(ff);
+                                // Navigator.of(context)
+                                //     .pop();
+                              },
+                            )
+                          ],
                         );
                       },
-                    // )
-                    ),
+                    );
+                  },
+                  // )
+                ),
 
                 /*
                 Card(
@@ -1040,8 +1037,8 @@ class MyHomePage extends StatelessWidget {
                 // */
 
                 RaisedButton(
-                    color: Colors.grey,
-                    child: Card(
+                  color: Colors.grey,
+                  child: Card(
                       color: Colors.white,
                       // child: SizedBox(
                       //     height: 60,
@@ -1069,90 +1066,86 @@ class MyHomePage extends StatelessWidget {
                             // )
                           ])
                           //)
-                          )
+                          )),
+                  onPressed: () async {
+                    return showDialog(
+                      context: context,
+                      barrierDismissible: true, // user must tap button!
+
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          titlePadding: EdgeInsets.all(0.0),
+                          title: IconButton(
+                            icon: Icon(Icons.close),
+                            color: Colors.red,
+                            alignment: Alignment.topRight,
+                            onPressed: () => Navigator.of(context).pop(),
                           ),
-                      onPressed: () async {
-                        return showDialog(
-                          context: context,
-                          barrierDismissible: true, // user must tap button!
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                FlatButton(
+                                  color: Colors.grey,
+                                  textColor: Colors.white,
+                                  child: Text(" எழுத்து மூலம் தேட "),
+                                  onPressed: () async {
+                                    Navigator.of(context, rootNavigator: true).pop(
+                                        result); //                   Navigator.pop(context);
 
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              titlePadding: EdgeInsets.all(0.0),
-                              title: IconButton(
-                                icon: Icon(Icons.close),
-                                alignment: Alignment.topRight,
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                              content: SingleChildScrollView(
-                                child: ListBody(
-                                  children: <Widget>[
-                                    FlatButton(
-                                      color: Colors.grey,
-                                      textColor: Colors.white,
-                                      child: Text(" எழுத்து மூலம் தேட "),
-                                      onPressed: () async {
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop(
-                                                result); //                   Navigator.pop(context);
+                                    result = await db.any_query(
+                                        'select DISTINCT pal_tamil from complete1',
+                                        'modi_kural_comp.db');
 
-                                        result = await db.any_query(
-                                            'select DISTINCT pal_tamil from complete1',
-                                            'modi_kural_comp.db');
-
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute<Null>(builder:
-                                                (BuildContext context) {
-                                          return new GlobalSearch();
-                                        }));
-                                      },
-                                    ),
-                                    FlatButton(
-                                      color: Colors.grey,
-                                      textColor: Colors.white,
-                                      child: Text("வகைவாரியாக தேட"),
-                                      onPressed: () async {
-                                        // Navigator.of(context).pop();
-
-                                        Navigator.of(context,
-                                                rootNavigator: true)
-                                            .pop(
-                                                result); //                   Navigator.pop(context);
-
-                                        result = await db.any_query(
-                                            'select DISTINCT pal_tamil from complete1',
-                                            'modi_kural_comp.db');
-                                        await _onSelectItem1(
-                                            result[0]['pal_tamil']);
-                                        await _onSelectItem2(
-                                            result[1]['pal_tamil']);
-                                        await _onSelectItem3(
-                                            result[2]['pal_tamil']);
-                                        Navigator.of(context).push(
-                                            MaterialPageRoute<Null>(builder:
-                                                (BuildContext context) {
-                                          return new TabBarDemo();
-                                        }));
-                                      },
-                                    ),
-                                  ],
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute<Null>(
+                                            builder: (BuildContext context) {
+                                      return new GlobalSearch();
+                                    }));
+                                  },
                                 ),
-                              ),
-                              actions: <Widget>[
-                                // FlatButton(
-                                //   child: Text('Regret'),
-                                //   onPressed: () {
-                                //     Navigator.of(context).pop();
-                                //   },
-                                // ),
+                                FlatButton(
+                                  color: Colors.grey,
+                                  textColor: Colors.white,
+                                  child: Text("வகைவாரியாக தேட"),
+                                  onPressed: () async {
+                                    // Navigator.of(context).pop();
+
+                                    Navigator.of(context, rootNavigator: true).pop(
+                                        result); //                   Navigator.pop(context);
+
+                                    result = await db.any_query(
+                                        'select DISTINCT pal_tamil from complete1',
+                                        'modi_kural_comp.db');
+                                    await _onSelectItem1(
+                                        result[0]['pal_tamil']);
+                                    await _onSelectItem2(
+                                        result[1]['pal_tamil']);
+                                    await _onSelectItem3(
+                                        result[2]['pal_tamil']);
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute<Null>(
+                                            builder: (BuildContext context) {
+                                      return new TabBarDemo();
+                                    }));
+                                  },
+                                ),
                               ],
-                            );
-                          },
+                            ),
+                          ),
+                          actions: <Widget>[
+                            // FlatButton(
+                            //   child: Text('Regret'),
+                            //   onPressed: () {
+                            //     Navigator.of(context).pop();
+                            //   },
+                            // ),
+                          ],
                         );
                       },
-                // )
-                    ),
+                    );
+                  },
+                  // )
+                ),
 
 // Card(
 //   child:
@@ -1202,15 +1195,15 @@ class MyHomePage extends StatelessWidget {
 
                                       alignment: Alignment.topRight,
                                       child: Image.asset(
-                                        'assets/ads.png',
+                                        'assets/ad1.png',
                                         width: 25,
                                         height: 25,
                                       )),
                                 ]))),
                     onPressed: () {
                       LaunchReview.launch(
-                          androidAppId: "nithra.tamil.quiz",
-                          iOSAppId: "id1484332988");
+                          androidAppId: "nithra.tamilcalender",
+                          iOSAppId: "id1470220106");
                     }
 
 // )
@@ -1372,7 +1365,7 @@ class MyHomePage extends StatelessWidget {
 }
 
 sharing3() {
-  Share.share('App Link... www.nithra.mobi');
+  Share.share('உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr');
   return new FirstFragment();
   // Navigator.push(
   //   context,

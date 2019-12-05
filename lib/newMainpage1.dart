@@ -451,7 +451,7 @@ class MyApp444State extends State<MyApp444> {
                                       return AlertDialog(
                                         titlePadding: EdgeInsets.all(0.0),
                                         title: IconButton(
-                                          icon: Icon(Icons.close),
+                            icon: Icon(Icons.close), color: Colors.red,
                                           alignment: Alignment.topRight,
                                           onPressed: () =>
                                               Navigator.of(context).pop(),
@@ -580,7 +580,7 @@ class MyApp444State extends State<MyApp444> {
                                     return AlertDialog(
                                       titlePadding: EdgeInsets.all(0.0),
                                       title: IconButton(
-                                        icon: Icon(Icons.close),
+                            icon: Icon(Icons.close), color: Colors.red,
                                         alignment: Alignment.topRight,
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
@@ -698,7 +698,7 @@ class MyApp444State extends State<MyApp444> {
                                         child: Text(
                                       newData1[index]['kural_tamil1'],
                                       style: TextStyle(
-                                        fontSize: 13 +  a,
+                                        fontSize: 15 +  a,
                                         color: Colors
                                             .deepPurpleAccent, //purple[300],
                                         // decoration: TextDecoration.underline,
@@ -756,7 +756,7 @@ class MyApp444State extends State<MyApp444> {
                                     ),
                                     Text(" "),
                                     Text(
-                                      "சாலமன் பாப்பைய்யா  உரை:",
+                                      "சாலமன் பாப்பைய்யா உரை:",
                                       style: TextStyle(
                                         fontSize: 15 + 5 + a,
                                         color: Colors.black,
