@@ -11,6 +11,7 @@ import 'package:dhina/fragments/privacy_link.dart';
 import 'package:dhina/tapOption.dart';
 import 'package:flutter/material.dart';
 import 'package:dhina/newMainpage1.dart';
+import 'package:flutter/material.dart' as prefix0;
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -596,6 +597,7 @@ class _MyApp12345State extends State<MyApp12345> {
                             new Text('     '),
                             new GestureDetector(
                               onTap: () {
+                                Navigator.pop(context);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
