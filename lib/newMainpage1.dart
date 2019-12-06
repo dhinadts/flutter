@@ -432,11 +432,12 @@ class MyApp444State extends State<MyApp444> {
                                 }),
 
                                 */
-RaisedButton(
-  color: Colors.white,
-  child: Container(
-    height: 50, width: 50,
-  child: Image.asset("gobutton.png"),),
+  
+
+FlatButton(
+  
+  padding: EdgeInsets.all(0.0),
+  child: Image.asset("gobutton.png"),
   onPressed: () {
 return showDialog(
                                     context: context,
@@ -458,7 +459,7 @@ return showDialog(
                                         content: SingleChildScrollView(
                                             child: ListBody(children: <Widget>[
                                           Text(
-                                            'குறிப்பிட்ட குறளுக்கு செல்ல எண்ணை உள்ளிடவும்',
+                                            'குறிப்பிட்ட குறளுக்கு செல்ல குறள் எண்ணை உள்ளிடவும்',
                                           ),
                                           TextFormField(
                                             keyboardType: TextInputType
@@ -743,9 +744,10 @@ return showDialog(
                                     // ),
                                     Text(" "),
                                     Container(
-                                        padding: EdgeInsets.all(5.0),
-                                        margin: EdgeInsets.symmetric(
-                                            horizontal: 25.0),
+                                        padding: EdgeInsets.only(left: 5.0),
+                                        
+                                       // margin: EdgeInsets.symmetric(
+                                          //  horizontal: 25.0),
                                         alignment: Alignment.center,
                                         child: Text(
                                           newData1[index]['kural_tamil1'],
