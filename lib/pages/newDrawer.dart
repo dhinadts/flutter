@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:math';
 
+import 'package:connectivity/connectivity.dart';
 import 'package:dhina/Gsearch.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/db/sharedpref.dart';
@@ -11,8 +13,10 @@ import 'package:flutter/material.dart';
 import 'package:dhina/newMainpage1.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:launch_review/launch_review.dart';
-import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:http/http.dart' as http;
+
 // import 'package:open_appstore/open_appstore.dart';
 
 import 'package:share/share.dart';
@@ -33,6 +37,8 @@ List<Map<String, dynamic>> pal2iyal, iyal2adhikaram;
 // ScreenUtil.instance = ScreenUtil.getInstance().init(context);
 TextEditingController _textFieldController = TextEditingController();
 TextEditingController inputControler = new TextEditingController();
+TextEditingController titleControler = new TextEditingController();
+TextEditingController bodyControler = new TextEditingController();
 
 // void main() => runApp(MyApp12345());
 
@@ -158,7 +164,8 @@ class _MyApp12345State extends State<MyApp12345> {
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () {
-                Share.share("உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr");
+                Share.share(
+                    "உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr");
               },
             ),
             IconButton(
@@ -317,6 +324,11 @@ class _MyApp12345State extends State<MyApp12345> {
                   leading: Image.asset("gotoSearch.png", width: 20, height: 20),
                   title: Text('செல்'),
                   onTap: () async {
+                    Navigator.push(
+                      context,
+                      // Create the SelectionScreen in the next step.
+                      MaterialPageRoute(builder: (context) => MyApp12345()),
+                    );
                     return showDialog(
                       context: context,
                       barrierDismissible: true,
@@ -393,6 +405,11 @@ class _MyApp12345State extends State<MyApp12345> {
                   leading: Image.asset("search.png", width: 20, height: 20),
                   title: Text('தேடல்'),
                   onTap: () async {
+                    Navigator.push(
+                      context,
+                      // Create the SelectionScreen in the next step.
+                      MaterialPageRoute(builder: (context) => MyApp12345()),
+                    );
                     return showDialog(
                       context: context,
                       barrierDismissible: true, // user must tap button!
@@ -527,11 +544,189 @@ class _MyApp12345State extends State<MyApp12345> {
                 ListTile(
                   leading: Image.asset("feedback.png", width: 20, height: 20),
                   title: Text('கருத்து'),
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute<Null>(
-                        builder: (BuildContext context) {
-                      return new Feedback_ex(); // HomePage1();
-                    }));
+                  onTap: () async {
+                    Navigator.push(
+                      context,
+                      // Create the SelectionScreen in the next step.
+                      MaterialPageRoute(builder: (context) => MyApp12345()),
+                    );
+                    return showDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (context) {
+                        var _value;
+                        return AlertDialog(
+                          titlePadding: EdgeInsets.all(0.0),
+                          title: IconButton(
+                            icon: Icon(Icons.close),
+                            color: Colors.red,
+                            alignment: Alignment.topRight,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MyApp12345()),
+                              );
+                            },
+                          ),
+                          content: SingleChildScrollView(
+                              child: ListBody(children: <Widget>[
+                            Text(
+                              'உங்கள் கருத்து', 
+                            ),
+                            TextField(
+                              controller: titleControler,
+                              decoration: InputDecoration(
+                                  icon: const Icon(Icons.email),
+                                  // contentPadding:
+                                  //     const EdgeInsets.symmetric(vertical: 20.0),
+                                  hintText: "மின்னஞ்சல்....",
+                                  labelText: 'மின்னஞ்சல்'),
+                            ),
+                            TextField(
+                              controller: bodyControler,
+                              decoration: InputDecoration(
+                                  icon: const Icon(Icons.feedback),
+                                  contentPadding: const EdgeInsets.symmetric(
+                                      vertical: 50.0),
+                                  hintText: "கருத்து....",
+                                  labelText: 'கருத்துக்களை பதியவும்'),
+                            ),
+                            new Text('     '),
+                            new GestureDetector(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyApp2()),
+                                );
+                              },
+                              child: Text("* தனியுரிமைக் கொள்கை"),
+                            ),
+                            new Text('     '),
+                            new RaisedButton(
+                              onPressed: () async {
+                                var connectivityResult =
+                                    await (Connectivity().checkConnectivity());
+                                if (connectivityResult ==
+                                        ConnectivityResult.mobile ||
+                                    connectivityResult ==
+                                        ConnectivityResult.wifi) {
+                                  print(
+                                      "// I am connected to a mobile network.");
+                                  await fetchDeviceInfo();
+                                  await versions();
+                                  var email = (titleControler.text);
+                                  var feedback = (bodyControler.text);
+                                  var em = utf8.encode(email);
+                                  var fdbc = utf8.encode(feedback);
+                                  var mod = utf8.encode(summa);
+                                  var vc = utf8.encode(vCode);
+                                  Post newPost = new Post(
+                                    email: email, // em.toString(),
+                                    feedback: feedback, // fdbc.toString(),
+                                    model: summa, // mod.toString(),
+                                    vcode: vCode, // vc.toString(),
+                                  );
+                                  var ex = json.encode(newPost.toMap());
+
+                                  var response = await http.post(
+                                    url,
+                                    headers: {
+                                      "Content-Type":
+                                          'application/x-www-form-urlencoded; charset=utf-8',
+                                    },
+                                    body: (newPost
+                                        .toMap()), //json.decode(ex), // JsonEncoder().convert
+
+                                    encoding: Encoding.getByName("utf-8"),
+                                  );
+                                  print(
+                                      'Response status: ${response.statusCode}');
+                                  print('Response body: ${response.body}');
+                                  print(utf8.encode(newPost.email));
+                                  print(newPost.feedback);
+                                  print("model:" + newPost.model);
+                                  print("ex.. $ex");
+                                  print("newPost..$ex,,,, $newPost");
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          "your feedback was sent succussfully",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIos: 1,
+                                      backgroundColor: Colors.white,
+                                      textColor: Colors.black,
+                                      fontSize: 16.0);
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => MyApp12345()),
+                                  );
+                                }
+                                // else if (connectivityResult == ConnectivityResult.wifi) {
+                                //   print("// I am connected to a wifi network.");
+                                // }
+                                else {
+                                  // no connectivity and check your netwrk connection
+                                  Fluttertoast.showToast(
+                                      msg:
+                                          "உங்கள் இணைய இணைப்பைச் சரிபார்க்கவும்",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.CENTER,
+                                      timeInSecForIos: 1,
+                                      backgroundColor: Colors.red[100],
+                                      textColor: Colors.white,
+                                      fontSize: 16.0);
+                                  print('No connection');
+                                }
+                                // String exs = versions();
+                              },
+                              child: const Text("அனுப்பு"),
+                            )
+                          ])),
+                          actions: <Widget>[
+                            // new FlatButton(
+                            //   child: new Text('இல்லை'),
+                            //   onPressed: () {
+                            //     Navigator.of(context).pop();
+                            //   },
+                            // ),
+                            // new FlatButton(
+                            //   child: new Text('ஆம்'),
+                            //   onPressed: () {
+                            //     Navigator.of(context).pop();
+                            //     print(
+                            //         "text.controller:  ${_textFieldController.text}");
+                            //     var abcd =
+                            //         (_textFieldController.text).toString();
+                            //     print("abcd " + abcd);
+                            //     var ff = int.parse(abcd) - 1;
+                            //     //               var route = new MaterialPageRoute(
+                            //     //   builder: (BuildContext context) =>
+                            //     //       new MyApp44(value: ff, ),
+                            //     // );
+                            //     // Navigator.of(context).push(route);
+                            //     // Navigator.of(context).push(route);
+
+                            //     Navigator.of(context).push(
+                            //         MaterialPageRoute<Null>(
+                            //             builder: (BuildContext context) {
+                            //       return new MyApp444(value: ff);
+                            //     }));
+
+                            //     //Navigator.of(context).pop();
+
+                            //     // controller.jumpToPage(ff);
+                            //     // Navigator.of(context)
+                            //     //     .pop();
+                            //   },
+                            // )
+                          ],
+                        );
+                      },
+                    );
                   },
                 ),
                 ListTile(
@@ -1365,7 +1560,8 @@ class MyHomePage extends StatelessWidget {
 }
 
 sharing3() {
-  Share.share('உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr');
+  Share.share(
+      'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr');
   return new FirstFragment();
   // Navigator.push(
   //   context,
