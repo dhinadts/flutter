@@ -1545,11 +1545,11 @@ class MyHomePage extends StatelessWidget {
                 //     //     'SELECT * from complete', //1 where isfav=1',
                 //     //     //1 where isfav=1',
                 //     //     "modi_kural_comp.db");
-                //        LaunchReview.launch(androidAppId: "nithra.tamil.quiz", iOSAppId: "id1484332988");
-                //     // Navigator.of(context).push(MaterialPageRoute<Null>(
-                //     //     builder: (BuildContext context) {
-                //     //   return new Favorite11(); // HomePage1();
-                //     // }));
+                //      //  LaunchReview.launch(androidAppId: "nithra.tamil.quiz", iOSAppId: "id1484332988");
+                //     Navigator.of(context).push(MaterialPageRoute<Null>(
+                //         builder: (BuildContext context) {
+                //       return new Feedback_ex(); // HomePage1();
+                //     }));
                 //   },
                 // ),
               ],
