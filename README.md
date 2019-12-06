@@ -1,6 +1,7 @@
 # திருக்குறள்
 
 A new Flutter thirukkural project.
+GitHub Desktop Application installed..
 
 ## Getting Started
 
