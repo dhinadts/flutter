@@ -183,7 +183,7 @@ constraints: BoxConstraints.expand(),
                       MaterialPageRoute(builder: (context) => MyApp2()),
                     );
                   },
-                  child: Text("* தனியுரிமைக் கொள்கை"),
+                  child: Text("* தனியுரிமைக் கொள்கை", textAlign: TextAlign.center,),
                 ),
                 new Text('     '),
                 new RaisedButton(

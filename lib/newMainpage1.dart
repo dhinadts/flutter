@@ -369,7 +369,7 @@ class MyApp444State extends State<MyApp444> {
 
                           children: <Widget>[
                             Text(
-                              "குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
+                              " குறள்: ${newData1[index]['kural_no']}", //${newData1.kural_no}",
                               style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
@@ -432,25 +432,25 @@ class MyApp444State extends State<MyApp444> {
                                 }),
 
                                 */
-                            new IconButton(
-                              icon: const Icon(Icons.search),
-                              onPressed: () {
-                                // openPage(context);
-                                // return new MyApp2();
-                                // print("searching");
-                                // currentPageValue=100;
-                                // controller.jumpTo(100.0);
-                                // var a = 1330;
-                                // controller.jumpToPage(a);
-                                return showDialog(
+RaisedButton(
+  color: Colors.white,
+  child: Container(
+    height: 50, width: 50,
+  child: Image.asset("gobutton.png"),),
+  onPressed: () {
+return showDialog(
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) {
                                       prefix0.num _value;
                                       return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.all(
+                                                Radius.circular(20.0))),
                                         titlePadding: EdgeInsets.all(0.0),
                                         title: IconButton(
-                            icon: Icon(Icons.close), color: Colors.red,
+                                          icon: Icon(Icons.close),
+                                          color: Colors.red,
                                           alignment: Alignment.topRight,
                                           onPressed: () =>
                                               Navigator.of(context).pop(),
@@ -458,7 +458,7 @@ class MyApp444State extends State<MyApp444> {
                                         content: SingleChildScrollView(
                                             child: ListBody(children: <Widget>[
                                           Text(
-                                            'குறள் எண்ணை உள்ளிடவும்',
+                                            'குறிப்பிட்ட குறளுக்கு செல்ல எண்ணை உள்ளிடவும்',
                                           ),
                                           TextFormField(
                                             keyboardType: TextInputType
@@ -473,13 +473,13 @@ class MyApp444State extends State<MyApp444> {
                                         ])),
                                         actions: <Widget>[
                                           new FlatButton(
-                                            child: new Text('இல்லை'),
+                                            child: new Text('வெளியேறு'),
                                             onPressed: () {
                                               Navigator.of(context).pop();
                                             },
                                           ),
                                           new FlatButton(
-                                            child: new Text('ஆம்'),
+                                            child: new Text('செல்'),
                                             onPressed: () {
                                               print(
                                                   "text.controller:  ${_textFieldController.text}");
@@ -503,10 +503,85 @@ class MyApp444State extends State<MyApp444> {
                                         ],
                                       );
                                     });
+
+
+  },
+),
+                            // new IconButton(
+                            //   iconSize: 50,
+                            //   // icon: Icon(Icons.),
+                            //   icon: (Image.asset("gobutton.png", )), //con(Icons.search),
+                            //   onPressed: () {
+                                
+                                // return showDialog(
+                                //     context: context,
+                                //     barrierDismissible: true,
+                                //     builder: (context) {
+                                //       prefix0.num _value;
+                                //       return AlertDialog(
+                                //         shape: RoundedRectangleBorder(
+                                //             borderRadius: BorderRadius.all(
+                                //                 Radius.circular(20.0))),
+                                //         titlePadding: EdgeInsets.all(0.0),
+                                //         title: IconButton(
+                                //           icon: Icon(Icons.close),
+                                //           color: Colors.red,
+                                //           alignment: Alignment.topRight,
+                                //           onPressed: () =>
+                                //               Navigator.of(context).pop(),
+                                //         ),
+                                //         content: SingleChildScrollView(
+                                //             child: ListBody(children: <Widget>[
+                                //           Text(
+                                //             'குறிப்பிட்ட குறளுக்கு செல்ல எண்ணை உள்ளிடவும்',
+                                //           ),
+                                //           TextFormField(
+                                //             keyboardType: TextInputType
+                                //                 .number, //numberWithOptions(decimal: true),
+                                //             controller: _textFieldController,
+                                //             decoration: InputDecoration(
+                                //                 hintText: "குறள் எண்: "),
+                                //             // onSaved: (input) =>
+                                //             //     _value = int.tryParse(input),
+                                //             // textInputAction: controller.jumpTo(_value),
+                                //           ),
+                                //         ])),
+                                //         actions: <Widget>[
+                                //           new FlatButton(
+                                //             child: new Text('வெளியேறு'),
+                                //             onPressed: () {
+                                //               Navigator.of(context).pop();
+                                //             },
+                                //           ),
+                                //           new FlatButton(
+                                //             child: new Text('செல்'),
+                                //             onPressed: () {
+                                //               print(
+                                //                   "text.controller:  ${_textFieldController.text}");
+                                //               var abcd =
+                                //                   (_textFieldController.text)
+                                //                       .toString();
+                                //               // if(abcd.isEmpty){
+                                //               // }
+                                //               print("abcd " + abcd);
+                                //               var ff = int.parse(abcd) - 1;
+                                //               // controller.jumpTo(ff.toDouble());
+                                //               Navigator.of(context).pop();
+                                //               controller.jumpToPage(ff);
+                                //               // Navigator.of(context).pop();
+                                //               // Navigator.pop(context);
+                                //               // Navigator.of(context).pop();
+
+                                //               // Navigator.of(context, rootNavigator: true).pop();
+                                //             },
+                                //           )
+                                //         ],
+                                //       );
+                                //     });
                                 // _displayDialog(context);
                                 // return index=100;
-                              },
-                            ),
+                            //   },
+                            // ),
                             new IconButton(
                               icon: const Icon(Icons.content_copy),
                               onPressed: () {
@@ -533,40 +608,13 @@ class MyApp444State extends State<MyApp444> {
                             new IconButton(
                               icon: const Icon(Icons.share),
                               onPressed: () async {
-                                // String BASE64_IMAGE =
-                                //     "data:assets/png;base64, ...";
-                                // AdvancedShare.generic(
-                                //         msg: "Base64 file share",
-                                //         subject: "Flutter",
-                                //         title: "Share Image",
-                                //         url: BASE64_IMAGE)
-                                //     .then((response) {
-                                //   print(response);
-                                // });
-                                // Share.text('my text title', 'This is my text to share with other applications.', 'text/plain');
                                 final ByteData bytes = await rootBundle
                                     .load('assets/valluvar.png');
                                 await Share.file('esys image', 'esys.png',
                                     bytes.buffer.asUint8List(), 'image/png',
                                     text:
                                         'குறள் எண்: ${newData1[index]['kural_no']}\n\n ${newData1[index]['kural_tamil1']} ');
-                                // var abcd = ImageEditor(image: image);
-                                // if (this.isImageloaded) {
-                                //       return new CustomPaint(
-                                //         child: Text("${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']}"),
-                                //           painter: new ImageEditor(image: image),
-                                //         );
-                                //     } else {
-                                //       return new Center(child: new Text('loading'));
-                                //     }
-
-                                //ui.PictureRecorder recorder = ui.PictureRecorder();
-
-                                // await Share.file('esys image', 'esys.png', bytes.buffer.asUint8List(), 'image/png', text: 'குறள் ${newData1[index]['kural_no']}: ${newData1[index]['kural_tamil1']} ');
-
-                                // Share.share(
-                                //     'App Link... www.nithra.mobi');
-                                // print("searching");
+                                
                               },
                             ),
                             new IconButton(
@@ -577,9 +625,13 @@ class MyApp444State extends State<MyApp444> {
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(20.0))),
                                       titlePadding: EdgeInsets.all(0.0),
                                       title: IconButton(
-                            icon: Icon(Icons.close), color: Colors.red,
+                                        icon: Icon(Icons.close),
+                                        color: Colors.red,
                                         alignment: Alignment.topRight,
                                         onPressed: () =>
                                             Navigator.of(context).pop(),
@@ -691,21 +743,22 @@ class MyApp444State extends State<MyApp444> {
                                     // ),
                                     Text(" "),
                                     Container(
-                                      padding: EdgeInsets.all(5.0),
-                                      margin: EdgeInsets.symmetric(horizontal: 25.0),
-                                      alignment: Alignment.center,
+                                        padding: EdgeInsets.all(5.0),
+                                        margin: EdgeInsets.symmetric(
+                                            horizontal: 25.0),
+                                        alignment: Alignment.center,
                                         child: Text(
-                                      newData1[index]['kural_tamil1'],
-                                      style: TextStyle(
-                                        fontSize: 15 +  a,
-                                        color: Colors
-                                            .deepPurpleAccent, //purple[300],
-                                        // decoration: TextDecoration.underline,
-                                        // decorationColor: Colors.red,
-                                        // decorationStyle: TextDecorationStyle.wavy,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                    )),
+                                          newData1[index]['kural_tamil1'],
+                                          style: TextStyle(
+                                            fontSize: 15 + a,
+                                            color: Colors
+                                                .deepPurpleAccent, //purple[300],
+                                            // decoration: TextDecoration.underline,
+                                            // decorationColor: Colors.red,
+                                            // decorationStyle: TextDecorationStyle.wavy,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        )),
                                     Text(" "),
                                     Text(
                                       "மு.வ உரை:",
@@ -993,6 +1046,8 @@ class MyApp444State extends State<MyApp444> {
         builder: (context) {
           prefix0.num _value;
           return AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
             title: Text('TextField in Dialog'),
             content: TextFormField(
               keyboardType:
@@ -1037,6 +1092,9 @@ class MyApp444State extends State<MyApp444> {
   //     builder: (BuildContext context) {
   //       // return object of type Dialog
   //       return AlertDialog(
+//         shape: RoundedRectangleBorder(
+//     borderRadius: BorderRadius.all(Radius.circular(20.0))
+// ),
   //         title: new Text("${newData1[index]['iyal_tamil']}"),
   //         content: new Text("${newData1[index]['iyal_tamil']}"),
   //         actions: <Widget>[

@@ -58,8 +58,7 @@ import 'package:flutter/material.dart';
 //               icon: const Icon(Icons.search),
 //               onPressed: () {
 //                             _showFontSizePickerDialog();
-              
-              
+
 //               },
 //             ),
 //           ],
@@ -76,9 +75,9 @@ import 'package:flutter/material.dart';
 class FontSizePickerDialog extends StatefulWidget {
   /// initial selection for the slider
   final double initialFontSize;
-  
 
-  const FontSizePickerDialog({Key key, @required this.initialFontSize}) : super(key: key);
+  const FontSizePickerDialog({Key key, @required this.initialFontSize})
+      : super(key: key);
 
   @override
   _FontSizePickerDialogState createState() => _FontSizePickerDialogState();
@@ -88,22 +87,22 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
   /// current selection of the slider
   double _fontSize12 = 0.0;
 
-  
-
   @override
-  Future initState()  {
+  Future initState() {
     super.initState();
     _fontSize12 = widget.initialFontSize;
     getFontSize();
-    
   }
+
   getFontSize() async {
-    dummy = await prefs.getDouble("FontSizeDummy"); 
+    dummy = await prefs.getDouble("FontSizeDummy");
   }
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20.0))),
       title: Text('எழுத்துரு அளவு'),
       content: Container(
         width: 100,
@@ -117,24 +116,20 @@ class _FontSizePickerDialogState extends State<FontSizePickerDialog> {
             setState(() {
               _fontSize12 = value;
               dummy = 15 + value;
-              
             });
-            await prefs.setdouble("FontSizeDummy", dummy );
-            
+            await prefs.setdouble("FontSizeDummy", dummy);
           },
         ),
       ),
       actions: <Widget>[
-        
-        Text("Font Size: $dummy " ),
-
+        Text("அளவு: $dummy "),
         FlatButton(
           onPressed: () {
             // Use the second argument of Navigator.pop(...) to pass
             // back a result to the page that opened the dialog
             Navigator.pop(context, _fontSize12);
           },
-          child: Text('DONE'),
+          child: Text('அமைக்க'),
         )
       ],
     );

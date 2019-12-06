@@ -119,6 +119,8 @@ class _MyApp12345State extends State<MyApp12345> {
     return showDialog(
       context: context,
       builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(20.0))),
         title: Text("Doyou want to quit this app"),
         actions: <Widget>[
           FlatButton(
@@ -336,6 +338,9 @@ class _MyApp12345State extends State<MyApp12345> {
                       builder: (context) {
                         var _value;
                         return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
                           titlePadding: EdgeInsets.all(0.0),
                           title: IconButton(
                             icon: Icon(Icons.close),
@@ -346,7 +351,7 @@ class _MyApp12345State extends State<MyApp12345> {
                           content: SingleChildScrollView(
                               child: ListBody(children: <Widget>[
                             Text(
-                              'குறள் எண்ணை உள்ளிடவும்',
+                                            'குறிப்பிட்ட குறளுக்கு செல்ல எண்ணை உள்ளிடவும்',
                             ),
                             TextFormField(
                               keyboardType: TextInputType
@@ -361,13 +366,13 @@ class _MyApp12345State extends State<MyApp12345> {
                           ])),
                           actions: <Widget>[
                             new FlatButton(
-                              child: new Text('இல்லை'),
+                              child: new Text('வெளியேறு'),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
                             new FlatButton(
-                              child: new Text('ஆம்'),
+                              child: new Text('செல்'),
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 print(
@@ -422,6 +427,9 @@ class _MyApp12345State extends State<MyApp12345> {
                       //         ),
                       builder: (BuildContext context) {
                         return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
                           titlePadding: EdgeInsets.all(0.0),
                           title: IconButton(
                             icon: Icon(Icons.close),
@@ -557,6 +565,9 @@ class _MyApp12345State extends State<MyApp12345> {
                       builder: (context) {
                         var _value;
                         return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
                           titlePadding: EdgeInsets.all(0.0),
                           title: IconButton(
                             icon: Icon(Icons.close),
@@ -574,7 +585,7 @@ class _MyApp12345State extends State<MyApp12345> {
                           content: SingleChildScrollView(
                               child: ListBody(children: <Widget>[
                             Text(
-                              'உங்கள் கருத்து', 
+                              'உங்கள் கருத்து',
                             ),
                             TextField(
                               controller: titleControler,
@@ -597,14 +608,17 @@ class _MyApp12345State extends State<MyApp12345> {
                             new Text('     '),
                             new GestureDetector(
                               onTap: () {
-                                Navigator.pop(context);
+                                // Navigator.pop(context);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => MyApp2()),
                                 );
                               },
-                              child: Text("* தனியுரிமைக் கொள்கை"),
+                              child: Text(
+                                "* தனியுரிமைக் கொள்கை",
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                             new Text('     '),
                             new RaisedButton(
@@ -1057,6 +1071,9 @@ class MyHomePage extends StatelessWidget {
                       builder: (context) {
                         var _value;
                         return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
                           titlePadding: EdgeInsets.all(0.0),
                           title: IconButton(
                             icon: Icon(Icons.close),
@@ -1067,7 +1084,7 @@ class MyHomePage extends StatelessWidget {
                           content: SingleChildScrollView(
                               child: ListBody(children: <Widget>[
                             Text(
-                              'குறள் எண்ணை உள்ளிடவும்',
+                                            'குறிப்பிட்ட குறளுக்கு செல்ல எண்ணை உள்ளிடவும்',
                             ),
                             TextFormField(
                               keyboardType: TextInputType
@@ -1082,13 +1099,13 @@ class MyHomePage extends StatelessWidget {
                           ])),
                           actions: <Widget>[
                             new FlatButton(
-                              child: new Text('இல்லை'),
+                              child: new Text('வெளியேறு'),
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
                             new FlatButton(
-                              child: new Text('ஆம்'),
+                              child: new Text('செல்'),
                               onPressed: () {
                                 Navigator.of(context).pop();
                                 print(
@@ -1168,6 +1185,9 @@ class MyHomePage extends StatelessWidget {
                               var _value;
 
                               return AlertDialog(
+                                    shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(20.0))
+),
                                 title: Text('எழுத்து மூலம் தேட '),
                                 content: TextField(
                                   controller: inputControler,
@@ -1271,6 +1291,9 @@ class MyHomePage extends StatelessWidget {
 
                       builder: (BuildContext context) {
                         return AlertDialog(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20.0))),
                           titlePadding: EdgeInsets.all(0.0),
                           title: IconButton(
                             icon: Icon(Icons.close),
@@ -1421,6 +1444,9 @@ class MyHomePage extends StatelessWidget {
 //                       //         ),
 //                       builder: (BuildContext context) {
 //                         return AlertDialog(
+//       shape: RoundedRectangleBorder(
+//     borderRadius: BorderRadius.all(Radius.circular(20.0))
+// ),
 //                           titlePadding: EdgeInsets.all(0.0),
 //                           title: IconButton(
 //                             icon: Icon(Icons.close),
