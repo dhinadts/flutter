@@ -432,14 +432,12 @@ class MyApp444State extends State<MyApp444> {
                                 }),
 
                                 */
-  
 
-FlatButton(
-  
-  padding: EdgeInsets.all(0.0),
-  child: Image.asset("gobutton.png"),
-  onPressed: () {
-return showDialog(
+                            FlatButton(
+                              padding: EdgeInsets.all(0.0),
+                              child: Image.asset("gobutton.png"),
+                              onPressed: () {
+                                return showDialog(
                                     context: context,
                                     barrierDismissible: true,
                                     builder: (context) {
@@ -504,83 +502,81 @@ return showDialog(
                                         ],
                                       );
                                     });
-
-
-  },
-),
+                              },
+                            ),
                             // new IconButton(
                             //   iconSize: 50,
                             //   // icon: Icon(Icons.),
                             //   icon: (Image.asset("gobutton.png", )), //con(Icons.search),
                             //   onPressed: () {
-                                
-                                // return showDialog(
-                                //     context: context,
-                                //     barrierDismissible: true,
-                                //     builder: (context) {
-                                //       prefix0.num _value;
-                                //       return AlertDialog(
-                                //         shape: RoundedRectangleBorder(
-                                //             borderRadius: BorderRadius.all(
-                                //                 Radius.circular(20.0))),
-                                //         titlePadding: EdgeInsets.all(0.0),
-                                //         title: IconButton(
-                                //           icon: Icon(Icons.close),
-                                //           color: Colors.red,
-                                //           alignment: Alignment.topRight,
-                                //           onPressed: () =>
-                                //               Navigator.of(context).pop(),
-                                //         ),
-                                //         content: SingleChildScrollView(
-                                //             child: ListBody(children: <Widget>[
-                                //           Text(
-                                //             'குறிப்பிட்ட குறளுக்கு செல்ல எண்ணை உள்ளிடவும்',
-                                //           ),
-                                //           TextFormField(
-                                //             keyboardType: TextInputType
-                                //                 .number, //numberWithOptions(decimal: true),
-                                //             controller: _textFieldController,
-                                //             decoration: InputDecoration(
-                                //                 hintText: "குறள் எண்: "),
-                                //             // onSaved: (input) =>
-                                //             //     _value = int.tryParse(input),
-                                //             // textInputAction: controller.jumpTo(_value),
-                                //           ),
-                                //         ])),
-                                //         actions: <Widget>[
-                                //           new FlatButton(
-                                //             child: new Text('வெளியேறு'),
-                                //             onPressed: () {
-                                //               Navigator.of(context).pop();
-                                //             },
-                                //           ),
-                                //           new FlatButton(
-                                //             child: new Text('செல்'),
-                                //             onPressed: () {
-                                //               print(
-                                //                   "text.controller:  ${_textFieldController.text}");
-                                //               var abcd =
-                                //                   (_textFieldController.text)
-                                //                       .toString();
-                                //               // if(abcd.isEmpty){
-                                //               // }
-                                //               print("abcd " + abcd);
-                                //               var ff = int.parse(abcd) - 1;
-                                //               // controller.jumpTo(ff.toDouble());
-                                //               Navigator.of(context).pop();
-                                //               controller.jumpToPage(ff);
-                                //               // Navigator.of(context).pop();
-                                //               // Navigator.pop(context);
-                                //               // Navigator.of(context).pop();
 
-                                //               // Navigator.of(context, rootNavigator: true).pop();
-                                //             },
-                                //           )
-                                //         ],
-                                //       );
-                                //     });
-                                // _displayDialog(context);
-                                // return index=100;
+                            // return showDialog(
+                            //     context: context,
+                            //     barrierDismissible: true,
+                            //     builder: (context) {
+                            //       prefix0.num _value;
+                            //       return AlertDialog(
+                            //         shape: RoundedRectangleBorder(
+                            //             borderRadius: BorderRadius.all(
+                            //                 Radius.circular(20.0))),
+                            //         titlePadding: EdgeInsets.all(0.0),
+                            //         title: IconButton(
+                            //           icon: Icon(Icons.close),
+                            //           color: Colors.red,
+                            //           alignment: Alignment.topRight,
+                            //           onPressed: () =>
+                            //               Navigator.of(context).pop(),
+                            //         ),
+                            //         content: SingleChildScrollView(
+                            //             child: ListBody(children: <Widget>[
+                            //           Text(
+                            //             'குறிப்பிட்ட குறளுக்கு செல்ல எண்ணை உள்ளிடவும்',
+                            //           ),
+                            //           TextFormField(
+                            //             keyboardType: TextInputType
+                            //                 .number, //numberWithOptions(decimal: true),
+                            //             controller: _textFieldController,
+                            //             decoration: InputDecoration(
+                            //                 hintText: "குறள் எண்: "),
+                            //             // onSaved: (input) =>
+                            //             //     _value = int.tryParse(input),
+                            //             // textInputAction: controller.jumpTo(_value),
+                            //           ),
+                            //         ])),
+                            //         actions: <Widget>[
+                            //           new FlatButton(
+                            //             child: new Text('வெளியேறு'),
+                            //             onPressed: () {
+                            //               Navigator.of(context).pop();
+                            //             },
+                            //           ),
+                            //           new FlatButton(
+                            //             child: new Text('செல்'),
+                            //             onPressed: () {
+                            //               print(
+                            //                   "text.controller:  ${_textFieldController.text}");
+                            //               var abcd =
+                            //                   (_textFieldController.text)
+                            //                       .toString();
+                            //               // if(abcd.isEmpty){
+                            //               // }
+                            //               print("abcd " + abcd);
+                            //               var ff = int.parse(abcd) - 1;
+                            //               // controller.jumpTo(ff.toDouble());
+                            //               Navigator.of(context).pop();
+                            //               controller.jumpToPage(ff);
+                            //               // Navigator.of(context).pop();
+                            //               // Navigator.pop(context);
+                            //               // Navigator.of(context).pop();
+
+                            //               // Navigator.of(context, rootNavigator: true).pop();
+                            //             },
+                            //           )
+                            //         ],
+                            //       );
+                            //     });
+                            // _displayDialog(context);
+                            // return index=100;
                             //   },
                             // ),
                             new IconButton(
@@ -612,10 +608,7 @@ return showDialog(
                                 final ByteData bytes = await rootBundle
                                     .load('assets/valluvar.png');
                                 await Share.file('esys image', 'esys.png',
-                                    bytes.buffer.asUint8List(), 'image/png',
-                                    text:
-                                        'குறள் எண்: ${newData1[index]['kural_no']}\n\n ${newData1[index]['kural_tamil1']} ');
-                                
+                                    bytes.buffer.asUint8List(), 'image/png', text: 'குறள் எண்: ${newData1[index]['kural_no']}\n\n ${newData1[index]['kural_tamil1']} ');
                               },
                             ),
                             new IconButton(
@@ -626,7 +619,7 @@ return showDialog(
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                  shape: RoundedRectangleBorder(
+                                      shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20.0))),
                                       titlePadding: EdgeInsets.all(0.0),
@@ -638,12 +631,20 @@ return showDialog(
                                             Navigator.of(context).pop(),
                                       ),
                                       content: SingleChildScrollView(
-                                        padding: EdgeInsets.only(left:0.3),
+                                        padding: EdgeInsets.only(left: 0.3),
                                         child: ListBody(
                                           children: <Widget>[
-                                            Text('பால்    : ${newData1[index]['pal_tamil']}\n', style: TextStyle(fontSize: 14)),
-                                            Text('இயல்   : ${newData1[index]['iyal_tamil']}\n', style: TextStyle(fontSize: 14)),
-                                            Text('அதிகாரம் : ${newData1[index]['adhikarm_tamil']}', style: TextStyle(fontSize: 14)),
+                                            Text(
+                                                'பால்     : ${newData1[index]['pal_tamil']}\n',
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                )),
+                                            Text(
+                                                'இயல்    : ${newData1[index]['iyal_tamil']}\n',
+                                                style: TextStyle(fontSize: 14)),
+                                            Text(
+                                                'அதிகாரம் : ${newData1[index]['adhikarm_tamil']}',
+                                                style: TextStyle(fontSize: 14)),
                                           ],
                                         ),
                                       ),
@@ -747,9 +748,9 @@ return showDialog(
                                     Text(" "),
                                     Container(
                                         padding: EdgeInsets.only(left: 5.0),
-                                        
-                                       // margin: EdgeInsets.only(left: 5.0),
-                                       // symmetric(horizontal: 25.0),
+
+                                        // margin: EdgeInsets.only(left: 5.0),
+                                        // symmetric(horizontal: 25.0),
                                         alignment: Alignment.centerLeft,
                                         child: Text(
                                           newData1[index]['kural_tamil1'],
