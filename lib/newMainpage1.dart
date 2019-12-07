@@ -638,11 +638,12 @@ return showDialog(
                                             Navigator.of(context).pop(),
                                       ),
                                       content: SingleChildScrollView(
+                                        padding: EdgeInsets.only(left:0.3),
                                         child: ListBody(
                                           children: <Widget>[
-                                            Text('பால்    : ${newData1[index]['pal_tamil']}\n'),
-                                            Text('இயல்   : ${newData1[index]['iyal_tamil']}\n'),
-                                            Text('அதிகாரம்: ${newData1[index]['adhikarm_tamil']}'),
+                                            Text('பால்    : ${newData1[index]['pal_tamil']}\n', style: TextStyle(fontSize: 14)),
+                                            Text('இயல்   : ${newData1[index]['iyal_tamil']}\n', style: TextStyle(fontSize: 14)),
+                                            Text('அதிகாரம் : ${newData1[index]['adhikarm_tamil']}', style: TextStyle(fontSize: 14)),
                                           ],
                                         ),
                                       ),
