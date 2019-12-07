@@ -626,7 +626,7 @@ return showDialog(
                                   barrierDismissible: true,
                                   builder: (BuildContext context) {
                                     return AlertDialog(
-                                      shape: RoundedRectangleBorder(
+                                  shape: RoundedRectangleBorder(
                                           borderRadius: BorderRadius.all(
                                               Radius.circular(20.0))),
                                       titlePadding: EdgeInsets.all(0.0),
@@ -640,9 +640,9 @@ return showDialog(
                                       content: SingleChildScrollView(
                                         child: ListBody(
                                           children: <Widget>[
-                                            Text('பால்            :  ${newData1[index]['pal_tamil']}\n'),
-                                            Text('இயல்         :  ${newData1[index]['iyal_tamil']}\n'),
-                                            Text('அதிகாரம் :  ${newData1[index]['adhikarm_tamil']}'),
+                                            Text('பால்    : ${newData1[index]['pal_tamil']}\n'),
+                                            Text('இயல்   : ${newData1[index]['iyal_tamil']}\n'),
+                                            Text('அதிகாரம்: ${newData1[index]['adhikarm_tamil']}'),
                                           ],
                                         ),
                                       ),
