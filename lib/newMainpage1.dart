@@ -640,8 +640,9 @@ return showDialog(
                                       content: SingleChildScrollView(
                                         child: ListBody(
                                           children: <Widget>[
-                                            Text(
-                                                'பால்: ${newData1[index]['pal_tamil']}\n\nஇயல்: ${newData1[index]['iyal_tamil']}\n\nஅதிகாரம்: ${newData1[index]['adhikarm_tamil']}'),
+                                            Text('பால்            :  ${newData1[index]['pal_tamil']}\n'),
+                                            Text('இயல்         :  ${newData1[index]['iyal_tamil']}\n'),
+                                            Text('அதிகாரம் :  ${newData1[index]['adhikarm_tamil']}'),
                                           ],
                                         ),
                                       ),
@@ -746,9 +747,9 @@ return showDialog(
                                     Container(
                                         padding: EdgeInsets.only(left: 5.0),
                                         
-                                       // margin: EdgeInsets.symmetric(
-                                          //  horizontal: 25.0),
-                                        alignment: Alignment.center,
+                                       // margin: EdgeInsets.only(left: 5.0),
+                                       // symmetric(horizontal: 25.0),
+                                        alignment: Alignment.centerLeft,
                                         child: Text(
                                           newData1[index]['kural_tamil1'],
                                           style: TextStyle(

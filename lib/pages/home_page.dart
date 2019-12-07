@@ -57,7 +57,7 @@ var db = DatabaseHelper();
   _getDrawerItemWidget(int pos) {
     switch (pos) {
       case 0:
-         return new FirstFragment11();
+         return null;
 
       case 1: {
         

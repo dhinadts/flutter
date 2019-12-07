@@ -167,6 +167,7 @@ class _MyApp12345State extends State<MyApp12345> {
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () {
+
                 Share.share(
                     "உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr");
               },
@@ -749,6 +750,11 @@ class _MyApp12345State extends State<MyApp12345> {
                   leading: Image.asset("share.png", width: 20, height: 20),
                   title: Text('பகிரவும்'),
                   onTap: () {
+                     Navigator.push(
+                      context,
+                      // Create the SelectionScreen in the next step.
+                      MaterialPageRoute(builder: (context) => MyApp12345()),
+                    );
                     return sharing3();
                   },
                 ),
