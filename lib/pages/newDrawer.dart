@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:device_info/device_info.dart';
 import 'package:dhina/Gsearch.dart';
 import 'package:dhina/db/dbhelper.dart';
 import 'package:dhina/db/sharedpref.dart';
@@ -167,9 +169,20 @@ class _MyApp12345State extends State<MyApp12345> {
             IconButton(
               icon: const Icon(Icons.share),
               onPressed: () {
+                if (Platform.isAndroid) {
+  Share.share(
+      'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\n https://goo.gl/mZU2qr');
+  // return new MyApp12345();
+  }
+  else if(Platform.isIOS){
+    Share.share(
+      'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\n IOS Link');
+  // return new MyApp12345();
 
-                Share.share(
-                    "உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr");
+  }
+
+                // Share.share(
+                //     "உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr");
               },
             ),
             IconButton(
@@ -1594,9 +1607,22 @@ class MyHomePage extends StatelessWidget {
 }
 
 sharing3() {
+// DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+  if (Platform.isAndroid) {
   Share.share(
-      'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\nhttps://goo.gl/mZU2qr');
-  return new FirstFragment();
+      'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\n https://goo.gl/mZU2qr');
+  return new MyApp12345();
+  }
+  else if(Platform.isIOS){
+    Share.share(
+      'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\n IOS Link');
+  return new MyApp12345();
+
+  }
+
+  // Share.share(
+  //     'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது போன்ற திருக்குறளை உங்கள் நண்பர்களுக்கும் பகிர இங்கே கிளிக் செய்யுங்கள்.\n\n https://goo.gl/mZU2qr');
+  // return new MyApp12345();
   // Navigator.push(
   //   context,
   //   MaterialPageRoute(builder: (context) => FirstFragment()),

@@ -3,6 +3,7 @@ import 'dart:convert' show utf8;
 import 'dart:convert';
 
 import 'package:dhina/pages/home_page.dart';
+import 'package:dhina/pages/newDrawer.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:dhina/fragments/privacy_link.dart';
@@ -278,7 +279,7 @@ constraints: BoxConstraints.expand(),
                           fontSize: 16.0);
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => HomePage()),
+                        MaterialPageRoute(builder: (context) => MyApp12345()),
                       );
                       // print($iNF1);
                     }

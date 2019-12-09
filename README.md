@@ -1,12 +1,13 @@
 # திருக்குறள்
 
-It is a Flutter App. 
+      'உலக மக்கள் அனைவருக்கும்  ஈரடியில் உலக தத்துவத்தை எடுத்துரைக்கும் இது திருக்குறள்.' 
+
 
 
 ## Steps to run
 
-clone this repo
-run the command flutter run
+clone this repo 
+\nrun the command flutter run
 
 ####Beforw running this command flutter sdk has been installed in your machine. if not, please install flutter and set the environment path then run.
 This project is a starting point for a Flutter application.
