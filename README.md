@@ -1,10 +1,14 @@
 # திருக்குறள்
 
-A new Flutter thirukkural project.
-GitHub Desktop Application installed..
+It is a Flutter App. 
 
-## Getting Started
 
+## Steps to run
+
+clone this repo
+run the command flutter run
+
+####Beforw running this command flutter sdk has been installed in your machine. if not, please install flutter and set the environment path then run.
 This project is a starting point for a Flutter application.
 
 A few resources to get you started if this is your first Flutter project:
